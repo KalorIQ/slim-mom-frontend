@@ -1,0 +1,100 @@
+/* HomePage.module.css */
+.strawberry,
+.banana,
+.backshadow,
+.leaf {
+    display: none;
+
+}
+
+.leafdown {
+    display: none;
+}
+
+
+@media screen and (min-width: 768px) {
+
+
+    .strawberry {
+        display: block;
+        position: absolute;
+        right: 50px;
+        bottom: 200px;
+        z-index: -9998;
+    }
+
+    .banana {
+        display: block;
+
+        position: absolute;
+        bottom: -150px;
+        right: -10px;
+        z-index: -13;
+        width: 500px;
+
+    }
+
+    .backshadow {
+        display: block;
+
+        position: absolute;
+        right: -50px;
+        bottom: -200px;
+        z-index: -9999;
+        width: max-content;
+    }
+
+    .leaf {
+        display: block;
+
+        position: absolute;
+        bottom: -180px;
+        right: 5vw;
+        z-index: -12;
+        transform: rotate(90deg);
+        width: 800px;
+
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
+        min-width: max-content;
+        overflow: hidden;
+        max-height: 5vh;
+
+    }
+
+    .strawberry {
+        top: 550px;
+        right: 10px;
+        width: 286px;
+        height: 253px;
+    }
+
+    .backshadow {
+        top: 180px;
+        right: -30px;
+    }
+
+    .banana {
+        top: -100px;
+        width: 773px;
+        right: -200px;
+        z-index: -11;
+
+
+    }
+
+    .leaf {
+        top: -100px;
+        right: 15vw;
+        width: 746px;
+        transform: rotate(360deg);
+        z-index: -12;
+
+    }
+
+
+
+}
