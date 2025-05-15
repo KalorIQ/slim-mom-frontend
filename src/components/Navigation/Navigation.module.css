@@ -1,0 +1,75 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin: 80px 16px;
+    margin-bottom: 20px;
+}
+
+.leftSection {
+    display: flex;
+    align-items: flex-end;
+}
+
+.logoContainer {
+    display: flex;
+    align-items: flex-end;
+    gap: 16px;
+}
+
+.stroke {
+    color: #e0e0e0;
+    font-size: 34px;
+    margin: 0 8px;
+    margin-top: 45px;
+}
+
+.mainNav {
+    margin-left: 8px;
+}
+
+.navLinks,
+.authLinks {
+    display: flex;
+    gap: 24px;
+}
+
+.navLink {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #9b9faa;
+}
+
+.navLink:hover,
+.navLink:focus,
+.navLink:active {
+    color: #212121;
+}
+
+.userInfo {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.userName {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    text-align: right;
+    color: #212121;
+}
+
+.logout {
+    background: transparent;
+    border: none;
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    color: #9b9faa;
+}

@@ -1,15 +1,15 @@
 import HomePage from '../../pages/HomePage/HomePage.jsx'
-import Header from '../../layout/Header/Header.jsx'
+import Navigation from '../Navigation/Navigation.jsx'
 import './App.css'
 
 
 function App() {
 
   return (
-    <>  
-    <Header />
+    <div className="App">  
+    <Navigation />
     <HomePage />
-    </>
+    </div>
   )
 }
 
