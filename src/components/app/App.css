@@ -1,9 +1,16 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
+  width: 1280px;
+  margin: 0;
   padding: 2rem;
   text-align: center;
 }
+
+body {
+  overflow-x: hidden;
+  /* Yatay scrollbar'ı gizler */
+  overflow-y: hidden;
+  /* Dikey scrollbar'ı gizler */
+} 
 
 .logo {
   height: 6em;

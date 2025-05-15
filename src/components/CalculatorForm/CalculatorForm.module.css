@@ -1,0 +1,188 @@
+/* Number input üzerindeki varsayılan okları kaldırmak için */
+input[type="number"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-left: 32px;
+}
+
+.title {
+    font-family: var(--font-family);
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 140%;
+    text-align: left;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 34px;
+}
+
+.input {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-bottom: 1px solid #E0E0E0;
+    background-color: transparent;
+    margin-bottom: 32px;
+}
+
+.input::placeholder {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    color: #9B9FAA;
+}
+
+.bloodType {
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    color: #9B9FAA;
+    text-align: left;
+}
+
+.radioGroup {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.radioLabel {
+    display: flex;
+    margin-right: 24px;
+    font-family: var(--font-family);
+    font-weight: 500;
+    font-size: 16px;
+    color: #9B9FAA;
+    gap: 4px;
+}
+
+.radioInput {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #E0E0E0;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.radioInput:checked {
+    background-color: #ffffff;
+    border: 1px solid #E0E0E0;
+}
+
+.radioInput:checked::after {
+    content: "";
+    width: 10px;
+    height: 10px;
+    background-color: #FC842D;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.button {
+    width: 240px;
+    height: 40px;
+    background-color: #FC842D;
+    border-radius: 30px;
+    border: none;
+    font-family: var(--font-family);
+    font-weight: 700;
+    font-size: 14px;
+    color: #FFFFFF;
+    cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
+}
+
+.button:hover {
+    box-shadow: 0px 4px 4px #FC842D;
+    background-color: #fa8f31;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .container {
+        margin: 32px;
+    }
+
+    .title {
+        font-size: 34px;
+    }
+
+    .form {
+        margin-bottom: 60px;
+        height: 300px;
+        max-width: 600px;
+    }
+
+    .inputGroup {
+        display: flex;
+        gap: 32px;
+    }
+
+    .input {
+        height: 35px;
+    }
+
+    .radioGroup {
+        border-top: 1px solid #E0E0E0;
+        padding-top: 9px;
+    }
+
+    .bloodType {
+        margin-top: 14px;
+        margin-bottom: 8px;
+        cursor: default;
+    }
+
+    .column1 {
+        gap: 40px;
+        display: grid;
+        width: 100%;
+    }
+
+    .column2 {
+        display: flex;
+        gap: 40px;
+        flex-direction: column;
+    }
+
+    .button {
+        padding: 13px 25px;
+        height: max-content;
+    }
+}
+
+@media (min-width: 1024px) {
+    .button {
+        margin: 0 auto;
+        position: sticky;
+        top: 700px;
+    }
+
+    .title {
+        width: 608px;
+        font-weight: 700;
+        font-size: 34px;
+        line-height: 140%;
+    }
+}
