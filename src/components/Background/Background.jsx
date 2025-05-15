@@ -1,32 +1,22 @@
 import strawberry from '../../assets/svg/background/strawberry.svg';
-import banana from '../../assets/svg/background/banana.svg';
+import  banana from '../../assets/svg/background/banana.svg';
 import leaf from '../../assets/svg/background/leaf.svg';
-import shadow from '../../assets/svg/background/backshadow.svg';
-import { useLocation } from 'react-router';
+import shadow from '../../assets/svg/background/shadow.svg';
+import leafAuth from '../../assets/svg/background/leaf.svg';
 import style from './Background.module.css';
 
 const Background = () => {
-    const location = useLocation();
-    const isLoggedIn = location.pathname === '/diary' || location.pathname === '/calculator';
-    const isGuest = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register';
 
     return (
-        <div>
-            {isGuest && (
-                <div>
-                    <img src={strawberry} alt="strawberry" width='286' height='279' className={style.strawberry} />
-                    <img src={shadow} alt="backshadow" width="603" height="816" className={style.backshadow} />
-                    <img src={banana} alt="banana" width="773" height="552" className={style.banana} />
-                    <img src={leaf} alt="leaf" width="980" height="820" className={style.leaf} />
-                </div>
-            )}
-            {isLoggedIn &&(
-                <div>
-                    <img src={leaf} alt="leafdown" width="980" height="820" className={style.leaf} />
-                </div>
-            )}
+        <div className={style.content}>
+            <div className={style.container}>
+                <img src={strawberry} alt='strawberry' className={style.strawberry} width={286} height={279} />
+                <img src={banana} alt='banana' className={style.banana} width={773} height={552} />
+                <img src={leaf} alt='leaf' className={style.leaf} width={746} height={846} />
+                <img src={shadow} alt='shadow' className={style.shadow} width={603} height={816} />
+            </div>
         </div>
-    );
-};
+    )
+}
 
 export default Background;

@@ -7,13 +7,21 @@
 
 }
 
-.leafdown {
+.leafAlt {
     display: none;
 }
 
 
 @media screen and (min-width: 768px) {
 
+    /* .leafAlt{
+    display: block;
+    z-index: -3333;
+    position: absolute; */
+    /* left: 150px; */
+    /* top: 48vh;
+    width: 800px;
+  } */
 
     .strawberry {
         display: block;
@@ -34,7 +42,7 @@
 
     }
 
-    .backshadow {
+    .shadow {
         display: block;
 
         position: absolute;
@@ -72,7 +80,7 @@
         height: 253px;
     }
 
-    .backshadow {
+    .shadow {
         top: 180px;
         right: -30px;
     }

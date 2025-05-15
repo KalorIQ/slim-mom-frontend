@@ -1,17 +1,14 @@
-import { BrowserRouter } from 'react-router';
-import { ToastContainer } from "react-toastify";
-import HomePage from '../../pages/HomePage/HomePage';
+import HomePage from '../../pages/HomePage/HomePage.jsx'
+import Header from '../../layout/Header/Header.jsx'
 import './App.css'
+
 
 function App() {
 
-
   return (
-    <>
-      <BrowserRouter>
-        <HomePage />
-        <ToastContainer/>
-      </BrowserRouter>
+    <>  
+    <Header />
+    <HomePage />
     </>
   )
 }
