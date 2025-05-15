@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 
 const Navigation = () => {
     const navigate = useNavigate();
-    const isAuthenticated = true;
+    const isAuthenticated = false;
     const userName = "User Name";
     const handleLogOut = () => {
         console.log("Log out");
