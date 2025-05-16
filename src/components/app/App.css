@@ -1,3 +1,31 @@
-.App{
-    overflow: hidden;
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* viewport height yerine 100vh kullan */
+    position: relative;
+}
+
+main.main-content {
+    flex: 1 0 auto;
+    /* flex grow, shrink ve basis değerlerini belirleyelim */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Footer'a özgü düzeltme */
+footer {
+    flex-shrink: 0;
+    /* Footer'ın küçülmemesini sağlar */
+    width: 100%;
+    position: relative;
+    /* footer'ın konumlandırması için */
 }

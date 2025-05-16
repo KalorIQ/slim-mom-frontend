@@ -10,7 +10,6 @@ const Footer = () => {
   return (
     <footer className={style.footer}>
       <div className={style.footerContainer}>
-
         <div className={style.footerLogo}>
           <img src={logo} alt="Slim Mom Logo" className={style.logoImg} />
         </div>
@@ -34,7 +33,6 @@ const Footer = () => {
           <div className={style.modalContent} onClick={(e) => e.stopPropagation()}>
             <h2>GO IT Students</h2>
             <div className={style.studentList}>
-
               <div className={style.studentCard}>
                 <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ali Yılmaz" className={style.studentImg} />
                 <h3>Ali Yılmaz</h3>
@@ -70,8 +68,6 @@ const Footer = () => {
                   <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
-
-
               <div className={style.studentCard}>
                 <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Zeynep Kılıç" className={style.studentImg} />
                 <h3>Zeynep Kılıç</h3>
@@ -80,17 +76,6 @@ const Footer = () => {
                   <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
-
-
-              <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Zeynep Kılıç" className={style.studentImg} />
-                <h3>Zeynep Kılıç</h3>
-                <div className={style.icons}>
-                  <a href="https://github.com/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
-                </div>
-              </div>
-
             </div>
             <button className={style.closeButton} onClick={() => setIsModalOpen(false)}>
               Close

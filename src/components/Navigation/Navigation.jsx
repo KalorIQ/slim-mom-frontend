@@ -5,7 +5,7 @@ import vektor from '../../assets/svg/utils/vektor.svg';
 
 
 const Navigation = () => {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
     const navigate = useNavigate();
     
     return (

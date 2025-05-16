@@ -4,7 +4,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 24px;
+    width: 100%;
+    padding: 20px 0;
+    margin-top: auto;
+    /* Footer'ı mevcut container'ın altına sabitler */
 }
 
 /* İçerik konteyneri */
@@ -16,6 +19,7 @@
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
+    padding: 0 16px;
 }
 
 /* Logo */
@@ -39,13 +43,14 @@
 /* Bilgilendirme metni */
 .footerInfo {
     text-align: center;
-    margin-top: 20px;
 }
 
 .footerText {
     font-size: 18px;
     color: #9b9faa;
     font-family: var(--font-family);
+    font-weight: 900;
+    margin: 0;
 }
 
 /* Modalı açan buton */
@@ -65,7 +70,7 @@
     text-decoration: underline;
 }
 
-/* ==== MODAL STİLİ (önceki mesajdakiyle birlikte çalışır) ==== */
+/* ==== MODAL STİLİ ==== */
 .modalOverlay {
     position: fixed;
     inset: 0;
@@ -85,6 +90,8 @@
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     text-align: center;
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .modalContent h2 {
@@ -99,7 +106,8 @@
     display: inline-block;
     position: relative;
     z-index: 1;
-    transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
 .studentList {
     display: flex;
