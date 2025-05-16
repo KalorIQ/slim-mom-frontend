@@ -1,31 +1,21 @@
-html,
-body,
-#root {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
 .App {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    /* viewport height yerine 100vh kullan */
-    position: relative;
+    min-height: 140vh;
 }
 
-main.main-content {
-    flex: 1 0 auto;
-    /* flex grow, shrink ve basis değerlerini belirleyelim */
+.main-content {
+    flex: 1;
+    /* Burası yeterli */
     display: flex;
     flex-direction: column;
 }
 
-/* Footer'a özgü düzeltme */
-footer {
+.footer {
     flex-shrink: 0;
-    /* Footer'ın küçülmemesini sağlar */
     width: 100%;
-    position: relative;
-    /* footer'ın konumlandırması için */
+    z-index: 1;
+}
+.flowingContainer {
+    margin-top: 150px;
 }

@@ -1,4 +1,3 @@
-/* ==== FOOTER GENEL ==== */
 .footer {
     background-color: #f0f1f3;
     display: flex;
@@ -7,7 +6,7 @@
     width: 100%;
     padding: 20px 0;
     margin-top: auto;
-    /* Footer'ı mevcut container'ın altına sabitler */
+    z-index: 10;
 }
 
 /* İçerik konteyneri */
@@ -22,7 +21,7 @@
     padding: 0 16px;
 }
 
-/* Logo */
+/* Diğer stiller aynı kalabilir */
 .footerLogo img {
     max-width: 150px;
     height: auto;
@@ -35,12 +34,6 @@
     opacity: 1;
 }
 
-/* Başlık (örn: CircleTitle) */
-.footerTitle {
-    text-align: center;
-}
-
-/* Bilgilendirme metni */
 .footerInfo {
     text-align: center;
 }
@@ -50,8 +43,7 @@
     color: #9b9faa;
     font-family: var(--font-family);
     font-weight: 900;
-    margin: 0;
-}
+    margin: 0; }
 
 /* Modalı açan buton */
 .modalButton {

@@ -5,10 +5,13 @@ import './App.css';
 import { Route, Routes } from 'react-router';
 import LoginPage from '../../pages/LoginPage/LoginPage.jsx';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage.jsx';
+import Background from '../Background/Background.jsx'
+import Flowing from '../FlowingMenu/Flowing.jsx';
 
 function App() {
   return (
     <div className="App">
+      <Background />
       <Navigation />
       <main className="main-content">
         <Routes>
@@ -16,8 +19,13 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
         </Routes>
+        <div className="flowingContainer">
+          <Flowing />
+        </div>
       </main>
-      <Footer />
+      <footer className="footer">
+        <Footer />
+      </footer>
     </div>
   );
 }

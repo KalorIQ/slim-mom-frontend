@@ -1,7 +1,12 @@
 import { Formik, Field, Form } from 'formik';
 import style from './LoginPage.module.css';
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+    const handleRegister = () => {
+        navigate('/register');
+    }
   return (
     <div className={style.container}>
       <Formik
@@ -10,34 +15,48 @@ const LoginPage = () => {
           console.log('Form values:', values);
         }}
       >
-        <Form className={style.form}>
-          <h2 className={style.title}>Log In</h2>
-          <div className={style.inputContainer}>
-            <Field
-                type="email"
-                name="email"
-                id="email"
-                placeholder="Email"
-                className={style.input}
+        {() => (
+          <Form className={style.form} autoComplete="off">
+            <h2 className={style.title}>Log In</h2>
+
+            {/* Tarayıcıyı kandırmak için sahte input */}
+            <input
+              type="text"
+              name="fake-username"
+              autoComplete="username"
+              style={{ display: 'none' }}
             />
 
-            <Field
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Password"
+            <div className={style.inputContainer}>
+              <Field
+                type="email"
+                name="user_email"
+                id="user_email"
+                placeholder="Email"
+                autoComplete="new-email"
                 className={style.input}
-            />
-          </div>
-        <div className={style.btnContainer}>
-            <button type="submit" className={style.logInButton}>
+              />
+
+              <Field
+                type="password"
+                name="user_password"
+                id="user_password"
+                placeholder="Password"
+                autoComplete="new-password"
+                className={style.input}
+              />
+            </div>
+
+            <div className={style.btnContainer}>
+              <button type="submit" className={style.logInButton}>
                 Log In
-            </button>
-            <button type="button" className={style.registerButton}>
+              </button>
+              <button type="button" className={style.registerButton} onClick={handleRegister}>
                 Register
-            </button>
-        </div>
-        </Form>
+              </button>
+            </div>
+          </Form>
+        )}
       </Formik>
     </div>
   );
