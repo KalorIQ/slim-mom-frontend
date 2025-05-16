@@ -1,6 +1,0 @@
-.App {
-    position: relative;
-    /* İçindeki elemanları konumlandırabilmek için */
-    min-height: 100vh;
-    overflow: hidden;
-}

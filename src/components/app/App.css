@@ -1,7 +1,7 @@
 .App {
     display: flex;
     flex-direction: column;
-    min-height: 140vh;
+    min-height: 100vh;
 }
 
 .main-content {
@@ -17,5 +17,5 @@
     z-index: 1;
 }
 .flowingContainer {
-    margin-top: 150px;
+margin-top: 50px;
 }

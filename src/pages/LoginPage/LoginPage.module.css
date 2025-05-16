@@ -96,6 +96,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid #fc842d;
+    margin-bottom:34px;
 }
 .registerButton:hover{
     background-color: #FC842D;

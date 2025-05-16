@@ -19,7 +19,6 @@ const LoginPage = () => {
           <Form className={style.form} autoComplete="off">
             <h2 className={style.title}>Log In</h2>
 
-            {/* Tarayıcıyı kandırmak için sahte input */}
             <input
               type="text"
               name="fake-username"
