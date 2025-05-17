@@ -7,25 +7,38 @@ import LoginPage from '../../pages/LoginPage/LoginPage.jsx';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage.jsx';
 import Background from '../Background/Background.jsx'
 import Flowing from '../FlowingMenu/Flowing.jsx';
+import Ultra3DLoader from '../Loader/Ultra3DLoader.jsx';
 
 function App() {
+  const isLoading = true; // Simulate loading state
+  
+
   return (
     <div className="App">
-      <Background />
-      <Navigation />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
-        <div className="flowingContainer">
-          <Flowing />
+      {isLoading ? (
+        <div className="loading-screen">
+            <Ultra3DLoader />
+            <p>Load</p>
         </div>
-      </main>
-      <footer className="footer">
-        <Footer />
-      </footer>
+      ) : (
+        <>
+          <Background />
+          <Navigation />
+          <main className="main-content">
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/register" element={<RegisterPage />} />
+            </Routes>
+            <div className="flowingContainer">
+              <Flowing />
+            </div>
+          </main>
+          <footer className="footer">
+            <Footer />
+          </footer>
+        </>
+      )}
     </div>
   );
 }
