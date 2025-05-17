@@ -6,10 +6,8 @@ const HomePage = () => {
     return (
         <div className={style.App}>    
             <div className={style.container}>
-            
                 <CalculatorForm />
             </div>
-
         </div>
     )
 }

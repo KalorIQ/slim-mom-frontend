@@ -1,0 +1,129 @@
+/* Google Font: Orbitron */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap');
+
+/* Ana Konteyner */
+.ultra-3d-loader-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    /* Daha iyi kontrast için */
+}
+
+/* THREE.js Canvas */
+.canvas-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Overlay Katman */
+.overlay-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+/* LOADING Yazısı */
+.loading-text {
+    display: flex;
+    gap: 8px;
+    font-size: 48px;
+    font-family: 'Orbitron', sans-serif;
+    color: #ffffff;
+    text-shadow: 0 0 10px #ff00ff, 0 0 20px #00ffff;
+}
+
+.loading-text span {
+    opacity: 0;
+    animation: flickerFadeIn 1.5s ease forwards;
+}
+
+.loading-text span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.loading-text span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.loading-text span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.loading-text span:nth-child(4) {
+    animation-delay: 0.45s;
+}
+
+.loading-text span:nth-child(5) {
+    animation-delay: 0.6s;
+}
+
+.loading-text span:nth-child(6) {
+    animation-delay: 0.75s;
+}
+
+.loading-text span:nth-child(7) {
+    animation-delay: 0.9s;
+}
+
+/* Yazı animasyonu */
+@keyframes flickerFadeIn {
+    0% {
+        opacity: 0;
+        text-shadow: none;
+        color: #fff;
+    }
+
+    50% {
+        opacity: 1;
+        text-shadow: 0 0 8px #ff00ff, 0 0 16px #00ffff;
+        color: #ff00ff;
+    }
+
+    100% {
+        opacity: 1;
+        text-shadow: 0 0 12px #ff00ff, 0 0 24px #00ffff;
+        color: #00ffff;
+    }
+}
+
+/* Progress Bar */
+.progress-bar {
+    width: 280px;
+    height: 15px;
+    background: linear-gradient(90deg, #330033, #001122);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff;
+}
+
+.progress-fill {
+    width: 50%;
+    /* Burası dinamik olabilir */
+    height: 100%;
+    background: linear-gradient(90deg, #ff00ff, #00ffff);
+    border-radius: 15px;
+    animation: progressAnimation 3s infinite ease-in-out alternate;
+    box-shadow: 0 0 15px #ff00ff, 0 0 25px #00ffff;
+}
+
+@keyframes progressAnimation {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
+}
