@@ -7,21 +7,12 @@ import LoginPage from '../../pages/LoginPage/LoginPage.jsx';
 import RegisterPage from '../../pages/RegisterPage/RegisterPage.jsx';
 import Background from '../Background/Background.jsx'
 import Flowing from '../FlowingMenu/Flowing.jsx';
-import Ultra3DLoader from '../Loader/Ultra3DLoader.jsx';
+import Loader from '../Loader/Loader.jsx';
 
 function App() {
-  const isLoading = true; // Simulate loading state
-  
 
   return (
     <div className="App">
-      {isLoading ? (
-        <div className="loading-screen">
-            <Ultra3DLoader />
-            <p>Load</p>
-        </div>
-      ) : (
-        <>
           <Background />
           <Navigation />
           <main className="main-content">
@@ -37,8 +28,6 @@ function App() {
           <footer className="footer">
             <Footer />
           </footer>
-        </>
-      )}
     </div>
   );
 }

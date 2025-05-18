@@ -9,7 +9,6 @@
     z-index: 10;
 }
 
-/* İçerik konteyneri */
 .footerContainer {
     width: 100%;
     max-width: 1200px;
@@ -21,7 +20,6 @@
     padding: 0 16px;
 }
 
-/* Diğer stiller aynı kalabilir */
 .footerLogo img {
     max-width: 150px;
     height: auto;
@@ -43,9 +41,9 @@
     color: #9b9faa;
     font-family: var(--font-family);
     font-weight: 900;
-    margin: 0; }
+    margin: 0;
+}
 
-/* Modalı açan buton */
 .modalButton {
     background: none;
     border: none;
@@ -89,7 +87,7 @@
 .modalContent h2 {
     margin-bottom: 24px;
     background: linear-gradient(135deg, #fc842d 0%, #fce4d6 100%);
-    color: #989daa;
+    color: #333;
     font-size: 24px;
     font-family: var(--font-family);
     padding: 16px 24px;
@@ -172,4 +170,8 @@
 
 .closeButton:hover {
     background-color: #e06c1f;
+}
+
+.textWrapper{
+    margin-left: 20px;
 }
