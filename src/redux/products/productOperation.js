@@ -130,7 +130,7 @@ const searchProducts = createAsyncThunk(
   async (query, thunkAPI) => {
     try {
       const response = await instance.get(
-        `api/products/searchProducts?query=${query}`
+        `api/products/searchProducts?title=${query}`
       );
       return response.data;
     } catch (error) {

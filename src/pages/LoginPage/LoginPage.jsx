@@ -17,8 +17,11 @@ const LoginPage = () => {
     console.log("In login Handle Password:", values.password);
     const { email, password } = values;
     try {
-      await dispatch(loginUser({ email, password })).unwrap();
-      navigate("/diary");
+      await dispatch(loginUser({ email, password }))
+        .unwrap()
+        .then(() => {
+          navigate("/diary");
+        });
     } catch (error) {
       console.error("Login failed:", error);
     }

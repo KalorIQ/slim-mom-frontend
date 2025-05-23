@@ -40,6 +40,7 @@ const DiaryPage = () => {
   const [grams, setGrams] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchTimeoutId, setSearchTimeoutId] = useState(null);
 
   // Load diary data when component mounts or date changes
   useEffect(() => {
@@ -49,19 +50,6 @@ const DiaryPage = () => {
       dispatch(getDailyCalorieNeeds(currentDate));
     }
   }, [dispatch, currentDate]);
-
-  // Search products when user types
-  useEffect(() => {
-    if (productName.length > 2 && !selectedProduct) {
-      const timeoutId = setTimeout(() => {
-        dispatch(searchProducts(productName));
-        setShowSearchResults(true);
-      }, 500);
-      return () => clearTimeout(timeoutId);
-    } else {
-      setShowSearchResults(false);
-    }
-  }, [productName, selectedProduct, dispatch]);
 
   const handleProductSelect = (product) => {
     setSelectedProduct(product);
@@ -101,8 +89,26 @@ const DiaryPage = () => {
   const handleProductNameChange = (e) => {
     const value = e.target.value;
     setProductName(value);
+
     if (selectedProduct && value !== selectedProduct.title) {
       setSelectedProduct(null);
+    }
+
+    // Clear previous timeout
+    if (searchTimeoutId) {
+      clearTimeout(searchTimeoutId);
+    }
+
+    // Start searching when user types at least 3 letters
+    if (value.length >= 3 && !selectedProduct) {
+      const timeoutId = setTimeout(() => {
+        dispatch(searchProducts(value));
+        setShowSearchResults(true);
+      }, 500);
+      setSearchTimeoutId(timeoutId);
+    } else {
+      setShowSearchResults(false);
+      setSearchTimeoutId(null);
     }
   };
 
