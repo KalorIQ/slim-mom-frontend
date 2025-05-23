@@ -1,11 +1,10 @@
-import axios from 'axios';
-import { createAsyncThunk } from '@reduxjs/toolkit';
-
+import axios from "axios";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
 const instance = axios.create({
-    baseURL: BASE_URL,
+  baseURL: BASE_URL,
 });
 
 const loginUser = createAsyncThunk(
@@ -35,7 +34,7 @@ const registerUser = createAsyncThunk(
 const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
   console.log("State:", state);
-  const token = state.user.accessToken;
+  const token = state.auth.accessToken;
   console.log("Token:", token);
 
   try {

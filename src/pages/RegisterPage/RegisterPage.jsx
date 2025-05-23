@@ -1,19 +1,38 @@
-import { Formik, Field, Form } from 'formik';
-import style from './RegisterPage.module.css';
-import { useNavigate } from 'react-router';
+import { Formik, Field, Form } from "formik";
+import style from "./RegisterPage.module.css";
+import { useNavigate } from "react-router";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../redux/auth/authOperation.js";
 
 const RegisterPage = () => {
-    const navigate = useNavigate();
-    const handleLogIn = () => {
-        navigate('/login');
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogIn = () => {
+    navigate("/login");
+  };
+
+  const handleRegister = async (values) => {
+    const { user_name, user_email, user_password } = values;
+    try {
+      await dispatch(
+        registerUser({
+          name: user_name,
+          email: user_email,
+          password: user_password,
+        })
+      ).unwrap();
+      navigate("/diary");
+    } catch (error) {
+      console.error("Registration failed:", error);
     }
+  };
+
   return (
     <div className={style.container}>
       <Formik
-        initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => {
-          console.log('Form values:', values);
-        }}
+        initialValues={{ user_name: "", user_email: "", user_password: "" }}
+        onSubmit={handleRegister}
       >
         {() => (
           <Form className={style.form} autoComplete="off">
@@ -23,11 +42,11 @@ const RegisterPage = () => {
               type="text"
               name="fake-username"
               autoComplete="username"
-              style={{ display: 'none' }}
+              style={{ display: "none" }}
             />
 
             <div className={style.inputContainer}>
-            <Field
+              <Field
                 type="name"
                 name="user_name"
                 id="user_name"
@@ -58,7 +77,11 @@ const RegisterPage = () => {
               <button type="submit" className={style.registerButton}>
                 Register
               </button>
-              <button type="button" className={style.logInButton} onClick={handleLogIn}>
+              <button
+                type="button"
+                className={style.logInButton}
+                onClick={handleLogIn}
+              >
                 Log In
               </button>
             </div>
