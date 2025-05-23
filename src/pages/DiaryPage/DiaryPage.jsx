@@ -7,104 +7,142 @@ import { BsCalendar4 } from "react-icons/bs";
 import {
   addProduct,
   removeProduct,
+  getDiaryEntries,
+  getDailyCalories,
+  getDailyCalorieNeeds,
+  searchProducts,
 } from "../../redux/products/productOperation.js";
 import {
-  selectDiaryEntries,
+  selectProcessedDiaryEntries,
   selectCurrentDate,
   selectDailyRate,
-  selectTotalCalories,
+  selectDailyCalories,
+  selectLeftCalories,
+  selectPercentageConsumed,
+  selectNotAllowedFoods,
+  selectSearchResults,
   selectProductsLoading,
 } from "../../redux/products/productSelectors.js";
-import { selectUser } from "../../redux/auth/authSelectors.js";
 
 const DiaryPage = () => {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
-  const diaryEntries = useSelector(selectDiaryEntries);
+  const diaryEntries = useSelector(selectProcessedDiaryEntries);
   const currentDate = useSelector(selectCurrentDate);
   const dailyRate = useSelector(selectDailyRate);
-  const totalCalories = useSelector(selectTotalCalories);
+  const dailyCalories = useSelector(selectDailyCalories);
+  const leftCalories = useSelector(selectLeftCalories);
+  const percentageConsumed = useSelector(selectPercentageConsumed);
+  const notAllowedFoods = useSelector(selectNotAllowedFoods);
+  const searchResults = useSelector(selectSearchResults);
   const isLoading = useSelector(selectProductsLoading);
 
   const [productName, setProductName] = useState("");
   const [grams, setGrams] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showSearchResults, setShowSearchResults] = useState(false);
 
-  // Sample data for demo purposes (will be replaced with real data from API)
+  // Load diary data when component mounts or date changes
   useEffect(() => {
-    // For demo purposes, we'll add some sample data if entries are empty
-    if (diaryEntries.length === 0) {
-      // You would normally dispatch getDiaryEntries(currentDate) here
-      // For demo, we'll just show the sample data
+    if (currentDate) {
+      dispatch(getDiaryEntries(currentDate));
+      dispatch(getDailyCalories(currentDate));
+      dispatch(getDailyCalorieNeeds(currentDate));
     }
-  }, [diaryEntries.length, currentDate, dispatch]);
+  }, [dispatch, currentDate]);
+
+  // Search products when user types
+  useEffect(() => {
+    if (productName.length > 2 && !selectedProduct) {
+      const timeoutId = setTimeout(() => {
+        dispatch(searchProducts(productName));
+        setShowSearchResults(true);
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    } else {
+      setShowSearchResults(false);
+    }
+  }, [productName, selectedProduct, dispatch]);
+
+  const handleProductSelect = (product) => {
+    setSelectedProduct(product);
+    setProductName(product.title);
+    setShowSearchResults(false);
+  };
 
   const handleAddProduct = () => {
-    if (productName && grams) {
+    if (selectedProduct && grams) {
       const productData = {
-        name: productName,
-        grams: parseInt(grams),
-        calories: Math.round(parseInt(grams) * 2.5), // Mock calculation
+        productId: selectedProduct._id,
+        productWeight: parseInt(grams),
         date: currentDate,
       };
 
-      dispatch(addProduct(productData));
+      dispatch(addProduct(productData)).then(() => {
+        // Refresh diary entries and daily calories after adding
+        dispatch(getDiaryEntries(currentDate));
+        dispatch(getDailyCalories(currentDate));
+      });
+
       setProductName("");
       setGrams("");
+      setSelectedProduct(null);
     }
   };
 
-  const handleRemoveItem = (id) => {
-    dispatch(removeProduct(id));
+  const handleRemoveItem = (entryId) => {
+    dispatch(removeProduct({ productId: entryId, date: currentDate })).then(
+      () => {
+        // Refresh daily calories after removing
+        dispatch(getDailyCalories(currentDate));
+      }
+    );
   };
 
-  // Get user's not recommended foods
-  const notRecommendedFoods = user?.infouser?.notAllowedProducts || [
-    "Flour products",
-    "Milk",
-    "Red meat",
-    "Smoked meats",
-  ];
+  const handleProductNameChange = (e) => {
+    const value = e.target.value;
+    setProductName(value);
+    if (selectedProduct && value !== selectedProduct.title) {
+      setSelectedProduct(null);
+    }
+  };
 
-  // For demo purposes, show sample data if no entries from Redux
-  const displayEntries =
-    diaryEntries.length > 0
-      ? diaryEntries
-      : [
-          { id: 1, name: "Eggplant", grams: 100, calories: 320 },
-          { id: 2, name: "Poultry meat", grams: 100, calories: 480 },
-          { id: 3, name: "Bread", grams: 100, calories: 210 },
-          { id: 4, name: "Nut", grams: 100, calories: 205 },
-          { id: 5, name: "Pork meat", grams: 100, calories: 580 },
-          { id: 6, name: "Potato", grams: 100, calories: 360 },
-        ];
-
-  const displayDailyRate = user?.infouser?.dailyRate || dailyRate;
-  const displayTotalCalories =
-    diaryEntries.length > 0
-      ? totalCalories
-      : displayEntries.reduce((sum, item) => sum + item.calories, 0);
-  const displayLeftCalories = displayDailyRate - displayTotalCalories;
-  const displayPercentageConsumed = Math.round(
-    (displayTotalCalories / displayDailyRate) * 100
-  );
+  const displayDate = new Date(currentDate).toLocaleDateString("en-GB");
 
   return (
     <div className={styles.diaryPage}>
       <div className={styles.leftSection}>
         <div className={styles.dateSection}>
-          <h1 className={styles.dateTitle}>{currentDate}</h1>
+          <h1 className={styles.dateTitle}>{displayDate}</h1>
           <BsCalendar4 className={styles.calendarIcon} />
         </div>
 
         <div className={styles.addProductForm}>
-          <input
-            type="text"
-            placeholder="Enter product name"
-            value={productName}
-            onChange={(e) => setProductName(e.target.value)}
-            className={styles.productInput}
-            disabled={isLoading}
-          />
+          <div className={styles.productInputContainer}>
+            <input
+              type="text"
+              placeholder="Enter product name"
+              value={productName}
+              onChange={handleProductNameChange}
+              className={styles.productInput}
+              disabled={isLoading}
+            />
+            {showSearchResults && searchResults.length > 0 && (
+              <div className={styles.searchResults}>
+                {searchResults.slice(0, 5).map((product) => (
+                  <div
+                    key={product._id}
+                    className={styles.searchResultItem}
+                    onClick={() => handleProductSelect(product)}
+                  >
+                    <span className={styles.productTitle}>{product.title}</span>
+                    <span className={styles.productCalories}>
+                      {product.calories} kcal/100g
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
           <input
             type="number"
             placeholder="Grams"
@@ -116,20 +154,20 @@ const DiaryPage = () => {
           <button
             onClick={handleAddProduct}
             className={styles.addButton}
-            disabled={isLoading || !productName || !grams}
+            disabled={isLoading || !selectedProduct || !grams}
           >
             <IoMdAdd />
           </button>
         </div>
 
         <div className={styles.foodList}>
-          {displayEntries.map((item) => (
-            <div key={item.id} className={styles.foodItem}>
+          {diaryEntries.map((item) => (
+            <div key={item._id} className={styles.foodItem}>
               <span className={styles.foodName}>{item.name}</span>
               <span className={styles.foodGrams}>{item.grams} g</span>
               <span className={styles.foodCalories}>{item.calories} kcal</span>
               <button
-                onClick={() => handleRemoveItem(item.id)}
+                onClick={() => handleRemoveItem(item._id)}
                 className={styles.removeButton}
                 disabled={isLoading}
               >
@@ -142,35 +180,29 @@ const DiaryPage = () => {
 
       <div className={styles.rightSection}>
         <div className={styles.summarySection}>
-          <h2 className={styles.summaryTitle}>Summary for {currentDate}</h2>
+          <h2 className={styles.summaryTitle}>Summary for {displayDate}</h2>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Left</span>
-            <span className={styles.summaryValue}>
-              {displayLeftCalories} kcal
-            </span>
+            <span className={styles.summaryValue}>{leftCalories} kcal</span>
           </div>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Consumed</span>
-            <span className={styles.summaryValue}>
-              {displayTotalCalories} kcal
-            </span>
+            <span className={styles.summaryValue}>{dailyCalories} kcal</span>
           </div>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>Daily rate</span>
-            <span className={styles.summaryValue}>{displayDailyRate} kcal</span>
+            <span className={styles.summaryValue}>{dailyRate} kcal</span>
           </div>
           <div className={styles.summaryItem}>
             <span className={styles.summaryLabel}>n% of normal</span>
-            <span className={styles.summaryValue}>
-              {displayPercentageConsumed} %
-            </span>
+            <span className={styles.summaryValue}>{percentageConsumed} %</span>
           </div>
         </div>
 
         <div className={styles.notRecommendedSection}>
           <h3 className={styles.notRecommendedTitle}>Food not recommended</h3>
           <ul className={styles.notRecommendedList}>
-            {notRecommendedFoods.map((food, index) => (
+            {notAllowedFoods.map((food, index) => (
               <li key={index} className={styles.notRecommendedItem}>
                 {food}
               </li>

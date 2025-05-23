@@ -3,6 +3,8 @@ import {
   addProduct,
   removeProduct,
   getDiaryEntries,
+  getDailyCalories,
+  getDailyCalorieNeeds,
   searchProducts,
 } from "./productOperation.js";
 import { toast, Bounce } from "react-toastify";
@@ -37,8 +39,10 @@ const toastSettings = {
 const initialState = {
   diaryEntries: [],
   searchResults: [],
-  currentDate: new Date().toLocaleDateString("en-GB"),
-  dailyRate: 2800,
+  currentDate: new Date().toISOString().split("T")[0],
+  dailyCalories: 0,
+  dailyRate: 0,
+  notAllowedFoods: [],
   isLoading: false,
   error: null,
 };
@@ -49,9 +53,6 @@ const productSlice = createSlice({
   reducers: {
     setCurrentDate: (state, action) => {
       state.currentDate = action.payload;
-    },
-    setDailyRate: (state, action) => {
-      state.dailyRate = action.payload;
     },
     clearSearchResults: (state) => {
       state.searchResults = [];
@@ -64,9 +65,8 @@ const productSlice = createSlice({
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(addProduct.fulfilled, (state, action) => {
+      .addCase(addProduct.fulfilled, (state) => {
         state.isLoading = false;
-        state.diaryEntries.push(action.payload.data);
         toast.success("Product added successfully", toastSettings.success);
       })
       .addCase(addProduct.rejected, (state, action) => {
@@ -83,7 +83,7 @@ const productSlice = createSlice({
       .addCase(removeProduct.fulfilled, (state, action) => {
         state.isLoading = false;
         state.diaryEntries = state.diaryEntries.filter(
-          (entry) => entry.id !== action.payload.data.id
+          (entry) => entry._id !== action.payload.productId
         );
         toast.success("Product removed successfully", toastSettings.success);
       })
@@ -100,12 +100,41 @@ const productSlice = createSlice({
       })
       .addCase(getDiaryEntries.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.diaryEntries = action.payload.data;
+        state.diaryEntries = action.payload.products || [];
       })
       .addCase(getDiaryEntries.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
         toast.error("Failed to load diary entries", toastSettings.error);
+      })
+
+      // Get Daily Calories Cases
+      .addCase(getDailyCalories.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getDailyCalories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.dailyCalories = action.payload.totalCalories || 0;
+      })
+      .addCase(getDailyCalories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get Daily Calorie Needs Cases
+      .addCase(getDailyCalorieNeeds.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getDailyCalorieNeeds.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.dailyRate = action.payload.data?.dailyRate || 0;
+        state.notAllowedFoods = action.payload.data?.notAllowedFoods || [];
+      })
+      .addCase(getDailyCalorieNeeds.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       })
 
       // Search Products Cases
@@ -115,7 +144,7 @@ const productSlice = createSlice({
       })
       .addCase(searchProducts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.searchResults = action.payload.data;
+        state.searchResults = action.payload.data || [];
       })
       .addCase(searchProducts.rejected, (state, action) => {
         state.isLoading = false;
@@ -125,6 +154,5 @@ const productSlice = createSlice({
   },
 });
 
-export const { setCurrentDate, setDailyRate, clearSearchResults } =
-  productSlice.actions;
+export const { setCurrentDate, clearSearchResults } = productSlice.actions;
 export default productSlice.reducer;

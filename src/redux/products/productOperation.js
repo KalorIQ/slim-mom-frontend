@@ -9,15 +9,19 @@ const instance = axios.create({
 
 // Add product to diary
 const addProduct = createAsyncThunk(
-  "api/diary/add-product",
+  "api/user/products",
   async (productData, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
 
     try {
       const response = await instance.post(
-        "api/diary/add-product",
-        productData,
+        "api/user/products",
+        {
+          productId: productData.productId,
+          productWeight: productData.productWeight,
+          date: productData.date,
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,21 +37,21 @@ const addProduct = createAsyncThunk(
 
 // Remove product from diary
 const removeProduct = createAsyncThunk(
-  "api/diary/remove-product",
-  async (productId, thunkAPI) => {
+  "api/user/products/remove",
+  async ({ productId, date }, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
 
     try {
       const response = await instance.delete(
-        `api/diary/remove-product/${productId}`,
+        `api/user/products/${productId}?date=${date}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
-      return response.data;
+      return { ...response.data, productId };
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
@@ -56,13 +60,13 @@ const removeProduct = createAsyncThunk(
 
 // Get diary entries for a specific date
 const getDiaryEntries = createAsyncThunk(
-  "api/diary/get-entries",
+  "api/user/products/get",
   async (date, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
 
     try {
-      const response = await instance.get(`api/diary/${date}`, {
+      const response = await instance.get(`api/user/products?date=${date}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -74,16 +78,16 @@ const getDiaryEntries = createAsyncThunk(
   }
 );
 
-// Search products
-const searchProducts = createAsyncThunk(
-  "api/products/search",
-  async (query, thunkAPI) => {
+// Get daily calories consumed
+const getDailyCalories = createAsyncThunk(
+  "api/user/my-daily-calories",
+  async (date, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
 
     try {
       const response = await instance.get(
-        `api/products/search?query=${query}`,
+        `api/user/my-daily-calories?date=${date}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -97,4 +101,49 @@ const searchProducts = createAsyncThunk(
   }
 );
 
-export { addProduct, removeProduct, getDiaryEntries, searchProducts };
+// Get daily calorie needs
+const getDailyCalorieNeeds = createAsyncThunk(
+  "api/user/my-daily-calory-needs",
+  async (date, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.accessToken;
+
+    try {
+      const response = await instance.get(
+        `api/user/my-daily-calory-needs?date=${date}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+// Search products
+const searchProducts = createAsyncThunk(
+  "api/products/searchProducts",
+  async (query, thunkAPI) => {
+    try {
+      const response = await instance.get(
+        `api/products/searchProducts?query=${query}`
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export {
+  addProduct,
+  removeProduct,
+  getDiaryEntries,
+  getDailyCalories,
+  getDailyCalorieNeeds,
+  searchProducts,
+};
