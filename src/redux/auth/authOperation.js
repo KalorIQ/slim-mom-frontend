@@ -54,4 +54,27 @@ const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
   }
 });
 
-export { loginUser, registerUser, logoutUser };
+const updateUserInfo = createAsyncThunk(
+  "api/user/infouser-update",
+  async (userInfoData, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.accessToken;
+
+    try {
+      const response = await instance.patch(
+        "api/user/infouser-update",
+        userInfoData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export { loginUser, registerUser, logoutUser, updateUserInfo };

@@ -1,5 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser, logoutUser } from "./authOperation.js";
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+  updateUserInfo,
+} from "./authOperation.js";
 import { toast, Bounce } from "react-toastify";
 
 const toastSettings = {
@@ -105,6 +110,20 @@ const authSlice = createSlice({
           "We couldn't log you out. Please try again!",
           toastSettings.error
         );
+      })
+      .addCase(updateUserInfo.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(updateUserInfo.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload.data.user;
+        toast.success("User info updated successfully", toastSettings.success);
+      })
+      .addCase(updateUserInfo.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to update user info", toastSettings.error);
       });
   },
 });

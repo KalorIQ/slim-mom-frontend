@@ -1,11 +1,11 @@
 import style from "./CalculatorPage.module.css";
-import CalculatorForm from "../../components/CalculatorForm/CalculatorForm.jsx";
+import UpdateUserInfoForm from "../../components/CalculatorForm/UpdateUserInfoForm.jsx";
 
 const CalculatorPage = () => {
   return (
     <div className={style.App}>
       <div className={style.container}>
-        <CalculatorForm />
+        <UpdateUserInfoForm />
       </div>
     </div>
   );
