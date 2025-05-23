@@ -2,7 +2,7 @@ import { Formik, Field, Form } from 'formik';
 import style from './LoginPage.module.css';
 import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { loginUser } from '../../redux/auth/authSlice.js';
+import { loginUser } from '../../redux/auth/authOperation.js';
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -49,7 +49,7 @@ const LoginPage = () => {
                 name="password"
                 id="password"
                 placeholder="Password"
-                autoComplete="current-password"
+                autoComplete="new-password"
                 className={style.input}
               />
             </div>

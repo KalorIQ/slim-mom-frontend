@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import { loginUser, registerUser, logoutUser } from './authOperation.js';
-import axios from 'axios';
 import { toast, Bounce } from 'react-toastify';
+
 
 
 const toastSettings = {
@@ -98,4 +98,4 @@ const authSlice = createSlice({
     }
 })
 
-export const authReducer = authSlice.reducer;
+export default authSlice.reducer;

@@ -2,10 +2,13 @@ import style from './Navigation.module.css';
 import Logo from '../Logo/Logo.jsx';
 import {useNavigate, NavLink } from 'react-router';
 import vektor from '../../assets/svg/utils/vektor.svg';
+import { useSelector } from 'react-redux';
+import  {selectIsLoggedIn}  from '../../redux/auth/authSelectors.js';
 
 
 const Navigation = () => {
-    const isLoggedIn = false;
+
+    const isLoggedIn = useSelector(selectIsLoggedIn);
     const navigate = useNavigate();
     
     return (
