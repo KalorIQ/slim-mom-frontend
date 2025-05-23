@@ -1,19 +1,27 @@
 import { Formik, Field, Form } from 'formik';
 import style from './LoginPage.module.css';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { loginUser } from '../../redux/auth/authSlice.js';
 
 const LoginPage = () => {
-    const navigate = useNavigate();
-    const handleRegister = () => {
-        navigate('/register');
-    }
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleRegister = () => {
+    navigate('/register');
+  };
+
+  const handleLogin = (values) => {
+    const { email, password } = values;
+    dispatch(loginUser({ email, password }));
+  };
+
   return (
     <div className={style.container}>
       <Formik
         initialValues={{ email: '', password: '' }}
-        onSubmit={(values) => {
-          console.log('Form values:', values);
-        }}
+        onSubmit={handleLogin}
       >
         {() => (
           <Form className={style.form} autoComplete="off">
@@ -29,21 +37,27 @@ const LoginPage = () => {
             <div className={style.inputContainer}>
               <Field
                 type="email"
-                name="user_email"
-                id="user_email"
+                name="email"
+                id="email"
                 placeholder="Email"
-                autoComplete="new-email"
+                autoComplete="email"
                 className={style.input}
               />
 
               <Field
                 type="password"
-                name="user_password"
-                id="user_password"
+                name="password"
+                id="password"
                 placeholder="Password"
-                autoComplete="new-password"
+                autoComplete="current-password"
                 className={style.input}
               />
+            </div>
+
+            <div className={style.forgotPasswordContainer}>
+              <a href="/forgot-password" className={style.forgotPasswordLink}>
+                Forgot Password?
+              </a>
             </div>
 
             <div className={style.btnContainer}>

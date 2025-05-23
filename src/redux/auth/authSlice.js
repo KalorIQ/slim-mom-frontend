@@ -1,0 +1,101 @@
+import {createSlice} from '@reduxjs/toolkit';
+import { loginUser, registerUser, logoutUser } from './authOperation.js';
+import axios from 'axios';
+import { toast, Bounce } from 'react-toastify';
+
+
+const toastSettings = {
+    success: {
+        icon: "✅",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark", // "dark" teması için doğru şekilde ayarlandı
+        transition: Bounce, // Geçiş efekti doğru şekilde belirtildi
+        position: "top-right", // "top-center" yerine "top-right"
+    },
+    error: {
+        icon: "❌",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark", // "dark" teması için doğru şekilde ayarlandı
+        transition: Bounce, // Geçiş efekti doğru şekilde belirtildi
+        position: "top-right", // "top-center" yerine "top-right"
+    },
+};
+
+const initialState = {
+    user: {
+        name: null,
+        email: null,
+        accesstoken: null,
+    },
+    isLoggedIn: false,
+    isLoading: false,
+    error: null,
+}
+
+const authSlice = createSlice({
+    name:'auth',
+    initialState,
+    extraReducers(builder){
+        builder
+        .addCase(loginUser.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(loginUser.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isLoggedIn = true;
+            toast.success('Login successful', toastSettings.success);
+        })
+        .addCase(loginUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            toast.error('Login failed', toastSettings.error);
+        })
+        .addCase(registerUser.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(registerUser.fulfilled, (state, action) => {
+            state.isLoading = false;
+            state.user = action.payload;
+            state.isLoggedIn = true;
+            toast.success('Registration successful', toastSettings.success);
+        })
+        .addCase(registerUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            toast.error('Registration failed', toastSettings.error);
+        })
+        .addCase(logoutUser.pending, (state) => {
+            state.isLoading = true;
+            state.error = null;
+        })
+        .addCase(logoutUser.fulfilled, (state) => {
+            state.isLoading = false;
+            state.user = initialState.user;
+            state.isLoggedIn = false;
+            toast.success('Logout successful', toastSettings.success);
+        })
+        .addCase(logoutUser.rejected, (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+            toast.error(
+                "We couldn't log you out. Please try again!",
+                toastSettings.error
+            );
+        })
+    }
+})
+
+export const authReducer = authSlice.reducer;
