@@ -12,6 +12,8 @@ const UpdateUserInfoForm = () => {
   const [errorList, setErrorList] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const userInfo = user.infouser;
+  const changeButton = userInfo.currentWeight === null || userInfo.height === null || userInfo.age === null || userInfo.desireWeight === null || userInfo.bloodType === null;
 
   const handleValidation = async (values) => {
     try {
@@ -105,10 +107,10 @@ const UpdateUserInfoForm = () => {
                     <p className={style.bloodType}>Blood type</p>
                     <div className={style.radioGroup}>
                       {[
-                        { label: "A", value: "1" },
-                        { label: "B", value: "2" },
-                        { label: "AB", value: "3" },
-                        { label: "0", value: "4" },
+                        { label: "A", value: "A" },
+                        { label: "B", value: "B" },
+                        { label: "AB", value: "AB" },
+                        { label: "0", value: "0" },
                       ].map((type) => (
                         <label key={type.value} className={style.radioLabel}>
                           <Field
@@ -125,9 +127,8 @@ const UpdateUserInfoForm = () => {
                 </div>
               </div>
 
-              <button type="submit" className={style.submitButton}>
-                Update My Info
-              </button>
+              <button type="submit" className={style.submitButton}>{changeButton ? "Start losing weight" : "Update My Info"} </button>
+
             </Form>
 
             {/* Error Modal */}

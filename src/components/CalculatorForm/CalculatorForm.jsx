@@ -40,9 +40,12 @@ const CalculatorForm = () => {
         validationSchema={validationSchema}
         validateOnBlur={false}
         validateOnChange={false}
-        onSubmit={(values) => {
-          const result = intakeCalorie(values);
-          setCalorieResult(result);
+        onSubmit={(values, { resetForm }) => {
+          setCalorieResult(null); // önce sonucu sıfırla
+          setTimeout(() => {
+            const result = intakeCalorie(values);
+            setCalorieResult(result);
+          }, 0);
         }}
       >
         {({ values, submitForm }) => (

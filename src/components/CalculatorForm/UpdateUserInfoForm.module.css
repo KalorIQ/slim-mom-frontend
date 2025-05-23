@@ -69,9 +69,7 @@
   color: #212121;
 }
 
-.input:valid {
-  border-bottom-color: #28a745;
-}
+
 
 .input::placeholder {
   font-family: Verdana, sans-serif;

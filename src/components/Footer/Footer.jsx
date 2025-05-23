@@ -3,7 +3,15 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import CircleTitle from "../CircleTitle/CircleTitle.jsx";
 import style from './Footer.module.css';
 import logo from '../../assets/svg/logo/slimMomLogo.svg';
+// eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
+import atilla from "../../assets/image/members/atilla.jpg";
+import ferhat from "../../assets/image/members/ferhat.jpg";
+import samet from "../../assets/image/members/samet.jpg";
+import gokhan from "../../assets/image/members/gokhan.jpg";
+import vahide from "../../assets/image/members/segah.jpeg";
+import sebnem from "../../assets/image/members/sebnem.jpeg";
+
 
 const Footer = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -87,54 +95,54 @@ const Footer = () => {
             </h2>
             <div className={style.studentList}>
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Ali Yılmaz" className={style.studentImg} />
-                <h3>Ali Yılmaz</h3>
+                <img src={gokhan} alt="Gökhan Karaduman" className={style.studentImg} />
+                <h3>Gökhan Karaduman</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/aliyilmaz" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/aliyilmaz" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/gokhankkaraduman" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/gökhan-karaduman-419198320/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
 
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Ayla Demir" className={style.studentImg} />
-                <h3>Ayla Demir</h3>
+                <img src={atilla} alt="Atilla Göğüslü" className={style.studentImg} />
+                <h3>Atilla Göğüslü</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/aylademir" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/aylademir" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/atillagoguslu" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/atillagoguslu/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
 
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/men/51.jpg" alt="Mehmet Koç" className={style.studentImg} />
-                <h3>Mehmet Koç</h3>
+                <img src={samet} alt="Samet Alptekin Eroğlu" className={style.studentImg} />
+                <h3>Samet Alptekin Eroğlu</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/mehmetkoc" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/mehmetkoc" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/salptkin" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/salptekineroglu/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
 
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Zeynep Kılıç" className={style.studentImg} />
-                <h3>Zeynep Kılıç</h3>
+                <img src={vahide} alt="Vahide Segah Üney" className={style.studentImg} />
+                <h3>Vahide Segah Üney</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/vahidesegah" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/vahidesegahuney/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Zeynep Kılıç" className={style.studentImg} />
-                <h3>Zeynep Kılıç</h3>
+                <img src={sebnem} alt="Şebnem Çetin" className={style.studentImg} />
+                <h3>Şebnem Çetin</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/Shabb007" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="https://www.linkedin.com/in/sebnem-cetin-24b5a235/" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
               <div className={style.studentCard}>
-                <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Zeynep Kılıç" className={style.studentImg} />
-                <h3>Zeynep Kılıç</h3>
+                <img src={ferhat} alt="Ferhat İpek" className={style.studentImg} />
+                <h3>Ferhat İpek</h3>
                 <div className={style.icons}>
-                  <a href="https://github.com/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
-                  <a href="https://linkedin.com/in/zeynepkilic" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
+                  <a href="https://github.com/ferhatipek" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+                  <a href="#" target="_blank" rel="noopener noreferrer"><FaLinkedin /></a>
                 </div>
               </div>
             </div>
