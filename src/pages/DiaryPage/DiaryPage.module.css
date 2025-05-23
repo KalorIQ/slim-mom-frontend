@@ -38,6 +38,44 @@
   cursor: pointer;
 }
 
+.blockMessageWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 400px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.blockMessageBox {
+  background: #fff7f0;
+  border: 2px solid #fc842d;
+  border-radius: 18px;
+  box-shadow: 0 6px 24px rgba(252, 131, 45, 0.12);
+  padding: 48px 36px;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.blockMessageTitle {
+  font-size: 2.1rem;
+  color: #fc842d;
+  font-weight: 800;
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+  font-family: 'Segoe UI', Verdana, sans-serif;
+}
+
+.blockMessageText {
+  font-size: 1.15rem;
+  color: #333;
+  font-weight: 500;
+  line-height: 1.6;
+  font-family: 'Segoe UI', Verdana, sans-serif;
+}
+
 /* Add Product Form */
 .addProductForm {
   display: flex;
@@ -325,3 +363,4 @@
     margin-bottom: 8px;
   }
 }
+

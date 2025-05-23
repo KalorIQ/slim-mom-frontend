@@ -11,6 +11,7 @@ import Background from "../Background/Background.jsx";
 import Flowing from "../FlowingMenu/Flowing.jsx";
 import Loader from "../Loader/Loader.jsx";
 
+
 function App() {
   return (
     <div className="App">

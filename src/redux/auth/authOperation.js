@@ -1,20 +1,26 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+// Access token'ı localStorage'a kaydetmek için yardımcı fonksiyon
+const setAccessToken = (token) => {
+  localStorage.setItem("accessToken", token);
+};
 
-const instance = axios.create({
-  baseURL: BASE_URL,
-});
+const getAxiosInstance = async () => {
+  // Dinamik import ile döngüsel bağımlılık önlenir
+  const module = await import("../../utils/axiosİnstance.js");
+  return module.default;
+};
 
 const loginUser = createAsyncThunk(
   "api/auth/login",
   async (userData, thunkAPI) => {
     try {
-      const response = await instance.post("api/auth/login", userData);
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post("api/auth/login", userData);
+      setAccessToken(response.data.accessToken);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
 );
@@ -23,45 +29,49 @@ const registerUser = createAsyncThunk(
   "api/auth/register",
   async (userData, thunkAPI) => {
     try {
-      const response = await instance.post("api/auth/register", userData);
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post("api/auth/register", userData);
+      setAccessToken(response.data.accessToken);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
 );
 
-const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
-  const state = thunkAPI.getState();
-  console.log("State:", state);
-  const token = state.auth.accessToken;
-  console.log("Token:", token);
-
-  try {
-    const response = await instance.post(
-      "api/auth/logout",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        withCredentials: true,
-      }
-    );
-    return response.data;
-  } catch (error) {
-    return thunkAPI.rejectWithValue(error.response.data);
+const logoutUser = createAsyncThunk(
+  "api/auth/logout",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = state.auth.accessToken;
+    try {
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post(
+        "api/auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
+        }
+      );
+      localStorage.removeItem("accessToken");
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
   }
-});
+);
 
 const updateUserInfo = createAsyncThunk(
   "api/user/infouser-update",
   async (userInfoData, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
-
     try {
-      const response = await instance.patch(
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.patch(
         "api/user/infouser-update",
         userInfoData,
         {
@@ -72,9 +82,28 @@ const updateUserInfo = createAsyncThunk(
       );
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data);
+      return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
 );
 
-export { loginUser, registerUser, logoutUser, updateUserInfo };
+const refreshToken = createAsyncThunk(
+  "api/auth/refresh",
+  async (_, thunkAPI) => {
+    try {
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post(
+        "api/auth/refresh",
+        {},
+        { withCredentials: true }
+      );
+      // Yeni accessToken'ı kaydet
+      setAccessToken(response.data.accessToken);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export { loginUser, registerUser, logoutUser, updateUserInfo, refreshToken };

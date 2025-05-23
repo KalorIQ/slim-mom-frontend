@@ -4,6 +4,7 @@ import {
   registerUser,
   logoutUser,
   updateUserInfo,
+  refreshToken,
 } from "./authOperation.js";
 import { toast, Bounce } from "react-toastify";
 
@@ -124,7 +125,21 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         toast.error("Failed to update user info", toastSettings.error);
-      });
+      })
+      .addCase(refreshToken.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(refreshToken.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.accessToken = action.payload.data.accessToken;
+        toast.success("Token refreshed successfully", toastSettings.success);
+      })
+      .addCase(refreshToken.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to refresh token", toastSettings.error);
+      })
   },
 });
 
