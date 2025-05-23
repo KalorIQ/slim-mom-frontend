@@ -8,41 +8,52 @@ const instance = axios.create({
     baseURL: BASE_URL,
 });
 
-const loginUser = createAsyncThunk('auth/api/login', async (userData, thunkAPI) => {
-    try{
-        const response = await instance.post('/auth/login', userData);
-        return response.data;
-    }catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+const loginUser = createAsyncThunk(
+  "api/auth/login",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await instance.post("api/auth/login", userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
-})
+  }
+);
 
-const registerUser = createAsyncThunk('auth/api/register', async (userData, thunkAPI) => {
-    try{
-        const response = await instance.post('/auth/register', userData);
-        return response.data;
-    }catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
+const registerUser = createAsyncThunk(
+  "api/auth/register",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await instance.post("api/auth/register", userData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.data);
     }
-})
+  }
+);
 
-const logoutUser = createAsyncThunk('auth/api/logout', async (_, thunkAPI) => {
-    const state = thunkAPI.getState();
-    const token = state.auth.user.accesstoken;
-    if (token) {
-        instance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-    }
-    try{
-        const response = await instance.post('/auth/logout', {},{
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
-        });
+const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
+  const state = thunkAPI.getState();
+  const token = state.auth.user.accesstoken;
+  console.log(token);
+  if (token) {
+    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  }
+  try {
+    const response = await instance.post(
+      "api/auth/logout",
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-        return response.data;
-    }catch (error) {
-        return thunkAPI.rejectWithValue(error.response.data);
-    }
-})
+    return response.data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data);
+  }
+});
 
 export { loginUser, registerUser, logoutUser };

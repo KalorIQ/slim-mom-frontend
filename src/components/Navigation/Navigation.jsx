@@ -3,14 +3,20 @@ import Logo from '../Logo/Logo.jsx';
 import {useNavigate, NavLink } from 'react-router';
 import vektor from '../../assets/svg/utils/vektor.svg';
 import { useSelector } from 'react-redux';
-import  {selectIsLoggedIn}  from '../../redux/auth/authSelectors.js';
+import  {selectIsLoggedIn, selectUserName }  from '../../redux/auth/authSelectors.js';
+import { logoutUser } from '../../redux/auth/authOperation.js';
+import { useDispatch } from 'react-redux';
 
 
 const Navigation = () => {
-
+    const dispatch = useDispatch();
+    const userName = useSelector(selectUserName);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const navigate = useNavigate();
-    
+    const handleLogout = () => {
+        dispatch(logoutUser());
+        navigate('/');
+    };
     return (
         <header className={style.header}>
             <div className={style.leftSection}>
@@ -35,8 +41,8 @@ const Navigation = () => {
             
             {isLoggedIn && (
                 <div className={style.userInfo}>
-                    <p className={style.userName}>user</p>
-                    <button onClick={() => navigate('/')} className={style.logout}>Logout</button>
+                    <p className={style.userName}>{userName}</p>
+                    <button onClick={handleLogout} className={style.logout}>Logout</button>
                 </div>
             )}
         </header>

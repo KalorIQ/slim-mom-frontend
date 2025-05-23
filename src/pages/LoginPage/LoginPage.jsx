@@ -13,6 +13,7 @@ const LoginPage = () => {
   };
 
   const handleLogin = (values) => {
+    navigate('/diary');
     const { email, password } = values;
     dispatch(loginUser({ email, password }));
   };
