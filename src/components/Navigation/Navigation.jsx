@@ -13,9 +13,15 @@ const Navigation = () => {
     const userName = useSelector(selectUserName);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const navigate = useNavigate();
+
     const handleLogout = () => {
-        dispatch(logoutUser());
-        navigate('/');
+        console.log('Logout button clicked');
+        dispatch(logoutUser())
+            .unwrap()
+            .then(() => {
+                navigate('/');
+            });
+            console.log('Logout function called');
     };
     return (
         <header className={style.header}>

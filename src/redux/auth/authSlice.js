@@ -32,15 +32,15 @@ const toastSettings = {
 };
 
 const initialState = {
-    user: {
-        name: null,
-        email: null,
-        accesstoken: null,
-    },
-    isLoggedIn: false,
-    isLoading: false,
-    error: null,
-}
+  user: {
+    name: null,
+    email: null,
+    accessToken: null,
+  },
+  isLoggedIn: false,
+  isLoading: false,
+  error: null,
+};
 
 const authSlice = createSlice({
     name:'auth',
@@ -53,7 +53,7 @@ const authSlice = createSlice({
         })
         .addCase(loginUser.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.user = action.payload;
+            state.user = action.payload.data;
             state.isLoggedIn = true;
             toast.success('Login successful', toastSettings.success);
         })
@@ -68,7 +68,7 @@ const authSlice = createSlice({
         })
         .addCase(registerUser.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.user = action.payload;
+            state.user = action.payload.data;
             state.isLoggedIn = true;
             toast.success('Registration successful', toastSettings.success);
         })

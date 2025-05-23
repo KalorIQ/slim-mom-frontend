@@ -34,11 +34,10 @@ const registerUser = createAsyncThunk(
 
 const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
   const state = thunkAPI.getState();
-  const token = state.auth.user.accesstoken;
-  console.log(token);
-  if (token) {
-    instance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-  }
+  console.log("State:", state);
+  const token = state.user.accessToken;
+  console.log("Token:", token);
+
   try {
     const response = await instance.post(
       "api/auth/logout",
@@ -47,9 +46,9 @@ const logoutUser = createAsyncThunk("api/auth/logout", async (_, thunkAPI) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        withCredentials: true,
       }
     );
-
     return response.data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
