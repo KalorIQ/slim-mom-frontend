@@ -1,0 +1,295 @@
+.loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: transparent;
+    perspective: 1000px;
+}
+
+.loader-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: float 6s ease-in-out infinite;
+}
+
+.loader-svg {
+    width: 200px;
+    height: 200px;
+    filter: drop-shadow(0 0 10px rgba(92, 219, 149, 0.3));
+    transform-style: preserve-3d;
+}
+
+/* Outer ring rotation */
+.outer-ring {
+    animation: rotate 10s linear infinite;
+    transform-origin: center;
+    stroke-linecap: round;
+}
+
+/* Middle ring counter-rotation */
+.middle-ring {
+    animation: rotate-reverse 15s linear infinite;
+    transform-origin: center;
+    stroke-linecap: round;
+}
+
+/* Inner pulsing circle */
+.pulse {
+    animation: pulse-animation 3s infinite ease-in-out;
+    filter: drop-shadow(0 0 5px rgba(237, 245, 225, 0.7));
+}
+
+/* Orbital particles */
+.particle {
+    animation-duration: 5s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+.particle-1 {
+    animation-name: orbit1;
+}
+
+.particle-2 {
+    animation-name: orbit2;
+    animation-delay: 0.5s;
+}
+
+.particle-3 {
+    animation-name: orbit3;
+    animation-delay: 1s;
+}
+
+/* Fire icon animation */
+.fire-icon {
+    animation: flicker 2s infinite alternate;
+    transform-origin: center bottom;
+}
+
+.flame-highlight {
+    animation: glow 1.5s infinite alternate;
+}
+
+/* Heartbeat animation */
+.heartbeat-line {
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: heartbeat-animation 3s ease-in-out infinite;
+}
+
+.beat-highlight {
+    animation: beat-pulse 3s infinite;
+}
+
+.beat-highlight.delay-1 {
+    animation-delay: 0.15s;
+}
+
+/* Loading text animation */
+.loader-text {
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    color: #5CDB95;
+    letter-spacing: 3px;
+}
+
+.loader-text span {
+    display: inline-block;
+    animation: text-wave 2s infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.loader-text span:nth-child(1) {
+    animation-delay: 0.0s;
+}
+
+.loader-text span:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.loader-text span:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.loader-text span:nth-child(4) {
+    animation-delay: 0.3s;
+}
+
+.loader-text span:nth-child(5) {
+    animation-delay: 0.4s;
+}
+
+.loader-text span:nth-child(6) {
+    animation-delay: 0.5s;
+}
+
+.loader-text span:nth-child(7) {
+    animation-delay: 0.6s;
+}
+
+/* Keyframes definitions */
+@keyframes pulse-animation {
+    0% {
+        r: 30;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px rgba(237, 245, 225, 0.5));
+    }
+
+    50% {
+        r: 38;
+        opacity: 1;
+        filter: drop-shadow(0 0 15px rgba(237, 245, 225, 0.8));
+    }
+
+    100% {
+        r: 30;
+        opacity: 0.8;
+        filter: drop-shadow(0 0 5px rgba(237, 245, 225, 0.5));
+    }
+}
+
+@keyframes heartbeat-animation {
+    0% {
+        stroke-dashoffset: 400;
+    }
+
+    40% {
+        stroke-dashoffset: 0;
+    }
+
+    60% {
+        stroke-dashoffset: 0;
+    }
+
+    100% {
+        stroke-dashoffset: -400;
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotate-reverse {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes orbit1 {
+    0% {
+        transform: rotate(0deg) translateX(90px) rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg) translateX(90px) rotate(-360deg);
+    }
+}
+
+@keyframes orbit2 {
+    0% {
+        transform: rotate(120deg) translateX(70px) rotate(-120deg);
+    }
+
+    100% {
+        transform: rotate(480deg) translateX(70px) rotate(-480deg);
+    }
+}
+
+@keyframes orbit3 {
+    0% {
+        transform: rotate(240deg) translateX(80px) rotate(-240deg);
+    }
+
+    100% {
+        transform: rotate(600deg) translateX(80px) rotate(-600deg);
+    }
+}
+
+@keyframes flicker {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: brightness(1);
+    }
+
+    25% {
+        transform: scale(1.05) skewX(1deg);
+        filter: brightness(1.2);
+    }
+
+    50% {
+        transform: scale(0.95);
+        filter: brightness(0.9);
+    }
+
+    75% {
+        transform: scale(1.02) skewX(-1deg);
+        filter: brightness(1.1);
+    }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.4;
+    }
+
+    100% {
+        opacity: 0.9;
+    }
+}
+
+@keyframes beat-pulse {
+
+    0%,
+    100% {
+        r: 0;
+        opacity: 0;
+    }
+
+    40%,
+    60% {
+        r: 5;
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes text-wave {
+
+    0%,
+    100% {
+        transform: translateY(0);
+        color: #5CDB95;
+    }
+
+    50% {
+        transform: translateY(-5px);
+        color: #8EE4AF;
+    } }

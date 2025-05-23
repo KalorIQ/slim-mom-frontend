@@ -7,13 +7,23 @@
 
 }
 
-.leafdown {
+.leafAlt {
     display: none;
 }
 
 
 @media screen and (min-width: 768px) {
 
+     .leafAlt{
+    display: block;
+    z-index: -3333;
+    position: absolute; 
+    left: 850px; 
+    top: -14vh;
+    width: 800px;
+
+    animation: pulseScale  ease-in-out 4s;
+  } 
 
     .strawberry {
         display: block;
@@ -21,6 +31,7 @@
         right: 50px;
         bottom: 200px;
         z-index: -9998;
+        animation: pulseScale  ease-in-out 4s;
     }
 
     .banana {
@@ -53,7 +64,7 @@
         z-index: -12;
         transform: rotate(90deg);
         width: 800px;
-
+        animation: pulseScale  ease-in-out 4s;
     }
 }
 
@@ -70,11 +81,13 @@
         right: 10px;
         width: 286px;
         height: 253px;
+        animation: pulseScale  ease-in-out 4s;
     }
 
     .backshadow {
-        top: 180px;
+        top: 20px;
         right: -30px;
+        width: 750px;
     }
 
     .banana {
@@ -92,9 +105,36 @@
         width: 746px;
         transform: rotate(360deg);
         z-index: -12;
+        animation: pulseScale  ease-in-out 4s;
 
     }
 
 
 
+}
+
+@keyframes pulseScale {
+    0% {
+        transform: scale(0.75);
+    }
+
+    20% {
+        transform: scale(1.1);
+    }
+
+    40% {
+        transform: scale(0.75);
+    }
+
+    60% {
+        transform: scale(1.1);
+    }
+
+    80% {
+        transform: scale(0.75);
+    }
+
+    100% {
+        transform: scale(0.75);
+    }
 }

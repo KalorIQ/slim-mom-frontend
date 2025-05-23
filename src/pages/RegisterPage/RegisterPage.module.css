@@ -1,15 +1,16 @@
-.container{
+.container {
     width: 100%;
     height: auto;
     margin-top: 120px;
     margin-left: 32px;
 }
-.form{
-    position: relative;
-    display:flex;
+
+.form {
+    display: flex;
     flex-direction: column;
     gap: 32px;
 }
+
 .inputContainer {
     display: flex;
     flex-direction: column;
@@ -17,7 +18,8 @@
     width: 100%;
     height: 100%;
 }
-.title{
+
+.title {
     font-family: var(--font-family);
     font-weight: 700;
     font-size: 14px;
@@ -25,6 +27,7 @@
     text-transform: uppercase;
     color: #fc842d;
 }
+
 .input {
     width: 240px;
     height: auto;
@@ -53,12 +56,12 @@
     margin-bottom: 20px;
 }
 
-.btnContainer{
+.btnContainer {
     display: flex;
     gap: 32px;
 }
 
-.logInButton{
+.registerButton {
     width: 240px;
     height: 40px;
     background-color: #FC842D;
@@ -72,19 +75,23 @@
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
     transition: all 0.3s ease;
 }
-.logInButton:hover{
+
+.registerButton:hover {
     background-color: #FF6B00;
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
 }
-.logInButton:active{
+
+.registerButton:active {
     background-color: #FF6B00;
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
 }
-.logInButton:focus{
+
+.registerButton:focus {
     outline: none;
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
 }
-.registerButton{
+
+.logInButton {
     width: 240px;
     height: 40px;
     background-color: #FFFFFF;
@@ -97,21 +104,24 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid #fc842d;
-    margin-bottom:34px;
 }
-.registerButton:hover{
+
+.logInButton:hover {
     background-color: #FC842D;
     color: #FFFFFF;
 }
-.registerButton:active{
+
+.logInButton:active {
     background-color: #FC842D;
     color: #FFFFFF;
 }
-.registerButton:focus{
+
+.logInButton:focus {
     outline: none;
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
 }
-.btnContainer:hover .registerButton:hover~.logInButton {
+
+.btnContainer:hover .logInButton:hover~.logInButton {
     background-color: #FFFFFF;
     color: #FC842D;
     border: 2px solid #fc842d;
@@ -119,48 +129,9 @@
 }
 
 /* When register button is focused, change login button style */
-.btnContainer:focus-within .registerButton:focus~.logInButton {
+.btnContainer:focus-within .logInButton:focus~.logInButton {
     background-color: #FFFFFF;
     color: #FC842D;
     border: 2px solid #fc842d;
-    box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451); }
-
-    .forgotPasswordContainer{
-        position: absolute;
-        top: 100px;
-        left:390px;
-        margin-top: 120px;
-    }
-
-        .forgotPasswordLink {
-            position: relative;
-            display: inline-block;
-            font-family: var(--font-family);
-            font-style: italic;
-            font-weight: 500;
-            font-size: 10px;
-            line-height: 100%;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: #FC842D;
-            text-decoration: none;
-            overflow: hidden;
-            /* çizginin dışarı taşmasını engeller */
-        }
-    
-        .forgotPasswordLink::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 1px;
-            width: 100%;
-            background-color: #FC842D;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-        }
-    
-        .forgotPasswordLink:hover::after,
-        .forgotPasswordLink:focus::after {
-            transform: translateX(0%);
-        }
+    box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
+}

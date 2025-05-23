@@ -32,7 +32,7 @@
     white-space: nowrap;
     font-weight: 600;
     color: #000000;
-    font-size: 4vh;
+    font-size: 3.5vh;
 }
 
 .menu__item-link:hover {
@@ -78,7 +78,7 @@
     white-space: nowrap;
     text-transform: uppercase;
     font-weight: 400;
-    font-size: 4vh;
+    font-size: 3vh;
     line-height: 1.2;
     padding: 1vh 1vw 0;
 }
@@ -104,4 +104,5 @@
 
     to {
         transform: translateX(-50%);
-    } }
+    }
+}
