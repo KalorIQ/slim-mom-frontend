@@ -4,6 +4,8 @@
     align-items: flex-end;
     margin: 80px 16px;
     margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
 }
 
 .leftSection {
@@ -62,6 +64,7 @@
     letter-spacing: 0.04em;
     text-align: right;
     color: #212121;
+    
 }
 
 .logout {

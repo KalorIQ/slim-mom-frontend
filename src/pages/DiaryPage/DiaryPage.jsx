@@ -27,17 +27,14 @@ const DiaryPage = () => {
   const dispatch = useDispatch();
   const diaryEntries = useSelector(selectProcessedDiaryEntries);
   const currentDate = useSelector(selectCurrentDate);
-
   const searchResults = useSelector(selectSearchResults);
   const isLoading = useSelector(selectProductsLoading);
   const user = useSelector(selectUser);
 
   const userInfo = user.infouser;
-
   const showModal = userInfo.currentWeight === null || userInfo.height === null || userInfo.age === null || userInfo.desireWeight === null || userInfo.bloodType === null;
   const [showCalculateModal, setShowCalculateModal] = useState(showModal);
   const [showBlockMessage, setShowBlockMessage] = useState(false);
-    
   
   const [productName, setProductName] = useState("");
   const [grams, setGrams] = useState("");
@@ -45,7 +42,6 @@ const DiaryPage = () => {
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchTimeoutId, setSearchTimeoutId] = useState(null);
 
-  // Load diary data when component mounts or date changes
   useEffect(() => {
     if (currentDate) {
       dispatch(getDiaryEntries(currentDate));
@@ -69,7 +65,6 @@ const DiaryPage = () => {
       };
 
       dispatch(addProduct(productData)).then(() => {
-        // Refresh diary entries and daily calories after adding
         dispatch(getDiaryEntries(currentDate));
         dispatch(getDailyCalories(currentDate));
       });
@@ -81,12 +76,9 @@ const DiaryPage = () => {
   };
 
   const handleRemoveItem = (entryId) => {
-    dispatch(removeProduct({ productId: entryId, date: currentDate })).then(
-      () => {
-        // Refresh daily calories after removing
-        dispatch(getDailyCalories(currentDate));
-      }
-    );
+    dispatch(removeProduct({ productId: entryId, date: currentDate })).then(() => {
+      dispatch(getDailyCalories(currentDate));
+    });
   };
 
   const handleProductNameChange = (e) => {
@@ -97,12 +89,10 @@ const DiaryPage = () => {
       setSelectedProduct(null);
     }
 
-    // Clear previous timeout
     if (searchTimeoutId) {
       clearTimeout(searchTimeoutId);
     }
 
-    // Start searching when user types at least 3 letters
     if (value.length >= 3 && !selectedProduct) {
       const timeoutId = setTimeout(() => {
         dispatch(searchProducts(value));
@@ -118,98 +108,108 @@ const DiaryPage = () => {
   const displayDate = new Date(currentDate).toLocaleDateString("en-GB");
 
   return (
-    <div className={styles.diaryPage}>
-      <div className={styles.diary}>
-        {showCalculateModal ? (
-          <ModalWrapper isOpen={showCalculateModal} onClose={() => {
-            setShowCalculateModal(false);
-            setShowBlockMessage(true);
-          }}>
-            <CalculateModal onClose={() => {
+    <div className={styles.diaryPageContainer}>
+      <div className={styles.diaryPage}>
+        <div className={styles.leftSection}>
+          {showCalculateModal ? (
+            <ModalWrapper isOpen={showCalculateModal} onClose={() => {
               setShowCalculateModal(false);
               setShowBlockMessage(true);
-            }} />
-          </ModalWrapper>
-        ) : showBlockMessage ? (
-          <div className={styles.blockMessageWrapper}>
-            <div className={styles.blockMessageBox}>
-              <h2 className={styles.blockMessageTitle}>We're Sorry!</h2>
-              <p className={styles.blockMessageText}>
-              To proceed with adding products, please calculate your daily calorie needs first. This helps us personalize your experience.
-              </p>
+            }}>
+              <CalculateModal onClose={() => {
+                setShowCalculateModal(false);
+                setShowBlockMessage(true);
+              }} />
+            </ModalWrapper>
+          ) : showBlockMessage ? (
+            <div className={styles.blockMessageWrapper}>
+              <div className={styles.blockMessageBox}>
+                <h2 className={styles.blockMessageTitle}>We're Sorry!</h2>
+                <p className={styles.blockMessageText}>
+                  To proceed with adding products, please calculate your daily calorie needs first. This helps us personalize your experience.
+                </p>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className={styles.leftSection}>
-            <div className={styles.dateSection}>
-              <h1 className={styles.dateTitle}>{displayDate}</h1>
-              <BsCalendar4 className={styles.calendarIcon} />
-            </div>
+          ) : (
+            <div className={styles.diaryContent}>
+              <div className={styles.dateSection}>
+                <h1 className={styles.dateTitle}>{displayDate}</h1>
+                <BsCalendar4 className={styles.calendarIcon} />
+              </div>
 
-            <div className={styles.addProductForm}>
-              <div className={styles.productInputContainer}>
+              <div className={styles.addProductForm}>
+                <div className={styles.productInputContainer}>
+                  <input
+                    type="text"
+                    placeholder="Enter product name"
+                    value={productName}
+                    onChange={handleProductNameChange}
+                    className={styles.productInput}
+                    disabled={isLoading}
+                  />
+                  {showSearchResults && searchResults.length > 0 && (
+                    <div className={styles.searchResults}>
+                      {searchResults.slice(0, 5).map((product) => (
+                        <div
+                          key={product._id}
+                          className={styles.searchResultItem}
+                          onClick={() => handleProductSelect(product)}
+                        >
+                          <span className={styles.productTitle}>{product.title}</span>
+                          <span className={styles.productCalories}>
+                            {product.calories} kcal/100g
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
                 <input
-                  type="text"
-                  placeholder="Enter product name"
-                  value={productName}
-                  onChange={handleProductNameChange}
-                  className={styles.productInput}
+                  type="number"
+                  placeholder="Grams"
+                  value={grams}
+                  onChange={(e) => setGrams(e.target.value)}
+                  className={styles.gramsInput}
                   disabled={isLoading}
                 />
-                {showSearchResults && searchResults.length > 0 && (
-                  <div className={styles.searchResults}>
-                    {searchResults.slice(0, 5).map((product) => (
-                      <div
-                        key={product._id}
-                        className={styles.searchResultItem}
-                        onClick={() => handleProductSelect(product)}
-                      >
-                        <span className={styles.productTitle}>{product.title}</span>
-                        <span className={styles.productCalories}>
-                          {product.calories} kcal/100g
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                )}
+                <button
+                  onClick={handleAddProduct}
+                  className={styles.addButton}
+                  disabled={isLoading || !selectedProduct || !grams}
+                >
+                  <IoMdAdd />
+                </button>
               </div>
-              <input
-                type="number"
-                placeholder="Grams"
-                value={grams}
-                onChange={(e) => setGrams(e.target.value)}
-                className={styles.gramsInput}
-                disabled={isLoading}
-              />
-              <button
-                onClick={handleAddProduct}
-                className={styles.addButton}
-                disabled={isLoading || !selectedProduct || !grams}
-              >
-                <IoMdAdd />
-              </button>
-            </div>
 
-            <div className={styles.foodList}>
-              {diaryEntries.map((item) => (
-                <div key={item._id} className={styles.foodItem}>
-                  <span className={styles.foodName}>{item.name}</span>
-                  <span className={styles.foodGrams}>{item.grams} g</span>
-                  <span className={styles.foodCalories}>{item.calories} kcal</span>
-                  <button
-                    onClick={() => handleRemoveItem(item._id)}
-                    className={styles.removeButton}
-                    disabled={isLoading}
-                  >
-                    <RiDeleteBin6Line />
-                  </button>
+              {diaryEntries.length > 0 ? (
+                <div className={styles.foodList}>
+                  {diaryEntries.map((item) => (
+                    <div key={item._id} className={styles.foodItem}>
+                      <span className={styles.foodName}>{item.name}</span>
+                      <span className={styles.foodGrams}>{item.grams} g</span>
+                      <span className={styles.foodCalories}>{item.calories} kcal</span>
+                      <button
+                        onClick={() => handleRemoveItem(item._id)}
+                        className={styles.removeButton}
+                        aria-label="Remove item"
+                      >
+                        <RiDeleteBin6Line />
+                      </button>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              ) : (
+                <p className={styles.noEntriesMessage}>
+                  Your food diary is empty. Add your first product!
+                </p>
+              )}
             </div>
-          </div>
-        )}
+          )}
+        </div>
+        <div className={styles.rightSection}>
+          <Summary />
+        </div>
       </div>
-      <Summary />
     </div>
   );
 };

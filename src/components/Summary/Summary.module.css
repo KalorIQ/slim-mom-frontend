@@ -1,95 +1,186 @@
-/* Modern, sade ve okunaklı bir summary kutusu için CSS */
-.background{
-    background: #f0f1f3;
-    padding: 20px;
-    margin-bottom: 20px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 850px;
-    min-height: 100%;
-    height: 120%;
-    z-index: -9999;
-}
-.summaryRight {
+.summary {
   display: flex;
-flex-direction: column;
+  flex-direction: column;
+  gap: 40px;
+  height: 100%;
+  padding: 80px 90px 60px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 0;
   width: 100%;
-  max-width: 350px;
-  border-radius: 18px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.697);
-  padding: 36px 32px 32px 32px;
-  min-height: 420px;
-  margin-left:auto;
-  margin-right: 0;
+  max-width: 517px;
+  margin: 0;
+  margin-left: auto;
+  background-color: transparent;
 }
 
-.summarySection {
-  width: 100%;
-  margin-bottom: 32px;
-
+.summary::before {
+  content: '';
+  position: absolute;
+  right: -150px;
+  top: 50%;
+  width: 602px;
+  height: 531px;
+  background-image: url('../../assets/images/leaves-desktop.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: -1;
+  transform: translateY(-50%);
 }
 
-.summaryTitle {
-  font-size: 1.1rem;
+.summaryContainer,
+.summaryContainerAlt {
+  border-radius: 12px;
+  padding: 0;
+  box-shadow: none;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 0;
+  background-color: transparent;
+}
+
+/* Summary Başlığı */
+.title {
+  font-family: var(--font-family);
   font-weight: 700;
-  color: #222;
-  margin-bottom: 18px;
-  letter-spacing: 0.01em;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  margin-bottom: 40px;
+  color: #212121;
+  text-transform: uppercase;
+  margin-top: 0;
 }
 
-.summaryItem {
+/* Kalori Metinleri */
+.textContainer {
+  text-align: left;
+  margin-bottom: 60px;
+}
+
+.text {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
-  margin-bottom: 10px;
+  color: #9B9FAA;
+  margin-bottom: 20px;
 }
 
-.summaryLabel {
-  color: #888;
-  font-size: 1rem;
-  font-weight: 500;
+.text:last-child {
+  margin-bottom: 0;
 }
 
-.summaryValue {
-  color: #222;
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+.text span {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  text-align: right;
+  color: #9B9FAA;
+  min-width: 80px;
+  margin-left: 40px;
 }
 
-.notRecommendedSection {
-  width: 100%;
-  margin-top: 60px;
-}
-
+/* Tavsiye Edilmeyen Yiyecekler Başlığı */
 .notRecommendedTitle {
-  font-size: 1rem;
+  font-family: var(--font-family);
   font-weight: 700;
-  color: #222;
-  margin-bottom: 10px;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: #212121;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  margin-top: 0;
 }
 
+/* Tavsiye Edilmeyen Yiyecekler Listesi */
 .notRecommendedList {
   list-style: none;
   padding: 0;
   margin: 0;
+  counter-reset: item;
 }
 
 .notRecommendedItem {
-  color: #bdbdbd;
-  font-size: 1rem;
-  font-weight: 500;
-  margin-bottom: 6px;
+  color: #9B9FAA;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 20px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  counter-increment: item;
+  position: relative;
+  padding-left: 30px;
 }
 
-@media (max-width: 600px) {
-  .rightSection {
-    padding: 18px 8px 18px 8px;
-    max-width: 98vw;
-    min-height: unset;
+.notRecommendedItem::before {
+  content: counter(item) ".";
+  position: absolute;
+  left: 0;
+  color: #9B9FAA;
+  font-weight: 400;
+}
+
+.notRecommendedItem:last-child {
+  margin-bottom: 0;
+}
+
+/* Liste boşken gösterilecek mesaj */
+.noFoodsMessage {
+  color: #9B9FAA;
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 400;
+  font-style: italic;
+  margin: 0;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+}
+
+/* Responsive Düzenlemeler */
+@media screen and (max-width: 1279px) {
+  .summary {
+    padding: 40px 32px;
+    gap: 40px;
   }
-  .summaryTitle {
-    font-size: 1rem;
+
+  .summary::before {
+    display: none;
+  }
+
+  .textContainer {
+    margin-bottom: 40px;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .summary {
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  .summaryContainer,
+  .summaryContainerAlt {
+    flex: 1;
+    max-width: 400px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .summary {
+    padding: 40px 20px;
+  }
+
+  .textContainer {
+    margin-bottom: 32px;
   }
 }

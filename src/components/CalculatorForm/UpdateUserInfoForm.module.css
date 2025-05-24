@@ -14,19 +14,34 @@
 .container {
   width: 100%;
   height: auto;
-  margin-top: 120px;
-  margin-left: 32px;
   min-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 32px;
+}
+
+/* Form styling */
+.form {
+  margin-top: 0;
+  width: 100%;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
 
-/* Form styling */
-.form {
-  margin-top: 68px;
-  width: 100%;
-  max-width: 600px;
+/* Title styling */
+.title {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  margin-bottom: 40px;
+  color: #212121;
+  text-transform: uppercase;
+  margin-top: 40px;
 }
 
 /* Input container layout */
@@ -68,8 +83,6 @@
   border-bottom-color: #fc842d;
   color: #212121;
 }
-
-
 
 .input::placeholder {
   font-family: Verdana, sans-serif;
@@ -179,11 +192,11 @@
   cursor: pointer;
   box-shadow: 0px 6px 20px rgba(252, 132, 45, 0.3);
   transition: all 0.3s ease;
-  margin-left: 320px;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   position: relative;
   overflow: hidden;
+  margin-left: 0;
 }
 
 .submitButton:hover {
@@ -352,8 +365,10 @@
 /* Responsive design */
 @media (max-width: 768px) {
   .container {
-    margin-left: 16px;
-    margin-top: 80px;
+    margin-top: 0;
+    margin-left: 0;
+    padding: 0 20px;
+    align-items: flex-start;
   }
 
   .inputcontainer {
@@ -363,36 +378,27 @@
 
   .input {
     width: 100%;
-    max-width: 280px;
   }
 
   .bloodType {
     width: 100%;
-    max-width: 280px;
   }
 
   .radioGroup {
-    flex-wrap: wrap;
-    gap: 16px;
+    justify-content: center;
   }
 
   .submitButton {
-    width: 100%;
-    max-width: 280px;
     margin-left: 0;
-    margin-top: 20px;
-  }
-
-  .modalContent {
-    padding: 24px;
-    margin: 16px;
+    width: 100%;
   }
 }
 
 @media (max-width: 480px) {
   .container {
-    margin-left: 8px;
-    margin-top: 60px;
+    margin-left: 0;
+    margin-top: 0;
+    padding: 0 16px;
   }
 
   .modalContent {

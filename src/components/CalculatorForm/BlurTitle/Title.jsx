@@ -12,14 +12,16 @@ const Title = () => {
       animateBy="words"
       direction="top"
       onAnimationComplete={handleAnimationComplete}
-      className="font-bold mb-8" 
+      className="font-bold" 
       style={{
         fontFamily: 'Verdana, sans-serif',
         fontSize: '34px',
         lineHeight: '140%',
         fontWeight: 700,
         color: '#212121',
-        maxWidth: '600px'
+        maxWidth: '600px',
+        marginTop: '0',
+        marginBottom: '40px'
       }}
     />
   );
