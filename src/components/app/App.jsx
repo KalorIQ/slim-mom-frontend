@@ -10,7 +10,7 @@ import CalculatorPage from "../../pages/CalculatorPage/CalculatorPage.jsx";
 import Background from "../Background/Background.jsx";
 import Flowing from "../FlowingMenu/Flowing.jsx";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "../../context/ThemeContext";
 import "../../styles/theme.css";
 
