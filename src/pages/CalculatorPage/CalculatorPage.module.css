@@ -3,17 +3,18 @@
   align-items: flex-start;
   position: relative;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
   max-width: 1280px;
   margin: 0;
   font-family: Verdana, sans-serif;
   justify-content: space-between;
+  color: var(--text-primary);
 }
 
 .container {
   flex: 1;
   padding: 80px 0 60px 16px;
-  background: white;
+  background: var(--bg-primary);
   min-height: 100vh;
   max-width: 763px;
   display: flex;
@@ -29,6 +30,7 @@
   z-index: 1;
   padding-right: 32px;
   margin-left: 16px;
+  color: var(--text-primary);
 }
 
 .rightSection {
@@ -40,7 +42,7 @@
   display: flex;
   justify-content: center;
   margin-right: -100px;
-  background-color: transparent;
+  background-color: var(--bg-secondary);
 }
 
 /* Gri arka plan */
@@ -51,7 +53,7 @@
   top: 0;
   width: 700px;
   height: 100vh;
-  background-color: #F0F1F3;
+  background-color: var(--bg-secondary);
   z-index: 0;
   transform: translateX(100px);
 }

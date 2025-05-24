@@ -18,7 +18,7 @@ const Title = () => {
         fontSize: '34px',
         lineHeight: '140%',
         fontWeight: 700,
-        color: '#212121',
+        color: 'var(--text-primary)',
         maxWidth: '600px',
         marginTop: '0',
         marginBottom: '40px'

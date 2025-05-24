@@ -1,0 +1,91 @@
+.flowingMenuContainer {
+    height: 200px;
+    position: relative;
+    margin: 40px 0;
+}
+
+.backToTop {
+    position: fixed;
+    left: 20px;
+    bottom: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    z-index: 99;
+}
+
+.backToTopText {
+    font-family: var(--font-family);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+    margin: 0;
+    transition: color 0.3s ease;
+    background-color: var(--bg-primary);
+    padding: 4px 8px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+:global([data-theme="dark"]) .backToTopText {
+    color: #ffffff;
+}
+
+:global([data-theme="light"]) .backToTopText {
+    color: #212121;
+}
+
+.backToTopButton {
+    background: var(--button-primary-bg);
+    border: none;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.backToTopButton:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    background: var(--button-primary-hover);
+}
+
+.backToTopIcon {
+    width: 20px;
+    height: 20px;
+    fill: white;
+    transition: fill 0.3s ease;
+}
+
+@media screen and (max-width: 768px) {
+    .backToTop {
+        left: 16px;
+        bottom: 32px;
+    }
+
+    .backToTopButton {
+        padding: 10px;
+    }
+
+    .backToTopIcon {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .backToTop {
+        left: 12px;
+        bottom: 24px;
+    }
+
+    .flowingMenuContainer {
+        margin: 24px 0;
+    }
+} 

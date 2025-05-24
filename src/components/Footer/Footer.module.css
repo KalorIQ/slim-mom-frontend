@@ -1,5 +1,5 @@
 .footer {
-    background-color: #f0f1f3;
+    background-color: var(--bg-secondary);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -38,7 +38,7 @@
 
 .footerText {
     font-size: 18px;
-    color: #9b9faa;
+    color: var(--text-secondary);
     font-family: var(--font-family);
     font-weight: 900;
     margin: 0;
@@ -47,7 +47,7 @@
 .modalButton {
     background: none;
     border: none;
-    color: #fc842d;
+    color: var(--button-primary-bg);
     font-weight: bold;
     cursor: pointer;
     transition: color 0.3s;
@@ -56,7 +56,7 @@
 }
 
 .modalButton:hover {
-    color: #ff6b00;
+    color: var(--button-primary-hover);
     text-decoration: underline;
 }
 
@@ -72,12 +72,12 @@
 }
 
 .modalContent {
-    background-color: #fff;
+    background-color: var(--bg-modal);
     border-radius: 16px;
     padding: 32px;
     max-width: 800px;
     width: 90%;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-modal);
     text-align: center;
     position: relative;
     max-height: 90vh;
@@ -86,13 +86,13 @@
 
 .modalContent h2 {
     margin-bottom: 24px;
-    background: linear-gradient(135deg, #fc842d 0%, #fce4d6 100%);
-    color: #333;
+    background: linear-gradient(135deg, var(--button-primary-bg) 0%, var(--bg-secondary) 100%);
+    color: var(--text-primary);
     font-size: 24px;
     font-family: var(--font-family);
     padding: 16px 24px;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(252, 132, 45, 0.3);
+    box-shadow: var(--shadow-button);
     display: inline-block;
     position: relative;
     z-index: 1;
@@ -111,11 +111,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #fafafa;
+    background-color: var(--bg-primary);
     border-radius: 12px;
     padding: 20px;
     width: 180px;
-    box-shadow: 0 15px 24px rgba(17, 10, 10, 0.08);
+    box-shadow: var(--shadow-dropdown);
     transition: transform 0.3s ease;
 }
 
@@ -129,14 +129,14 @@
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 12px;
-    border: 2px solid #fc842d;
-    box-shadow: 0 4px 18px rgba(217, 153, 3, 0.639);
+    border: 2px solid var(--button-primary-bg);
+    box-shadow: var(--shadow-button);
 }
 
 .studentCard h3 {
     font-size: 16px;
     margin-bottom: 8px;
-    color: #333;
+    color: var(--text-primary);
 }
 
 .icons {
@@ -146,32 +146,33 @@
 }
 
 .icons a {
-    color: #fc842d;
+    color: var(--button-primary-bg);
     font-size: 20px;
     transition: color 0.3s ease;
 }
 
 .icons a:hover {
-    color: #e06c1f;
+    color: var(--button-primary-hover);
 }
 
 .closeButton {
     margin-top: 28px;
     padding: 10px 24px;
-    background-color: #fc842d;
+    background-color: var(--button-primary-bg);
     color: white;
     border: none;
     border-radius: 8px;
     font-weight: bold;
     cursor: pointer;
-    box-shadow: 0 4px 18px rgba(217, 153, 3, 0.639);
+    box-shadow: var(--shadow-button);
     transition: background-color 0.3s ease;
 }
 
 .closeButton:hover {
-    background-color: #e06c1f;
+    background-color: var(--button-primary-hover);
 }
 
-.textWrapper{
+.textWrapper {
     margin-left: 20px;
+    color: var(--text-primary);
 }

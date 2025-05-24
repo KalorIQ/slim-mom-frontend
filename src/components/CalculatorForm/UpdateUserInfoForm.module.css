@@ -39,7 +39,7 @@
   line-height: 17px;
   letter-spacing: 0.04em;
   margin-bottom: 40px;
-  color: #212121;
+  color: var(--text-primary);
   text-transform: uppercase;
   margin-top: 40px;
 }
@@ -65,23 +65,23 @@
   height: auto;
   padding: 8px 0 20px 0;
   border: none;
-  border-bottom: 2px solid #e0e0e0;
+  border-bottom: 2px solid var(--border-color);
   appearance: none;
   margin-bottom: 32px;
-  background-color: transparent;
+  background-color: var(--bg-input);
   outline: none;
   font-family: Verdana, sans-serif;
   font-weight: 700;
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0.04em;
-  color: #333333;
+  color: var(--text-primary);
   transition: border-color 0.3s ease, color 0.3s ease;
 }
 
 .input:focus {
-  border-bottom-color: #fc842d;
-  color: #212121;
+  border-bottom-color: var(--button-primary-bg);
+  color: var(--text-primary);
 }
 
 .input::placeholder {
@@ -90,7 +90,7 @@
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0.04em;
-  color: #9b9faa;
+  color: var(--text-placeholder);
 }
 
 /* Blood type section */
@@ -249,12 +249,12 @@
 }
 
 .modalContent {
-  background: #ffffff;
+  background-color: var(--bg-modal);
   padding: 40px;
   border-radius: 20px;
   max-width: 480px;
   width: 90%;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-modal);
   text-align: center;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   animation: slideInModal 0.3s ease-out;
@@ -263,7 +263,7 @@
 
 .modalTitle {
   font-size: 24px;
-  color: #333;
+  color: var(--text-primary);
   font-weight: 600;
   margin-bottom: 20px;
   position: relative;
@@ -277,7 +277,7 @@
   transform: translateX(-50%);
   width: 60px;
   height: 3px;
-  background: linear-gradient(135deg, #fc842d, #e06e15);
+  background: linear-gradient(135deg, var(--button-primary-bg), var(--button-primary-hover));
   border-radius: 2px;
 }
 
@@ -301,7 +301,7 @@
 
 .modalClose {
   padding: 12px 30px;
-  background: linear-gradient(135deg, #fc842d, #e06e15);
+  background: var(--button-primary-bg);
   color: white;
   border: none;
   border-radius: 25px;
@@ -309,15 +309,15 @@
   font-size: 16px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(252, 132, 45, 0.3);
+  box-shadow: var(--shadow-button);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
 .modalClose:hover {
-  background: linear-gradient(135deg, #e06e15, #fc842d);
+  background: var(--button-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(252, 132, 45, 0.4);
+  box-shadow: var(--shadow-modal);
 }
 
 /* Animations */

@@ -1,0 +1,149 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--bg-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.leftSection {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.desktopNav {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.authNav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.navLink {
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.navLink:hover {
+  background-color: var(--button-primary-bg);
+  color: white;
+}
+
+.navLink[aria-current="page"] {
+  background-color: var(--button-primary-bg);
+  color: white;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.username {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.logoutButton {
+  background: transparent;
+  border: 2px solid var(--button-primary-bg);
+  color: var(--button-primary-bg);
+  padding: 8px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logoutButton:hover {
+  background-color: var(--button-primary-bg);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.mobileNav {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    padding: 12px 20px;
+  }
+
+  .leftSection {
+    gap: 32px;
+  }
+
+  .navLink {
+    font-size: 14px;
+    padding: 6px 12px;
+  }
+
+  .username {
+    font-size: 14px;
+  }
+
+  .logoutButton {
+    padding: 6px 16px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 12px 16px;
+  }
+
+  .desktopNav {
+    display: none;
+  }
+
+  .mobileNav {
+    display: block;
+  }
+
+  .rightSection {
+    gap: 16px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 8px 12px;
+  }
+
+  .leftSection {
+    gap: 16px;
+  }
+} 

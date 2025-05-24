@@ -11,6 +11,7 @@ const Background = () => {
 
   return (
     <div className={style.background}>
+      <div className={style.wave}></div>
       {showContainer && (
       <div className={style.container}>
       <img src={strawberry} alt="strawberry" width="286" height="279" className={style.strawberry} />

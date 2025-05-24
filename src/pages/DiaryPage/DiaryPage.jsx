@@ -79,9 +79,15 @@ const DiaryPage = () => {
   };
 
   const handleRemoveItem = (entryId) => {
-    dispatch(removeProduct({ productId: entryId, date: currentDate })).then(() => {
-      dispatch(getDailyCalories(currentDate));
-    });
+    dispatch(removeProduct({ productId: entryId, date: currentDate }))
+      .unwrap()
+      .then(() => {
+        dispatch(getDiaryEntries(currentDate));
+        dispatch(getDailyCalories(currentDate));
+      })
+      .catch((error) => {
+        console.error('Failed to remove product:', error);
+      });
   };
 
   const handleProductNameChange = (e) => {

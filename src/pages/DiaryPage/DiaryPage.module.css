@@ -3,23 +3,23 @@
   overflow: hidden;
   position: relative;
   min-height: 100vh;
-  background-color: #ffffff;
+  background-color: var(--bg-primary);
 }
 
 .diaryPage {
   display: flex;
   max-width: 1280px;
-  justify-content: space-between;
-  margin: 0;
+  margin: 0 auto;
   min-height: 100vh;
   font-family: Verdana, sans-serif;
   position: relative;
+  justify-content: space-between;
 }
 
 .leftSection {
   flex: 1;
   padding: 0 0 60px 16px;
-  background: white;
+  background: var(--bg-primary);
   min-height: 100vh;
   max-width: 763px;
   position: relative;
@@ -46,7 +46,7 @@
   top: 0;
   width: 700px;
   height: 100vh;
-  background-color: #F0F1F3;
+  background-color: var(--bg-secondary);
   z-index: 0;
   transform: translateX(100px);
 }
@@ -86,7 +86,7 @@
   font-size: 34px;
   font-weight: 700;
   line-height: 41px;
-  color: #212121;
+  color: var(--text-title);
   margin: 0;
   font-family: Verdana, sans-serif;
 }
@@ -98,13 +98,13 @@
 
 .calendarIcon {
   font-size: 20px;
-  color: #9B9FAA;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .calendarIcon:hover {
-  color: #212121;
+  color: var(--text-primary);
 }
 
 .calendarPopup {
@@ -112,9 +112,9 @@
   top: calc(100% + 10px);
   right: 0;
   z-index: 1000;
-  background: white;
+  background: var(--bg-calendar);
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-modal);
   padding: 8px;
   animation: fadeIn 0.2s ease-out;
 }
@@ -159,24 +159,20 @@
   }
 }
 
-/* Block Mesajı (Modal Kapandıktan Sonra) */
+/* Block Mesajı */
 .blockMessageWrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 400px;
-  /* Mesaj kutusunun dikeyde ortalanması için minimum yükseklik */
   width: 100%;
 }
 
 .blockMessageBox {
   background: #fff7f0;
-  /* Açık turuncu arka plan */
   border: 2px solid #fc842d;
-  /* Turuncu kenarlık */
   border-radius: 18px;
   box-shadow: 0 6px 24px rgba(252, 131, 45, 0.12);
-  /* Hafif gölge */
   padding: 48px 36px;
   text-align: center;
   max-width: 420px;
@@ -191,7 +187,6 @@
   margin-bottom: 18px;
   letter-spacing: 0.02em;
   font-family: 'Segoe UI', Verdana, sans-serif;
-  /* Ekran görüntüsüne benzer font */
 }
 
 .blockMessageText {
@@ -200,7 +195,6 @@
   font-weight: 500;
   line-height: 1.6;
   font-family: 'Segoe UI', Verdana, sans-serif;
-  /* Ekran görüntüsüne benzer font */
 }
 
 /* Ürün Ekleme Formu */
@@ -223,55 +217,55 @@
 .productInput {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid var(--border-color);
   padding: 8px 0;
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
   font-family: Verdana, sans-serif;
-  color: #212121;
-  background: transparent;
+  color: var(--text-input);
+  background: var(--bg-input);
   transition: border-color 0.2s ease;
 }
 
 .productInput::placeholder {
-  color: #9B9FAA;
+  color: var(--text-placeholder);
 }
 
 .productInput:focus {
   outline: none;
-  border-bottom-color: #FC842D;
+  border-bottom-color: var(--border-hover);
 }
 
 .gramsInput {
   width: 107px;
   border: none;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid var(--border-color);
   padding: 8px 0;
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
   font-family: Verdana, sans-serif;
-  color: #212121;
-  background: transparent;
+  color: var(--text-input);
+  background: var(--bg-input);
   text-align: left;
   transition: border-color 0.2s ease;
 }
 
 .gramsInput::placeholder {
-  color: #9B9FAA;
+  color: var(--text-placeholder);
 }
 
 .gramsInput:focus {
   outline: none;
-  border-bottom-color: #FC842D;
+  border-bottom-color: var(--border-hover);
 }
 
 .addButton {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background-color: #FC842D;
+  background-color: var(--button-primary-bg);
   border: none;
   color: white;
   font-size: 20px;
@@ -282,15 +276,17 @@
   transition: background-color 0.2s ease;
   padding: 0;
   flex-shrink: 0;
+  box-shadow: var(--shadow-button);
 }
 
 .addButton:hover {
-  background-color: #e87728;
+  background-color: var(--button-primary-hover);
 }
 
 .addButton:disabled {
-  background-color: #9B9FAA;
+  background-color: var(--button-disabled);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
 /* Yiyecek Listesi */
@@ -304,7 +300,7 @@
   display: flex;
   align-items: center;
   padding: 20px 0;
-  border-bottom: 1px solid #E0E0E0;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .foodItem:last-child {
@@ -316,7 +312,7 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
-  color: #212121;
+  color: var(--text-primary);
   margin-right: 48px;
   max-width: 240px;
   white-space: nowrap;
@@ -325,25 +321,23 @@
   font-family: Verdana, sans-serif;
 }
 
-.foodGrams {
-  width: 107px;
+.foodGrams, .foodCalories {
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
-  color: #9B9FAA;
-  margin-right: 32px;
+  color: var(--text-secondary);
   font-family: Verdana, sans-serif;
+}
+
+.foodGrams {
+  width: 107px;
+  margin-right: 32px;
 }
 
 .foodCalories {
   width: 60px;
-  font-size: 14px;
-  line-height: 17px;
-  letter-spacing: 0.04em;
-  color: #9B9FAA;
-  margin-right: 32px;
   text-align: right;
-  font-family: Verdana, sans-serif;
+  margin-right: 32px;
 }
 
 .removeButton {
@@ -377,16 +371,12 @@
 }
 
 /* Arka Plan Yaprakları (Sağ Bölüm) */
-/* Küçük ekranlarda yapraklar görünmeyebilir veya farklı konumlanabilir */
 @media screen and (min-width: 768px) {
   .rightSection {
     background-image: url('../../assets/svg/background/leaf.svg');
-    /* Doğru yolu kontrol edin */
     background-size: contain;
-    /* Yaprakların tamamen görünmesi için */
     background-repeat: no-repeat;
     background-position: -50px center;
-    /* Konumu ayarlamak için */
   }
 }
 
@@ -520,6 +510,7 @@
   }
 }
 
+/* Search Results Styles */
 .searchResults {
   position: absolute;
   top: calc(100% + 12px);
@@ -527,12 +518,12 @@
   min-width: 100%;
   width: max-content;
   max-width: 480px;
-  background: #FFFFFF;
+  background: var(--bg-search-result);
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: var(--shadow-dropdown);
   z-index: 100;
   overflow: hidden;
-  border: 1px solid rgba(224, 224, 224, 0.5);
+  border: 1px solid var(--border-color);
   max-height: 400px;
   overflow-y: auto;
   backdrop-filter: blur(8px);
@@ -577,9 +568,9 @@
   justify-content: space-between;
   align-items: center;
   gap: 24px;
-  border-bottom: 1px solid rgba(224, 224, 224, 0.3);
+  border-bottom: 1px solid var(--border-color);
   transition: all 0.3s ease;
-  background: #FFFFFF;
+  background: var(--bg-search-result);
   position: relative;
   overflow: hidden;
   min-width: 320px;
@@ -598,7 +589,7 @@
 }
 
 .searchResultItem:hover {
-  background-color: #F0F1F3;
+  background-color: var(--bg-secondary);
   padding-left: 28px;
 }
 
@@ -619,7 +610,7 @@
   font-size: 15px;
   line-height: 18px;
   letter-spacing: 0.04em;
-  color: #212121;
+  color: var(--text-primary);
   flex: 1;
   min-width: 200px;
   white-space: nowrap;
@@ -637,9 +628,9 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
-  color: #9B9FAA;
+  color: var(--text-secondary);
   white-space: nowrap;
-  background: rgba(240, 241, 243, 0.5);
+  background: var(--bg-secondary);
   padding: 6px 16px;
   border-radius: 50px;
   transition: all 0.2s ease;
@@ -648,8 +639,8 @@
 }
 
 .searchResultItem:hover .productCalories {
-  background: rgba(252, 132, 45, 0.1);
-  color: #FC842D;
+  background: var(--calendar-hover);
+  color: var(--button-primary-bg);
 }
 
 @media screen and (max-width: 1279px) {

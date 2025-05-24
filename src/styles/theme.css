@@ -1,0 +1,79 @@
+:root[data-theme="light"] {
+  /* Background Colors */
+  --bg-primary: #ffffff;
+  --bg-secondary: #F0F1F3;
+  --bg-input: transparent;
+  --bg-modal: #ffffff;
+  --bg-search-result: #ffffff;
+  --bg-calendar: #ffffff;
+
+  /* Text Colors */
+  --text-primary: #212121;
+  --text-secondary: #9B9FAA;
+  --text-title: #212121;
+  --text-input: #212121;
+  --text-placeholder: #9B9FAA;
+
+  /* Border Colors */
+  --border-color: #E0E0E0;
+  --border-hover: #FC842D;
+
+  /* Component Colors */
+  --button-primary-bg: #FC842D;
+  --button-primary-hover: #e87728;
+  --button-disabled: #9B9FAA;
+  --calendar-selected: #FC842D;
+  --calendar-hover: rgba(252, 132, 45, 0.2);
+  --calendar-today: rgba(252, 132, 45, 0.1);
+  
+  /* Theme Toggle */
+  --theme-toggle-bg: rgba(0, 0, 0, 0.05);
+  --theme-toggle-hover-bg: rgba(0, 0, 0, 0.1);
+  --theme-toggle-icon: #212121;
+  --theme-toggle-icon-hover: #FC842D;
+
+  /* Shadows */
+  --shadow-modal: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.12);
+  --shadow-button: 0px 6px 20px rgba(252, 132, 45, 0.3);
+}
+
+:root[data-theme="dark"] {
+  /* Background Colors */
+  --bg-primary: #242526;
+  --bg-secondary: #2F3031;
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --bg-modal: #2F3031;
+  --bg-search-result: #2F3031;
+  --bg-calendar: #2F3031;
+
+  /* Text Colors */
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff;
+  --text-title: #ffffff;
+  --text-input: #ffffff;
+  --text-placeholder: #ffffff;
+
+  /* Border Colors */
+  --border-color: #3E4042;
+  --border-hover: #FC842D;
+
+  /* Component Colors */
+  --button-primary-bg: #FC842D;
+  --button-primary-hover: #e87728;
+  --button-disabled: #4E4F50;
+  --calendar-selected: #FC842D;
+  --calendar-hover: rgba(252, 132, 45, 0.15);
+  --calendar-today: rgba(252, 132, 45, 0.1);
+
+  /* Theme Toggle */
+  --theme-toggle-bg: rgba(255, 255, 255, 0.05);
+  --theme-toggle-hover-bg: rgba(255, 255, 255, 0.1);
+  --theme-toggle-icon: #E4E6EB;
+  --theme-toggle-icon-hover: #FC842D;
+
+  /* Shadows */
+  --shadow-modal: 0 4px 12px rgba(0, 0, 0, 0.2);
+  --shadow-dropdown: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --shadow-button: 0px 6px 20px rgba(252, 132, 45, 0.2);
+} 

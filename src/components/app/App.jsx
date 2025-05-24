@@ -9,46 +9,46 @@ import DiaryPage from "../../pages/DiaryPage/DiaryPage.jsx";
 import CalculatorPage from "../../pages/CalculatorPage/CalculatorPage.jsx";
 import Background from "../Background/Background.jsx";
 import Flowing from "../FlowingMenu/Flowing.jsx";
-import Loader from "../Loader/Loader.jsx";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
+import { ThemeProvider } from "../../context/ThemeContext";
+import "../../styles/theme.css";
 
 function App() {
-
-
   return (
-    <div className="App">
-      <Background />
-      <Navigation />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/diary" element={<DiaryPage />} />
-          <Route path="/calculator" element={<CalculatorPage />} />
-        </Routes>
-        <div className="flowingContainer">
-          <Flowing />
-        </div>
-      </main>
-      <footer className="footer">
-        <Footer />
-      </footer>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={true}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <Background />
+        <Navigation />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/diary" element={<DiaryPage />} />
+            <Route path="/calculator" element={<CalculatorPage />} />
+          </Routes>
+          <div className="flowingContainer">
+            <Flowing />
+          </div>
+        </main>
+        <footer className="footer">
+          <Footer />
+        </footer>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={true}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+      </div>
+    </ThemeProvider>
   );
 }
 

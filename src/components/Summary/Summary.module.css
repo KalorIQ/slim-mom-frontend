@@ -47,7 +47,7 @@
   line-height: 17px;
   letter-spacing: 0.04em;
   margin-bottom: 40px;
-  color: #212121;
+  color: var(--text-primary);
   text-transform: uppercase;
   margin-top: 0;
 }
@@ -68,7 +68,7 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  color: #9B9FAA;
+  color: var(--text-primary);
   margin-bottom: 20px;
 }
 
@@ -82,7 +82,7 @@
   font-size: 14px;
   letter-spacing: 0.04em;
   text-align: right;
-  color: #9B9FAA;
+  color: var(--text-primary);
   min-width: 80px;
   margin-left: 40px;
 }
@@ -94,7 +94,7 @@
   font-size: 14px;
   line-height: 17px;
   letter-spacing: 0.04em;
-  color: #212121;
+  color: var(--text-primary);
   margin-bottom: 40px;
   text-transform: uppercase;
   margin-top: 0;
@@ -109,7 +109,7 @@
 }
 
 .notRecommendedItem {
-  color: #9B9FAA;
+  color: var(--text-primary);
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 400;
@@ -125,7 +125,7 @@
   content: counter(item) ".";
   position: absolute;
   left: 0;
-  color: #9B9FAA;
+  color: var(--text-primary);
   font-weight: 400;
 }
 
@@ -135,7 +135,7 @@
 
 /* Liste boşken gösterilecek mesaj */
 .noFoodsMessage {
-  color: #9B9FAA;
+  color: var(--text-primary);
   font-family: var(--font-family);
   font-size: 14px;
   font-weight: 400;

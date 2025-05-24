@@ -1,0 +1,43 @@
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-primary);
+  transition: background-color 0.3s ease;
+}
+
+.main {
+  flex: 1;
+  padding-top: 80px; /* Height of the fixed header */
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 40px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 1024px) {
+  .main {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .main {
+    padding-top: 64px; /* Smaller header height on mobile */
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 32px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .main {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-bottom: 24px;
+  }
+} 

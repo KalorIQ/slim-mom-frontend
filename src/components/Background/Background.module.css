@@ -4,67 +4,127 @@
 .backshadow,
 .leaf {
     display: none;
-
+    position: absolute;
 }
 
 .leafAlt {
     display: none;
+} 
+
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--bg-primary);
 }
 
+.wave {
+    position: absolute;
+    top: 150px;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../assets/images/wave.png');
+    background-repeat: no-repeat;
+    background-position: right top;
+    background-size: contain;
+    opacity: var(--wave-opacity);
+    transition: opacity 0.3s ease;
+}
+
+:global([data-theme="dark"]) .wave {
+    opacity: 0.03;
+}
+
+:global([data-theme="light"]) .wave {
+    opacity: 0.1;
+}
+
+/* Ensure the app container has proper overflow handling */
+:global(.App) {
+    position: relative;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+.container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 1280px) {
+    .wave {
+        background-size: cover;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .wave {
+        opacity: 0.05;
+    }
+    
+    :global([data-theme="dark"]) .wave {
+        opacity: 0.02;
+    }
+}
 
 @media screen and (min-width: 768px) {
 
+    /*
      .leafAlt{
     display: block;
     z-index: -3333;
     position: absolute; 
     left: 850px; 
     top: -14vh;
-    width: 800px;
+    width: 800px; 
 
     animation: pulseScale  ease-in-out 4s;
-  } 
+  } */
 
     .strawberry {
         display: block;
         position: absolute;
         right: 50px;
         bottom: 200px;
-        z-index: -9998;
-        animation: pulseScale  ease-in-out 4s;
+        z-index: 1;
+        animation: pulseScale ease-in-out 4s;
     }
 
     .banana {
         display: block;
-
         position: absolute;
-        bottom: -150px;
+        bottom: -250px;
         right: -10px;
-        z-index: -13;
+        z-index: 1;
         width: 500px;
-
     }
 
     .backshadow {
         display: block;
-
         position: absolute;
         right: -50px;
         bottom: -200px;
-        z-index: -9999;
+        z-index: 1;
         width: max-content;
     }
 
     .leaf {
         display: block;
-
         position: absolute;
         bottom: -180px;
         right: 5vw;
-        z-index: -12;
+        z-index: 1;
         transform: rotate(90deg);
         width: 800px;
-        animation: pulseScale  ease-in-out 4s;
+        animation: pulseScale ease-in-out 4s;
     }
 }
 
@@ -72,8 +132,6 @@
     .container {
         min-width: max-content;
         overflow: hidden;
-        max-height: 5vh;
-
     }
 
     .strawberry {
@@ -81,59 +139,46 @@
         right: 10px;
         width: 286px;
         height: 253px;
-        animation: pulseScale  ease-in-out 4s;
+        animation: pulseScale ease-in-out 4s;
     }
 
     .backshadow {
-        top: 20px;
+        top: 150px;
         right: -30px;
         width: 750px;
     }
 
     .banana {
-        top: -100px;
+        top: 50px;
         width: 773px;
         right: -200px;
-        z-index: -11;
-
-
     }
 
     .leaf {
-        top: -100px;
+        top: 0px;
         right: 15vw;
         width: 746px;
         transform: rotate(360deg);
-        z-index: -12;
-        animation: pulseScale  ease-in-out 4s;
-
+        animation: pulseScale ease-in-out 4s;
     }
-
-
-
 }
 
 @keyframes pulseScale {
     0% {
         transform: scale(0.75);
     }
-
     20% {
         transform: scale(1.1);
     }
-
     40% {
         transform: scale(0.75);
     }
-
     60% {
         transform: scale(1.1);
     }
-
     80% {
         transform: scale(0.75);
     }
-
     100% {
         transform: scale(0.75);
     }
