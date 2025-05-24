@@ -107,10 +107,10 @@ const UpdateUserInfoForm = () => {
                     <p className={style.bloodType}>Blood type</p>
                     <div className={style.radioGroup}>
                       {[
-                        { label: "A", value: "A" },
-                        { label: "B", value: "B" },
-                        { label: "AB", value: "AB" },
-                        { label: "0", value: "0" },
+                        { label: "A", value: "1" },
+                        { label: "B", value: "2" },
+                        { label: "AB", value: "3" },
+                        { label: "0", value: "4" },
                       ].map((type) => (
                         <label key={type.value} className={style.radioLabel}>
                           <Field

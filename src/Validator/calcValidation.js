@@ -22,8 +22,9 @@ const validationSchema = Yup.object().shape({
     .positive("Desired weight must be positive")
     .required("Desired weight is required"),
 
-  bloodType: Yup.string()
-    .oneOf(["A", "B", "AB", "0"], "Invalid blood type")
+  bloodType: Yup.number()
+    .typeError("Blood type must be a number")
+    .oneOf([1, 2, 3, 4], "Blood type must be one of the following: 1, 2, 3, 4")
     .required("Blood type is required"),
 });
 

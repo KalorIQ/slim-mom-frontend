@@ -40,6 +40,7 @@ const CalculatorForm = () => {
         validationSchema={validationSchema}
         validateOnBlur={false}
         validateOnChange={false}
+        // eslint-disable-next-line no-unused-vars
         onSubmit={(values, { resetForm }) => {
           setCalorieResult(null); // önce sonucu sıfırla
           setTimeout(() => {
@@ -93,15 +94,20 @@ const CalculatorForm = () => {
                   <div className={style.bloodTypeGroup}>
                     <p className={style.bloodType}>Blood type</p>
                     <div className={style.radioGroup}>
-                      {["A", "B", "AB", "0"].map((type) => (
-                        <label key={type} className={style.radioLabel}>
+                      {[
+                        { label: "A", value: "1" },
+                        { label: "B", value: "2" },
+                        { label: "AB", value: "3" },
+                        { label: "0", value: "4" },
+                      ].map((type) => (
+                        <label key={type.value} className={style.radioLabel}>
                           <Field
                             type="radio"
                             name="bloodType"
-                            value={type}
+                            value={type.value}
                             className={style.radioInput}
                           />
-                          {type}
+                          {type.label}
                         </label>
                       ))}
                     </div>
