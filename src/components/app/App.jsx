@@ -10,9 +10,13 @@ import CalculatorPage from "../../pages/CalculatorPage/CalculatorPage.jsx";
 import Background from "../Background/Background.jsx";
 import Flowing from "../FlowingMenu/Flowing.jsx";
 import Loader from "../Loader/Loader.jsx";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
+
+
   return (
     <div className="App">
       <Background />
@@ -32,6 +36,18 @@ function App() {
       <footer className="footer">
         <Footer />
       </footer>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={true}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

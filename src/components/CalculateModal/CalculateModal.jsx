@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useDispatch } from "react-redux";
 import validationSchema from "../../Validator/calcValidation.js";
 import intakeCalorie from "../../utils/intakeCalorie.js";
 import style from "./CalculateModal.module.css";
 import { IoCloseSharp } from "react-icons/io5";
+import { updateUserInfo } from "../../redux/auth/authOperation.js";
 
 const CalculateModal = ({ onClose }) => {
-  // eslint-disable-next-line no-unused-vars
   const [calorieResult, setCalorieResult] = useState(null);
-
-
+  const dispatch = useDispatch();
 
   return (
     <div className={style.container}>
@@ -25,9 +25,26 @@ const CalculateModal = ({ onClose }) => {
         validationSchema={validationSchema}
         validateOnBlur={true}
         validateOnChange={true}
-        onSubmit={(values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting }) => {
           const result = intakeCalorie(values);
           setCalorieResult(result);
+
+          // Kullanıcı bilgilerini güncelle
+          const userData = {
+            height: Number(values.height),
+            age: Number(values.age),
+            currentWeight: Number(values.currentWeight),
+            desireWeight: Number(values.desiredWeight),
+            bloodType: Number(values.bloodType),
+            dailyRate: result
+          };
+
+          try {
+            await dispatch(updateUserInfo(userData)).unwrap();
+            onClose(); // Başarılı güncelleme sonrası modalı kapat
+          } catch (error) {
+            console.error("Failed to update user info:", error);
+          }
           setSubmitting(false);
         }}
       >
@@ -50,10 +67,20 @@ const CalculateModal = ({ onClose }) => {
               <div className={style.bloodTypeGroup}>
                 <p className={style.bloodType}>Blood Type</p>
                 <div className={style.radioGroup}>
-                  {["A", "B", "AB", "0"].map((type) => (
-                    <label key={type} className={style.radioLabel}>
-                      <Field type="radio" name="bloodType" value={type} className={style.radioInput} />
-                      {type}
+                  {[
+                    { label: "A", value: "1" },
+                    { label: "B", value: "2" },
+                    { label: "AB", value: "3" },
+                    { label: "0", value: "4" },
+                  ].map((type) => (
+                    <label key={type.value} className={style.radioLabel}>
+                      <Field
+                        type="radio"
+                        name="bloodType"
+                        value={type.value}
+                        className={style.radioInput}
+                      />
+                      {type.label}
                     </label>
                   ))}
                   <ErrorMessage name="bloodType" component="div" className={style.error} />
@@ -62,7 +89,6 @@ const CalculateModal = ({ onClose }) => {
 
               <button type="submit" className={style.submitButton}>Calculate</button>
             </Form>
-
           </>
         )}
       </Formik>

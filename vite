@@ -1,0 +1,19 @@
+
+
+  VITE v6.3.5  ready in 350 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+11:58:40 AM [vite] (client) hmr update /src/pages/DiaryPage/DiaryPage.jsx
+11:58:54 AM [vite] (client) page reload src/redux/products/productOperation.js
+11:59:11 AM [vite] (client) hmr update /src/pages/DiaryPage/DiaryPage.jsx
+11:59:15 AM [vite] (client) hmr update /src/pages/DiaryPage/DiaryPage.jsx (x2)
+12:02:27 PM [vite] (client) hmr update /src/components/app/App.jsx
+12:02:39 PM [vite] (client) hmr update /src/components/app/App.jsx (x2)
+12:02:51 PM [vite] (client) hmr update /src/components/app/App.jsx (x3)
+12:04:52 PM [vite] (client) hmr update /src/components/CalculatorForm/CalculatorForm.jsx
+12:05:12 PM [vite] (client) hmr update /src/components/CalculatorForm/CalculatorForm.jsx (x2)
+12:07:49 PM [vite] (client) hmr update /src/components/CalculateModal/CalculateModal.jsx
+npm i react-calendar
+npm i react-calendar

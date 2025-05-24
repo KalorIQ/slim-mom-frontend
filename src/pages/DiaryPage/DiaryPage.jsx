@@ -4,6 +4,8 @@ import styles from "./DiaryPage.module.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
 import { BsCalendar4 } from "react-icons/bs";
+import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css';
 import {
   addProduct,
   removeProduct,
@@ -35,6 +37,7 @@ const DiaryPage = () => {
   const showModal = userInfo.currentWeight === null || userInfo.height === null || userInfo.age === null || userInfo.desireWeight === null || userInfo.bloodType === null;
   const [showCalculateModal, setShowCalculateModal] = useState(showModal);
   const [showBlockMessage, setShowBlockMessage] = useState(false);
+  const [showCalendar, setShowCalendar] = useState(false);
   
   const [productName, setProductName] = useState("");
   const [grams, setGrams] = useState("");
@@ -105,7 +108,18 @@ const DiaryPage = () => {
     }
   };
 
-  const displayDate = new Date(currentDate).toLocaleDateString("en-GB");
+  const displayDate = new Date(currentDate).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+
+  const handleDateChange = (date) => {
+    const formattedDate = date.toISOString().split('T')[0];
+    dispatch({ type: 'products/setCurrentDate', payload: formattedDate });
+    setShowCalendar(false);
+  };
 
   return (
     <div className={styles.diaryPageContainer}>
@@ -134,7 +148,21 @@ const DiaryPage = () => {
             <div className={styles.diaryContent}>
               <div className={styles.dateSection}>
                 <h1 className={styles.dateTitle}>{displayDate}</h1>
-                <BsCalendar4 className={styles.calendarIcon} />
+                <div className={styles.calendarWrapper}>
+                  <BsCalendar4 
+                    className={styles.calendarIcon} 
+                    onClick={() => setShowCalendar(!showCalendar)}
+                  />
+                  {showCalendar && (
+                    <div className={styles.calendarPopup}>
+                      <Calendar
+                        onChange={handleDateChange}
+                        value={new Date(currentDate)}
+                        className={styles.calendar}
+                      />
+                    </div>
+                  )}
+                </div>
               </div>
 
               <div className={styles.addProductForm}>
@@ -149,7 +177,7 @@ const DiaryPage = () => {
                   />
                   {showSearchResults && searchResults.length > 0 && (
                     <div className={styles.searchResults}>
-                      {searchResults.slice(0, 5).map((product) => (
+                      {searchResults.slice(0, 15).map((product) => (
                         <div
                           key={product._id}
                           className={styles.searchResultItem}

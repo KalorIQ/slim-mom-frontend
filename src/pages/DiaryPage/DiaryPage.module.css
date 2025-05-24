@@ -91,6 +91,11 @@
   font-family: Verdana, sans-serif;
 }
 
+.calendarWrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .calendarIcon {
   font-size: 20px;
   color: #9B9FAA;
@@ -100,6 +105,58 @@
 
 .calendarIcon:hover {
   color: #212121;
+}
+
+.calendarPopup {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 1000;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 8px;
+  animation: fadeIn 0.2s ease-out;
+}
+
+.calendar {
+  border: none !important;
+  font-family: Verdana, sans-serif !important;
+}
+
+.calendar :global(.react-calendar__tile--active) {
+  background: #FC842D !important;
+  color: white !important;
+}
+
+.calendar :global(.react-calendar__tile--now) {
+  background: rgba(252, 132, 45, 0.1) !important;
+  color: #FC842D !important;
+}
+
+.calendar :global(.react-calendar__tile:hover) {
+  background: rgba(252, 132, 45, 0.2) !important;
+  color: #FC842D !important;
+}
+
+.calendar :global(.react-calendar__navigation button:hover) {
+  background: rgba(252, 132, 45, 0.1) !important;
+  color: #FC842D !important;
+}
+
+.calendar :global(.react-calendar__navigation button:focus) {
+  background: rgba(252, 132, 45, 0.1) !important;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Block Mesajı (Modal Kapandıktan Sonra) */
@@ -476,7 +533,7 @@
   z-index: 100;
   overflow: hidden;
   border: 1px solid rgba(224, 224, 224, 0.5);
-  max-height: 320px;
+  max-height: 400px;
   overflow-y: auto;
   backdrop-filter: blur(8px);
   transform-origin: top;
@@ -604,7 +661,7 @@
 @media screen and (max-width: 767px) {
   .searchResults {
     max-width: 100%;
-    max-height: 280px;
+    max-height: 350px;
     top: calc(100% + 8px);
     border-radius: 8px;
   }

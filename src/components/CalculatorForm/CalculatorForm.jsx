@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
+import { useDispatch } from "react-redux";
 import validationSchema from "../../Validator/calcValidation.js";
 import Title from "./BlurTitle/Title.jsx";
 import style from "./CalculatorForm.module.css";
 import intakeCalorie from "../../utils/intakeCalorie.js";
 import ResultModal from "../ResultModal/ResultModal.jsx";
+import { updateUserInfo } from "../../redux/auth/authOperation.js";
 
 const CalculatorForm = () => {
   const [showErrors, setShowErrors] = useState(false);
   const [errorList, setErrorList] = useState([]);
   const [calorieResult, setCalorieResult] = useState(null);
+  const dispatch = useDispatch();
 
   const handleValidation = async (values) => {
     try {
@@ -21,7 +24,7 @@ const CalculatorForm = () => {
       const errorMessages = err.inner.map((e) => e.message);
       setErrorList(errorMessages);
       setShowErrors(true);
-      setCalorieResult(null); // hata varsa sonucu gösterme
+      setCalorieResult(null);
       return false;
     }
   };
@@ -40,13 +43,26 @@ const CalculatorForm = () => {
         validationSchema={validationSchema}
         validateOnBlur={false}
         validateOnChange={false}
-        // eslint-disable-next-line no-unused-vars
-        onSubmit={(values, { resetForm }) => {
-          setCalorieResult(null); // önce sonucu sıfırla
-          setTimeout(() => {
-            const result = intakeCalorie(values);
-            setCalorieResult(result);
-          }, 0);
+        onSubmit={async (values) => {
+          setCalorieResult(null);
+          const result = intakeCalorie(values);
+          setCalorieResult(result);
+
+          // Kullanıcı bilgilerini güncelle
+          const userData = {
+            height: Number(values.height),
+            age: Number(values.age),
+            currentWeight: Number(values.currentWeight),
+            desireWeight: Number(values.desiredWeight),
+            bloodType: Number(values.bloodType),
+            dailyRate: result
+          };
+
+          try {
+            await dispatch(updateUserInfo(userData)).unwrap();
+          } catch (error) {
+            console.error("Failed to update user info:", error);
+          }
         }}
       >
         {({ values, submitForm }) => (
