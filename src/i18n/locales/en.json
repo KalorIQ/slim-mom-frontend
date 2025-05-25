@@ -141,6 +141,7 @@
     "delete": "Delete",
     "edit": "Edit",
     "loading": "Loading...",
+    "pageLoading": "Loading page...",
     "error": "An error occurred"
   },
   "flowingMenu": {
@@ -154,5 +155,12 @@
     "theme": "Theme",
     "dark": "Dark",
     "light": "Light"
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "message": "The page you're looking for doesn't exist or may have been moved. You can return to the homepage to continue your healthy lifestyle journey.",
+    "goHome": "Go Home",
+    "goBack": "Go Back",
+    "motivation": "Healthy living is not a goal, it's a lifestyle! 🌱"
   }
 } 

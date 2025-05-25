@@ -7,6 +7,7 @@ import productSlice from "./products/productSlice.js";
 const persistConfig = {
   key: "auth",
   storage,
+  whitelist: ['user', 'accessToken', 'isLoggedIn'],
 };
 
 const persistedReducer = persistReducer(persistConfig, authSlice);
@@ -18,7 +19,9 @@ const store = configureStore({
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: false,
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE'],
+      },
     }),
 });
 

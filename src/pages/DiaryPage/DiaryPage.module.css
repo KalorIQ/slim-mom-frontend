@@ -226,7 +226,7 @@
   }
 }
 
-/* Block Mesajı */
+/* Block Message Styles - Responsive and High Z-Index */
 .blockMessageWrapper {
   display: flex;
   align-items: center;
@@ -236,6 +236,8 @@
   padding: 20px;
   margin-left: 100px;
   margin-top: -10vh;
+  position: relative;
+  z-index: 9998; /* High z-index to appear above other elements */
 }
 
 .blockMessageBox {
@@ -257,6 +259,7 @@
   position: relative;
   animation: slideInUp 0.7s ease-out;
   overflow: hidden;
+  z-index: 9999; /* Ensure it's above everything */
 }
 
 .blockMessageBox::before {
@@ -294,6 +297,7 @@
   text-shadow: 0 2px 4px rgba(252, 132, 45, 0.2);
   position: relative;
   animation: titlePulse 3s ease-in-out infinite;
+  line-height: 1.2;
 }
 
 .blockMessageTitle::before {
@@ -314,6 +318,8 @@
   font-family: 'Segoe UI', system-ui, sans-serif;
   opacity: 0.95;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  word-wrap: break-word;
+  hyphens: auto;
 }
 
 @keyframes slideInUp {
@@ -1039,10 +1045,11 @@
 
   .rightSection {
     margin-top: 32px;
-    padding: 24px 20px;
+    padding: 30px 20px 50px 20px;
     border-radius: 0;
     width: 100%;
     max-width: none;
+    min-height: 450px;
     background-color: var(--bg-secondary);
   }
 
@@ -1331,5 +1338,176 @@
   .rightSection .summaryContainer,
   .rightSection .summaryContainerAlt {
     align-items: flex-start;
+  }
+
+  /* Block Message Responsive for 1024px */
+  .blockMessageWrapper {
+    margin-left: 50px;
+    margin-top: -5vh;
+    padding: 16px;
+    min-height: 50vh;
+  }
+
+  .blockMessageBox {
+    max-width: 420px;
+    padding: 50px 40px;
+    border-radius: 20px;
+  }
+
+  .blockMessageTitle {
+    font-size: 2.1rem;
+    margin-bottom: 20px;
+  }
+
+  .blockMessageTitle::before {
+    left: -45px;
+    font-size: 1.8rem;
+  }
+
+  .blockMessageText {
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+
+  .blockMessageBox::after {
+    top: 18px;
+    right: 22px;
+    font-size: 22px;
+  }
+}
+
+/* 768px Responsive Styles */
+@media screen and (max-width: 768px) {
+  .blockMessageWrapper {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 20px;
+    min-height: 40vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blockMessageBox {
+    max-width: 380px;
+    padding: 40px 32px;
+    border-radius: 18px;
+    margin: 0 auto;
+  }
+
+  .blockMessageTitle {
+    font-size: 1.9rem;
+    margin-bottom: 18px;
+    letter-spacing: 0.01em;
+  }
+
+  .blockMessageTitle::before {
+    left: -40px;
+    font-size: 1.6rem;
+  }
+
+  .blockMessageText {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .blockMessageBox::after {
+    top: 16px;
+    right: 20px;
+    font-size: 20px;
+  }
+
+  .blockMessageBox::before {
+    border-radius: 21px;
+  }
+}
+
+/* 480px Responsive Styles */
+@media screen and (max-width: 480px) {
+  .blockMessageWrapper {
+    margin-left: 0;
+    margin-top: 0;
+    padding: 16px;
+    min-height: 35vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .blockMessageBox {
+    max-width: 320px;
+    padding: 32px 24px;
+    border-radius: 16px;
+    margin: 0 auto;
+    box-shadow: 
+      0 15px 30px rgba(252, 132, 45, 0.15),
+      0 6px 20px rgba(252, 132, 45, 0.1),
+      0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .blockMessageTitle {
+    font-size: 1.6rem;
+    margin-bottom: 16px;
+    letter-spacing: 0;
+    line-height: 1.1;
+  }
+
+  .blockMessageTitle::before {
+    left: -35px;
+    font-size: 1.4rem;
+    top: 45%;
+  }
+
+  .blockMessageText {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+  }
+
+  .blockMessageBox::after {
+    top: 14px;
+    right: 18px;
+    font-size: 18px;
+  }
+
+  .blockMessageBox::before {
+    border-radius: 19px;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+  }
+}
+
+/* Extra small screens - 360px and below */
+@media screen and (max-width: 360px) {
+  .blockMessageWrapper {
+    padding: 12px;
+    min-height: 30vh;
+  }
+
+  .blockMessageBox {
+    max-width: 280px;
+    padding: 28px 20px;
+    border-radius: 14px;
+  }
+
+  .blockMessageTitle {
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+  }
+
+  .blockMessageTitle::before {
+    left: -30px;
+    font-size: 1.2rem;
+  }
+
+  .blockMessageText {
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .blockMessageBox::after {
+    top: 12px;
+    right: 16px;
+    font-size: 16px;
   }
 }

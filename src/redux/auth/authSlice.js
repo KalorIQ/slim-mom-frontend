@@ -35,28 +35,68 @@ const toastSettings = {
   },
 };
 
+// Helper function to safely clear localStorage
+const clearLocalStorage = () => {
+  try {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
+  } catch (error) {
+    console.error("Error clearing localStorage:", error);
+  }
+};
+
 // Helper function to get initial state from localStorage
 const getInitialState = () => {
   const storedToken = localStorage.getItem("accessToken");
   const storedUser = localStorage.getItem("user");
   
-  return {
-    user: storedUser ? JSON.parse(storedUser) : {
-      name: null,
-      email: null,
-      infouser: {
-        currentWeight: null,
-        height: null,
-        age: null,
-        desireWeight: null,
-        bloodType: null,
-        dailyRate: null,
-        notAllowedProducts: null,
-        notAllowedProductsAll: null,
-      },
+  let user = {
+    name: null,
+    email: null,
+    infouser: {
+      currentWeight: null,
+      height: null,
+      age: null,
+      desireWeight: null,
+      bloodType: null,
+      dailyRate: null,
+      notAllowedProducts: null,
+      notAllowedProductsAll: null,
     },
-    accessToken: storedToken,
-    isLoggedIn: !!storedToken,
+  };
+
+  // Safely parse user data from localStorage
+  if (storedUser && storedUser !== "undefined" && storedUser !== "null") {
+    try {
+      const parsedUser = JSON.parse(storedUser);
+      // Ensure the parsed user has the correct structure
+      if (parsedUser && typeof parsedUser === 'object') {
+        user = {
+          name: parsedUser.name || null,
+          email: parsedUser.email || null,
+          infouser: {
+            currentWeight: parsedUser.infouser?.currentWeight || null,
+            height: parsedUser.infouser?.height || null,
+            age: parsedUser.infouser?.age || null,
+            desireWeight: parsedUser.infouser?.desireWeight || null,
+            bloodType: parsedUser.infouser?.bloodType || null,
+            dailyRate: parsedUser.infouser?.dailyRate || null,
+            notAllowedProducts: parsedUser.infouser?.notAllowedProducts || null,
+            notAllowedProductsAll: parsedUser.infouser?.notAllowedProductsAll || null,
+          },
+        };
+      }
+    } catch (error) {
+      console.error("Error parsing user data from localStorage:", error);
+      // Clear invalid data
+      localStorage.removeItem("user");
+    }
+  }
+  
+  return {
+    user,
+    accessToken: storedToken && storedToken !== "undefined" ? storedToken : null,
+    isLoggedIn: !!(storedToken && storedToken !== "undefined"),
     isLoading: false,
     error: null,
   };
@@ -73,10 +113,35 @@ const authSlice = createSlice({
       const storedToken = localStorage.getItem("accessToken");
       const storedUser = localStorage.getItem("user");
       
-      if (storedToken && storedUser) {
+      // Check if token is valid
+      if (storedToken && storedToken !== "undefined" && storedToken !== "null") {
         state.accessToken = storedToken;
-        state.user = JSON.parse(storedUser);
         state.isLoggedIn = true;
+      }
+      
+      // Safely parse and restore user data
+      if (storedUser && storedUser !== "undefined" && storedUser !== "null") {
+        try {
+          state.user = JSON.parse(storedUser);
+        } catch (error) {
+          console.error("Error parsing user data from localStorage:", error);
+          // Clear invalid data and reset to default
+          localStorage.removeItem("user");
+          state.user = {
+            name: null,
+            email: null,
+            infouser: {
+              currentWeight: null,
+              height: null,
+              age: null,
+              desireWeight: null,
+              bloodType: null,
+              dailyRate: null,
+              notAllowedProducts: null,
+              notAllowedProductsAll: null,
+            },
+          };
+        }
       }
     },
     // Action to clear auth state
@@ -84,8 +149,7 @@ const authSlice = createSlice({
       state.user = initialState.user;
       state.accessToken = null;
       state.isLoggedIn = false;
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("user");
+      clearLocalStorage();
     },
   },
   extraReducers(builder) {
@@ -99,8 +163,14 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
-        // Store in localStorage
-        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+        // Store in localStorage safely
+        try {
+          if (action.payload.data.user) {
+            localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+          }
+        } catch (error) {
+          console.error("Error storing user data to localStorage:", error);
+        }
         toast.success("Login successful", toastSettings.success);
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -117,8 +187,14 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
-        // Store in localStorage
-        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+        // Store in localStorage safely
+        try {
+          if (action.payload.data.user) {
+            localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+          }
+        } catch (error) {
+          console.error("Error storing user data to localStorage:", error);
+        }
         toast.success("Registration successful", toastSettings.success);
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -148,9 +224,8 @@ const authSlice = createSlice({
         };
         state.accessToken = null;
         state.isLoggedIn = false;
-        // Clear localStorage
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
+        // Clear localStorage safely
+        clearLocalStorage();
         toast.success("Logout successful", toastSettings.success);
       })
       .addCase(logoutUser.rejected, (state, action) => {
@@ -167,9 +242,54 @@ const authSlice = createSlice({
       })
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.user = action.payload.data.user;
-        // Update localStorage
-        localStorage.setItem("user", JSON.stringify(action.payload.data.user));
+        
+        console.log("=== AUTH SLICE UPDATE DEBUG ===");
+        console.log("Current state.user:", state.user);
+        console.log("Action payload:", action.payload);
+        
+        // Safely update user info - preserve existing user data
+        if (action.payload?.data?.user) {
+          // If backend returns complete user object
+          state.user = {
+            ...state.user,
+            ...action.payload.data.user,
+            infouser: {
+              ...state.user.infouser,
+              ...action.payload.data.user.infouser,
+            },
+          };
+        } else if (action.payload?.data) {
+          // If backend returns only infouser data
+          state.user = {
+            ...state.user,
+            infouser: {
+              ...state.user.infouser,
+              ...action.payload.data,
+            },
+          };
+        } else if (action.payload?.user) {
+          // Alternative response structure
+          state.user = {
+            ...state.user,
+            ...action.payload.user,
+            infouser: {
+              ...state.user.infouser,
+              ...action.payload.user.infouser,
+            },
+          };
+        }
+        
+        console.log("Updated state.user:", state.user);
+        console.log("=== END AUTH SLICE DEBUG ===");
+        
+        // Update localStorage safely
+        try {
+          if (state.user) {
+            localStorage.setItem("user", JSON.stringify(state.user));
+          }
+        } catch (error) {
+          console.error("Error storing user data to localStorage:", error);
+        }
         toast.success("User info updated successfully", toastSettings.success);
       })
       .addCase(updateUserInfo.rejected, (state, action) => {
@@ -206,8 +326,7 @@ const authSlice = createSlice({
         };
         state.accessToken = null;
         state.isLoggedIn = false;
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("user");
+        clearLocalStorage();
         toast.error("Failed to refresh token", toastSettings.error);
       });
   },

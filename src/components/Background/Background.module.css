@@ -7,9 +7,19 @@
     position: absolute;
 }
 
+/* Default: Hide on small screens */
+@media screen and (max-width: 767px) {
+    .strawberry,
+    .banana,
+    .backshadow,
+    .leaf {
+        display: none;
+    }
+}
+
 .leafAlt {
     display: none;
-} 
+}
 
 .background {
     position: absolute;
@@ -167,6 +177,7 @@
         width: 286px;
         height: 253px;
         animation: pulseScale ease-in-out 4s;
+        z-index: 100;
     }
 
     .backshadow {

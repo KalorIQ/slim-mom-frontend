@@ -14,8 +14,21 @@ const UpdateUserInfoForm = () => {
   const [errorList, setErrorList] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const userInfo = user.infouser;
-  const changeButton = userInfo.currentWeight === null || userInfo.height === null || userInfo.age === null || userInfo.desireWeight === null || userInfo.bloodType === null;
+  
+  // Safety checks for user and userInfo
+  const userInfo = user?.infouser || {
+    currentWeight: null,
+    height: null,
+    age: null,
+    desireWeight: null,
+    bloodType: null,
+  };
+  
+  const changeButton = userInfo.currentWeight === null || 
+                      userInfo.height === null || 
+                      userInfo.age === null || 
+                      userInfo.desireWeight === null || 
+                      userInfo.bloodType === null;
 
   const handleValidation = async (values) => {
     try {
@@ -41,7 +54,15 @@ const UpdateUserInfoForm = () => {
     };
 
     try {
-      await dispatch(updateUserInfo(userData)).unwrap();
+      console.log("=== UPDATE USER INFO DEBUG ===");
+      console.log("Sending data:", userData);
+      console.log("Current user before update:", user);
+      
+      const result = await dispatch(updateUserInfo(userData)).unwrap();
+      
+      console.log("Response from backend:", result);
+      console.log("User after update:", user);
+      console.log("=== END DEBUG ===");
     } catch (error) {
       console.error("Failed to update user info:", error);
     }
@@ -53,11 +74,11 @@ const UpdateUserInfoForm = () => {
       <Formik
         key={i18n.language}
         initialValues={{
-          height: user.infouser?.height || "",
-          age: user.infouser?.age || "",
-          currentWeight: user.infouser?.currentWeight || "",
-          desiredWeight: user.infouser?.desireWeight || "",
-          bloodType: user.infouser?.bloodType?.toString() || "",
+          height: userInfo?.height || "",
+          age: userInfo?.age || "",
+          currentWeight: userInfo?.currentWeight || "",
+          desiredWeight: userInfo?.desireWeight || "",
+          bloodType: userInfo?.bloodType?.toString() || "",
         }}
         validationSchema={validationSchema}
         validateOnBlur={false}

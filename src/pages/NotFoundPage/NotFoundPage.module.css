@@ -1,0 +1,815 @@
+.notFoundContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, 
+    #f8fffe 0%, 
+    #e8f5e8 25%,
+    #d4f1d4 50%,
+    #e8f5e8 75%,
+    #f8fffe 100%);
+  overflow: hidden;
+}
+
+.floatingElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.floatingIcon {
+  position: absolute;
+  font-size: 24px;
+  color: rgba(76, 175, 80, 0.3);
+  animation: float-health 10s ease-in-out infinite;
+}
+
+.notFoundContent {
+  position: relative;
+  text-align: center;
+  max-width: 800px;
+  padding: 60px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  border: 2px solid rgba(76, 175, 80, 0.2);
+  box-shadow: 
+    0 25px 70px rgba(76, 175, 80, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  animation: fadeInUp 1s ease-out;
+  z-index: 10;
+}
+
+/* Enhanced 404 Design */
+.errorCodeContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.errorCode {
+  font-size: 180px;
+  font-weight: 900;
+  background: linear-gradient(45deg, #4CAF50, #8BC34A, #CDDC39, #FF9800);
+  background-size: 400% 400%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-shift 4s ease-in-out infinite;
+  text-shadow: 0 0 50px rgba(76, 175, 80, 0.3);
+  filter: drop-shadow(0 0 20px rgba(139, 195, 74, 0.3));
+}
+
+.errorCodeMiddle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Enhanced Health Icon Design */
+.healthIcon {
+  position: relative;
+  font-size: 100px;
+  color: #4CAF50;
+  animation: health-pulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.4));
+}
+
+.healthPulse {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 120px;
+  height: 120px;
+  border: 3px solid rgba(76, 175, 80, 0.3);
+  border-radius: 50%;
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.errorTitle {
+  font-size: 42px;
+  font-weight: 800;
+  color: #2E7D32;
+  margin-bottom: 20px;
+  text-shadow: 0 0 20px rgba(46, 125, 50, 0.3);
+  animation: slideInLeft 1s ease-out 0.3s both;
+}
+
+.errorMessage {
+  font-size: 20px;
+  color: #4CAF50;
+  margin-bottom: 50px;
+  line-height: 1.8;
+  animation: slideInRight 1s ease-out 0.5s both;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  margin-bottom: 60px;
+  animation: fadeIn 1s ease-out 0.7s both;
+}
+
+.primaryButton,
+.secondaryButton {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 32px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-decoration: none;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.primaryButton {
+  background: linear-gradient(45deg, #4CAF50, #8BC34A);
+  color: white;
+  box-shadow: 
+    0 8px 25px rgba(76, 175, 80, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.primaryButton:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 
+    0 15px 35px rgba(76, 175, 80, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2);
+  background: linear-gradient(45deg, #8BC34A, #4CAF50);
+}
+
+.secondaryButton {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4CAF50;
+  border: 2px solid rgba(76, 175, 80, 0.3);
+  backdrop-filter: blur(10px);
+}
+
+.secondaryButton:hover {
+  background: rgba(76, 175, 80, 0.2);
+  border-color: rgba(76, 175, 80, 0.5);
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 15px 35px rgba(76, 175, 80, 0.2);
+}
+
+.buttonIcon {
+  font-size: 20px;
+  filter: drop-shadow(0 0 5px rgba(76, 175, 80, 0.3));
+}
+
+/* Enhanced Health Scene */
+.healthScene {
+  position: relative;
+  height: 220px;
+  margin: 40px 0;
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Enhanced Plate Container */
+.plateContainer {
+  position: absolute;
+  left: 15%;
+  top: 30%;
+  animation: plate-bounce 3s ease-in-out infinite;
+}
+
+.plate {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  border-radius: 50%;
+  border: 4px solid #e0e0e0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.plateGlow {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(76, 175, 80, 0.2) 0%, transparent 70%);
+  animation: glow-pulse 3s ease-in-out infinite;
+}
+
+.plateFood {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.apple {
+  font-size: 20px;
+  color: #f44336;
+  animation: food-wiggle 2s ease-in-out infinite;
+}
+
+.carrot {
+  font-size: 18px;
+  color: #FF9800;
+  animation: food-wiggle 2s ease-in-out infinite 0.3s;
+}
+
+.salad {
+  font-size: 16px;
+  color: #4CAF50;
+  animation: food-wiggle 2s ease-in-out infinite 0.6s;
+}
+
+/* Enhanced Scale Container */
+.scaleContainer {
+  position: absolute;
+  right: 15%;
+  top: 20%;
+  animation: scale-tilt 4s ease-in-out infinite;
+}
+
+.scale {
+  font-size: 60px;
+  color: #607D8B;
+  filter: drop-shadow(0 0 10px rgba(96, 125, 139, 0.3));
+}
+
+.scaleDisplay {
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #2E7D32;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+  animation: display-blink 2s ease-in-out infinite;
+}
+
+/* Enhanced Heart Container */
+.heartContainer {
+  position: absolute;
+  left: 50%;
+  top: 5%;
+  transform: translateX(-50%);
+  animation: heartbeat-pulse 2s ease-in-out infinite;
+}
+
+.heartbeat {
+  font-size: 50px;
+  color: #e91e63;
+  filter: drop-shadow(0 0 15px rgba(233, 30, 99, 0.4));
+}
+
+.heartRipple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60px;
+  height: 60px;
+  border: 2px solid rgba(233, 30, 99, 0.3);
+  border-radius: 50%;
+  animation: ripple-effect 2s ease-out infinite;
+}
+
+/* Fitness Container */
+.fitnessContainer {
+  position: absolute;
+  right: 5%;
+  top: 60%;
+  animation: fitness-lift 3s ease-in-out infinite;
+}
+
+.fitness {
+  font-size: 45px;
+  color: #795548;
+  filter: drop-shadow(0 0 10px rgba(121, 85, 72, 0.3));
+}
+
+/* Water Container */
+.waterContainer {
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  animation: water-sway 4s ease-in-out infinite;
+}
+
+.water {
+  font-size: 40px;
+  color: #2196F3;
+  filter: drop-shadow(0 0 10px rgba(33, 150, 243, 0.3));
+}
+
+.waterDrops {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.waterDrops span {
+  font-size: 12px;
+  animation: water-drop 2s ease-in-out infinite;
+}
+
+.waterDrops span:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.waterDrops span:nth-child(3) {
+  animation-delay: 1s;
+}
+
+/* Enhanced Motivational Text */
+.motivationalText {
+  margin-top: 30px;
+  animation: fadeIn 1s ease-out 1s both;
+}
+
+.motivationalText p {
+  font-size: 18px;
+  color: #4CAF50;
+  font-style: italic;
+  font-weight: 600;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+.motivationDecor {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 20px;
+  animation: decor-sparkle 3s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes health-pulse {
+  0%, 100% { 
+    transform: scale(1);
+    filter: drop-shadow(0 0 20px rgba(76, 175, 80, 0.4));
+  }
+  50% { 
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 30px rgba(76, 175, 80, 0.6));
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 0;
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes float-health {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg);
+    opacity: 0.3;
+  }
+  33% { 
+    transform: translateY(-25px) rotate(120deg);
+    opacity: 0.7;
+  }
+  66% { 
+    transform: translateY(-10px) rotate(240deg);
+    opacity: 0.5;
+  }
+}
+
+@keyframes plate-bounce {
+  0%, 100% { 
+    transform: translateY(0px) rotate(-2deg); 
+  }
+  50% { 
+    transform: translateY(-12px) rotate(2deg); 
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes food-wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-8deg); }
+  75% { transform: rotate(8deg); }
+}
+
+@keyframes scale-tilt {
+  0%, 100% { 
+    transform: rotate(0deg); 
+  }
+  25% { 
+    transform: rotate(-5deg); 
+  }
+  75% { 
+    transform: rotate(5deg); 
+  }
+}
+
+@keyframes display-blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+@keyframes heartbeat-pulse {
+  0%, 100% { 
+    transform: translateX(-50%) scale(1);
+  }
+  50% { 
+    transform: translateX(-50%) scale(1.3);
+  }
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes fitness-lift {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-18px) rotate(-15deg); 
+  }
+}
+
+@keyframes water-sway {
+  0%, 100% { 
+    transform: translateY(0px) rotate(0deg); 
+  }
+  50% { 
+    transform: translateY(-10px) rotate(5deg); 
+  }
+}
+
+@keyframes water-drop {
+  0%, 100% { 
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  50% { 
+    transform: translateY(-15px);
+    opacity: 0.7;
+  }
+}
+
+@keyframes decor-sparkle {
+  0%, 100% { 
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% { 
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+
+/* 1024px and below */
+@media (max-width: 1024px) {
+  .notFoundContent {
+    max-width: 700px;
+    padding: 50px 35px;
+  }
+  
+  .errorCode {
+    font-size: 150px;
+  }
+  
+  .healthIcon {
+    font-size: 80px;
+  }
+  
+  .errorTitle {
+    font-size: 36px;
+  }
+  
+  .errorMessage {
+    font-size: 18px;
+  }
+  
+  .healthScene {
+    height: 180px;
+  }
+  
+  .plate {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .scale {
+    font-size: 50px;
+  }
+  
+  .heartbeat {
+    font-size: 40px;
+  }
+  
+  .fitness {
+    font-size: 35px;
+  }
+  
+  .water {
+    font-size: 30px;
+  }
+}
+
+/* 768px and below */
+@media (max-width: 768px) {
+  .notFoundContainer {
+    padding: 15px;
+    min-height: 90vh;
+  }
+  
+  .notFoundContent {
+    max-width: 600px;
+    padding: 40px 25px;
+    border-radius: 25px;
+  }
+  
+  .errorCodeContainer {
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+  
+  .errorCode {
+    font-size: 120px;
+  }
+  
+  .errorCodeMiddle {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .healthIcon {
+    font-size: 60px;
+  }
+  
+  .errorTitle {
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .errorMessage {
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+  
+  .buttonGroup {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    width: 250px;
+    padding: 14px 28px;
+    font-size: 16px;
+  }
+  
+  .healthScene {
+    height: 150px;
+    margin: 30px 0;
+  }
+  
+  .plate {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .apple {
+    font-size: 16px;
+  }
+  
+  .carrot {
+    font-size: 14px;
+  }
+  
+  .salad {
+    font-size: 12px;
+  }
+  
+  .scale {
+    font-size: 40px;
+  }
+  
+  .heartbeat {
+    font-size: 35px;
+  }
+  
+  .fitness {
+    font-size: 30px;
+  }
+  
+  .water {
+    font-size: 25px;
+  }
+  
+  .floatingIcon {
+    font-size: 20px;
+  }
+}
+
+/* 480px and below */
+@media (max-width: 480px) {
+  .notFoundContainer {
+    padding: 10px;
+    min-height: 85vh;
+  }
+  
+  .notFoundContent {
+    max-width: 100%;
+    padding: 30px 20px;
+    border-radius: 20px;
+  }
+  
+  .errorCodeContainer {
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .errorCode {
+    font-size: 80px;
+  }
+  
+  .errorCodeMiddle {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .healthIcon {
+    font-size: 50px;
+  }
+  
+  .errorTitle {
+    font-size: 22px;
+    margin-bottom: 12px;
+  }
+  
+  .errorMessage {
+    font-size: 14px;
+    margin-bottom: 30px;
+    line-height: 1.6;
+  }
+  
+  .buttonGroup {
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  
+  .primaryButton,
+  .secondaryButton {
+    width: 200px;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+  
+  .buttonIcon {
+    font-size: 16px;
+  }
+  
+  .healthScene {
+    height: 120px;
+    margin: 25px 0;
+  }
+  
+  .plate {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .apple {
+    font-size: 12px;
+  }
+  
+  .carrot {
+    font-size: 10px;
+  }
+  
+  .salad {
+    font-size: 8px;
+  }
+  
+  .scale {
+    font-size: 30px;
+  }
+  
+  .heartbeat {
+    font-size: 25px;
+  }
+  
+  .fitness {
+    font-size: 20px;
+  }
+  
+  .water {
+    font-size: 18px;
+  }
+  
+  .floatingIcon {
+    font-size: 16px;
+  }
+  
+  .motivationalText p {
+    font-size: 14px;
+  }
+  
+  .motivationDecor {
+    font-size: 16px;
+  }
+} 

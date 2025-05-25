@@ -25,6 +25,9 @@ const Navigation = () => {
     const [isMobile, setIsMobile] = useState(false);
     const [isSmallMobile, setIsSmallMobile] = useState(false);
 
+    // Safety check for userName
+    const safeUserName = userName || '';
+
     // Check screen size
     useEffect(() => {
         const checkScreenSize = () => {
@@ -113,7 +116,7 @@ const Navigation = () => {
             
             <div className={style.rightSection}>
                 {/* Desktop User Info */}
-                {!isMobile && (isLoggedIn || isDiaryOrCalculator || location.pathname === '/profile') && userName && (
+                {!isMobile && (isLoggedIn || isDiaryOrCalculator || location.pathname === '/profile') && safeUserName && (
                     <div className={style.userInfo}>
                         <NavLink 
                             to='/profile' 
@@ -122,7 +125,7 @@ const Navigation = () => {
                             <FaUser className={style.profileIcon} />
                             {t('navigation.profile')}
                         </NavLink>
-                        <p className={style.userName}>{userName}</p>
+                        <p className={style.userName}>{safeUserName}</p>
                         <button onClick={handleLogout} className={style.logout}>
                             <FaSignOutAlt className={style.logoutIcon} />
                             {t('navigation.logout')}
@@ -138,7 +141,7 @@ const Navigation = () => {
                 )}
 
                 {/* Mobile Hamburger Menu */}
-                {isSmallMobile || (isMobile && (isLoggedIn || isDiaryOrCalculator || location.pathname === '/profile') && userName) ? (
+                {isSmallMobile || (isMobile && (isLoggedIn || isDiaryOrCalculator || location.pathname === '/profile') && safeUserName) ? (
                     <>
                         <button 
                             className={style.hamburgerButton}
@@ -163,12 +166,12 @@ const Navigation = () => {
                                     </div>
                                     
                                     <div className={style.mobileMenuContent}>
-                                        {userName && (
+                                        {safeUserName && (
                                             <div className={style.mobileUserInfo}>
                                                 <div className={style.mobileUserAvatar}>
                                                     <FaUser />
                                                 </div>
-                                                <p className={style.mobileUserName}>{userName}</p>
+                                                <p className={style.mobileUserName}>{safeUserName}</p>
                                             </div>
                                         )}
 
@@ -215,7 +218,7 @@ const Navigation = () => {
                                                 </>
                                             )}
 
-                                            {userName && (
+                                            {safeUserName && (
                                                 <NavLink 
                                                     to='/profile' 
                                                     className={({isActive}) => isActive ? `${style.mobileMenuItem} ${style.active}` : style.mobileMenuItem}
@@ -231,7 +234,7 @@ const Navigation = () => {
                                             </div>
                                         </div>
 
-                                        {userName && (
+                                        {safeUserName && (
                                             <div className={style.mobileMenuFooter}>
                                                 <button 
                                                     onClick={handleLogout} 
@@ -250,7 +253,7 @@ const Navigation = () => {
                 ) : null}
 
                 {/* Mobile Settings for non-logged in users */}
-                {isMobile && !userName && !isSmallMobile && (
+                {isMobile && !safeUserName && !isSmallMobile && (
                     <div className={style.mobileOnlySettings}>
                         <Settings />
                     </div>

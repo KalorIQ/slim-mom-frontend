@@ -142,6 +142,7 @@
     "delete": "Sil",
     "edit": "Düzenle",
     "loading": "Yükleniyor...",
+    "pageLoading": "Sayfa yükleniyor...",
     "error": "Bir hata oluştu"
   },
   "flowingMenu": {
@@ -155,5 +156,12 @@
     "theme": "Tema",
     "dark": "Karanlık",
     "light": "Aydınlık"
+  },
+  "notFound": {
+    "title": "Sayfa Bulunamadı",
+    "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir. Sağlıklı yaşam yolculuğunuza devam etmek için ana sayfaya dönebilirsiniz.",
+    "goHome": "Ana Sayfa",
+    "goBack": "Geri Dön",
+    "motivation": "Sağlıklı yaşam bir hedef değil, yaşam tarzıdır! 🌱"
   }
 } 

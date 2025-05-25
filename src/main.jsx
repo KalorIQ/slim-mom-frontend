@@ -7,11 +7,12 @@ import { BrowserRouter } from "react-router";
 import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store.js";
 import { PersistGate } from "redux-persist/integration/react";
+import PageLoader from "./components/PageLoader/PageLoader.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<PageLoader />} persistor={persistor}>
         <BrowserRouter>
           <App />
         </BrowserRouter>

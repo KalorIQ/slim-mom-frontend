@@ -40,6 +40,7 @@ import {
   selectEnhancedUserStats,
   selectFormattedWeightHistory,
   selectFormattedMacroData,
+  selectProductsLoading,
 } from '../../redux/products/productSelectors';
 import { 
   getWeeklyCalories, 
@@ -51,6 +52,7 @@ import {
   getDetailedWeeklyCalories,
   getUserStatsFromBackend,
 } from '../../redux/products/productOperation';
+import Loader from '../../components/Loader/Loader.jsx';
 
 ChartJS.register(
   CategoryScale,
@@ -68,7 +70,16 @@ const ProfilePage = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const userInfo = user.infouser;
+  
+  // Safety checks for user and userInfo
+  const userInfo = user?.infouser || {
+    currentWeight: null,
+    height: null,
+    age: null,
+    desireWeight: null,
+    bloodType: null,
+    dailyRate: null,
+  };
   
   // Backend data selectors
   const weeklyCaloriesData = useSelector(selectWeeklyCalories);
@@ -83,6 +94,7 @@ const ProfilePage = () => {
   const userAchievements = useSelector(selectUserAchievements);
   const detailedWeeklyData = useSelector(selectDetailedWeeklyData);
   const dailyRate = useSelector(selectDailyRate);
+  const isLoading = useSelector(selectProductsLoading);
   
   const [activeTab, setActiveTab] = useState('overview');
 
@@ -321,6 +333,7 @@ const ProfilePage = () => {
 
   return (
     <div className={styles.profileContainer}>
+      {isLoading && <Loader />}
       <div className={styles.profileHeader}>
         <div className={styles.userAvatar}>
           <FaUser className={styles.avatarIcon} />

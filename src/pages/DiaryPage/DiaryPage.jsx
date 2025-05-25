@@ -19,11 +19,13 @@ import {
   selectProcessedDiaryEntries,
   selectCurrentDate,
   selectSearchResults,
+  selectProductsLoading,
 } from "../../redux/products/productSelectors.js";
 import { selectUser } from "../../redux/auth/authSelectors.js";
 import CalculateModal from "../../components/CalculateModal/CalculateModal.jsx";
 import ModalWrapper from "../../components/ModalWrapper/ModalWrapper.jsx";
 import Summary from "../../components/Summary/Summary.jsx";
+import Loader from "../../components/Loader/Loader.jsx";
 
 const DiaryPage = () => {
   const { t } = useTranslation();
@@ -32,9 +34,23 @@ const DiaryPage = () => {
   const currentDate = useSelector(selectCurrentDate);
   const searchResults = useSelector(selectSearchResults);
   const user = useSelector(selectUser);
+  const isLoading = useSelector(selectProductsLoading);
 
-  const userInfo = user.infouser;
-  const showModal = userInfo.currentWeight === null || userInfo.height === null || userInfo.age === null || userInfo.desireWeight === null || userInfo.bloodType === null;
+  // Safety checks for user and userInfo
+  const userInfo = user?.infouser || {
+    currentWeight: null,
+    height: null,
+    age: null,
+    desireWeight: null,
+    bloodType: null,
+  };
+  
+  const showModal = userInfo.currentWeight === null || 
+                   userInfo.height === null || 
+                   userInfo.age === null || 
+                   userInfo.desireWeight === null || 
+                   userInfo.bloodType === null;
+                   
   const [showCalculateModal, setShowCalculateModal] = useState(showModal);
   const [showBlockMessage, setShowBlockMessage] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -133,6 +149,7 @@ const DiaryPage = () => {
 
   return (
     <div className={styles.diaryPageContainer}>
+      {isLoading && <Loader />}
       <div className={styles.diaryPage}>
         <div className={styles.leftSection}>
           {showCalculateModal ? (

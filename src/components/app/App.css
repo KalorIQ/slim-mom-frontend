@@ -35,6 +35,11 @@ html {
     overflow-x: hidden;
 }
 
+/* NotFound page specific styling */
+.main-content:has([class*="notFoundContainer"]) {
+    margin-top: 0;
+}
+
 .footer {
     position: relative;
     z-index: 2;
@@ -160,6 +165,11 @@ margin-top: auto;
         padding: 0;
     }
     
+    /* NotFound page mobile styling */
+    .main-content:has([class*="notFoundContainer"]) {
+        margin-top: 0;
+    }
+    
     .App {
         min-height: 100vh;
         overflow-x: hidden;
@@ -169,5 +179,10 @@ margin-top: auto;
 @media screen and (max-width: 480px) {
     .main-content {
         margin-top: 16px;
+    }
+    
+    /* NotFound page mobile styling */
+    .main-content:has([class*="notFoundContainer"]) {
+        margin-top: 0;
     }
 }
