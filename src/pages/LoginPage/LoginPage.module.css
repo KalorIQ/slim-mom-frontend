@@ -1,14 +1,18 @@
 .container{
     width: 100%;
     height: auto;
-    margin-top: 120px;
+    margin-top: 40px;
     margin-left: 32px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 .form{
     position: relative;
-    display:flex;
+    display: flex;
     flex-direction: column;
     gap: 32px;
+    max-width: 500px;
 }
 .inputContainer {
     display: flex;
@@ -24,6 +28,10 @@
     letter-spacing: 0.04em;
     text-transform: uppercase;
     color: #fc842d;
+    margin: 0;
+    margin-bottom: 40px;
+    padding: 0;
+    align-self: flex-start;
 }
 .input {
     width: 240px;
@@ -32,7 +40,7 @@
     border: none;
     border-bottom: 1px solid #E0E0E0;
     appearance: none;
-    margin-bottom: 32px;
+    margin-bottom: 20px;
     background-color: transparent;
     outline: none;
     font-family: Verdana, sans-serif;
@@ -56,6 +64,7 @@
 .btnContainer{
     display: flex;
     gap: 32px;
+    margin-bottom: 60px;
 }
 
 .logInButton{
@@ -97,7 +106,7 @@
     cursor: pointer;
     transition: all 0.3s ease;
     border: 2px solid #fc842d;
-    margin-bottom:34px;
+    margin-bottom: 60px;
 }
 .registerButton:hover{
     background-color: #FC842D;
@@ -127,9 +136,9 @@
 
     .forgotPasswordContainer{
         position: absolute;
-        top: 100px;
-        left:390px;
-        margin-top: 120px;
+    top: 240px;
+    left: 0;
+    margin-top: 0;
     }
 
         .forgotPasswordLink {
@@ -145,7 +154,7 @@
             color: #FC842D;
             text-decoration: none;
             overflow: hidden;
-            /* çizginin dışarı taşmasını engeller */
+    padding-bottom: 4px;
         }
     
         .forgotPasswordLink::after {
@@ -156,11 +165,42 @@
             height: 1px;
             width: 100%;
             background-color: #FC842D;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
         }
     
         .forgotPasswordLink:hover::after,
         .forgotPasswordLink:focus::after {
-            transform: translateX(0%);
+    transform: scaleX(1);
+}
+
+.passwordWrapper {
+    position: relative;
+    width: 240px;
+}
+
+.eyeButton {
+    position: absolute;
+    right: 0;
+    bottom: 40px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #FC842D;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.eyeButton:hover {
+    color: #FF6B00;
+}
+
+.eyeButton:focus {
+    outline: none;
+    color: #FF6B00;
         }

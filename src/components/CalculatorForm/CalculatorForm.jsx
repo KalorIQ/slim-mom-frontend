@@ -45,8 +45,8 @@ const CalculatorForm = () => {
         validateOnChange={false}
         onSubmit={async (values) => {
           setCalorieResult(null);
-          const result = intakeCalorie(values);
-          setCalorieResult(result);
+            const result = intakeCalorie(values);
+            setCalorieResult(result);
 
           // Kullanıcı bilgilerini güncelle
           const userData = {

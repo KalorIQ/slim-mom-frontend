@@ -3,10 +3,13 @@ import style from "./LoginPage.module.css";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/auth/authOperation.js";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleRegister = () => {
     navigate("/register");
@@ -25,6 +28,10 @@ const LoginPage = () => {
     } catch (error) {
       console.error("Login failed:", error);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -54,14 +61,24 @@ const LoginPage = () => {
                 className={style.input}
               />
 
+              <div className={style.passwordWrapper}>
               <Field
-                type="password"
+                  type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 placeholder="Password"
                 autoComplete="new-password"
                 className={style.input}
               />
+                <button
+                  type="button"
+                  className={style.eyeButton}
+                  onClick={togglePasswordVisibility}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
             </div>
 
             <div className={style.forgotPasswordContainer}>

@@ -29,7 +29,7 @@ const Navigation = () => {
             <div className={style.leftSection}>
                 <div className={style.logoContainer}>
                     <Logo />
-                    <img src={vektor} alt="logo" className={style.logo} />
+                        <img src={vektor} alt="logo" className={style.logo} />
                 </div>
                 <div className={style.mainNav}>
                     {isLoggedIn ? (
@@ -68,11 +68,11 @@ const Navigation = () => {
             
             <div className={style.rightSection}>
                 {(isLoggedIn || isDiaryOrCalculator) && userName && (
-                    <div className={style.userInfo}>
-                        <p className={style.userName}>{userName}</p>
-                        <button onClick={handleLogout} className={style.logout}>Logout</button>
-                    </div>
-                )}
+                <div className={style.userInfo}>
+                    <p className={style.userName}>{userName}</p>
+                    <button onClick={handleLogout} className={style.logout}>Logout</button>
+                </div>
+            )}
                 <div className={style.themeSwitcherContainer}>
                     <ThemeToggle />
                 </div>

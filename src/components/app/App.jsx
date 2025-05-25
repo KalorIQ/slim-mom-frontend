@@ -17,24 +17,24 @@ import "../../styles/theme.css";
 function App() {
   return (
     <ThemeProvider>
-      <div className="App">
-        <Background />
-        <Navigation />
-        <main className="main-content">
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/diary" element={<DiaryPage />} />
-            <Route path="/calculator" element={<CalculatorPage />} />
-          </Routes>
-          <div className="flowingContainer">
-            <Flowing />
-          </div>
-        </main>
-        <footer className="footer">
-          <Footer />
-        </footer>
+    <div className="App">
+      <Background />
+      <Navigation />
+      <main className="main-content">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/diary" element={<DiaryPage />} />
+          <Route path="/calculator" element={<CalculatorPage />} />
+        </Routes>
+        <div className="flowingContainer">
+          <Flowing />
+        </div>
+      </main>
+      <footer className="footer">
+        <Footer />
+      </footer>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -47,7 +47,7 @@ function App() {
           pauseOnHover
           theme="dark"
         />
-      </div>
+    </div>
     </ThemeProvider>
   );
 }

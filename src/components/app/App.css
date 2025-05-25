@@ -146,6 +146,6 @@ html {
 }
 
 .flowingContainer {
-    margin-top: auto;
+margin-top: auto;
     transition: all 0.3s ease;
 }

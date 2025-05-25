@@ -8,34 +8,115 @@
 
 .diaryPage {
   display: flex;
-  max-width: 1280px;
-  margin: 0 auto;
-  min-height: 100vh;
-  font-family: Verdana, sans-serif;
+  align-items: flex-start;
   position: relative;
-  justify-content: space-between;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  margin: 0;
+  font-family: Verdana, sans-serif;
+  justify-content: flex-start;
+  color: var(--text-primary);
+  overflow: hidden;
+  padding: 0 50px;
 }
 
 .leftSection {
-  flex: 1;
-  padding: 0 0 60px 16px;
+  padding: 90px 0 60px 0;
   background: var(--bg-primary);
   min-height: 100vh;
-  max-width: 763px;
+  width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   position: relative;
   z-index: 1;
 }
 
-.rightSection {
-  width: 517px;
-  min-height: 100vh;
+/* Sol form kutusu */
+.diaryContent {
+  width: 100%;
+  max-width: 600px;
+  min-width: 0;
+  border-radius: 18px;
   position: relative;
   z-index: 1;
+  margin: 0;
   padding: 0;
+  color: var(--text-primary);
   display: flex;
-  justify-content: flex-start;
-  margin-right: -100px;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.dateTitle {
+  width: 100%;
+  font-size: 34px;
+  line-height: 1.2;
+  margin-bottom: 32px;
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--text-title);
+  font-family: Verdana, sans-serif;
+}
+
+.rightSection {
+  width: 750px;
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
   background-color: transparent;
+  padding: 90px 0 0 0;
+}
+
+.rightSection > div {
+  width: 288px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  transform: translateY(0px);
+  position: relative;
+  z-index: 2;
+}
+
+/* Summary bileşeni için özel ayarlar */
+.rightSection .summary {
+  width: 288px !important;
+  height: auto;
+  align-items: center;
+}
+
+.rightSection .summaryContainer,
+.rightSection .summaryContainerAlt {
+  width: 288px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rightSection h3 {
+  font-family: var(--font-family);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: #212121;
+  margin-bottom: 20px;
+}
+
+.rightSection p,
+.rightSection span {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: #9B9FAA;
 }
 
 /* Gri arka plan */
@@ -44,11 +125,10 @@
   position: fixed;
   right: 0;
   top: 0;
-  width: 700px;
+  width: 750px;
   height: 100vh;
   background-color: var(--bg-secondary);
   z-index: 0;
-  transform: translateX(100px);
 }
 
 /* Yaprak görseli */
@@ -62,15 +142,8 @@
   background-image: url('../../assets/images/leaves-desktop.png');
   background-size: contain;
   background-repeat: no-repeat;
-  z-index: -1;
-  transform: translateY(-50%);
-}
-
-.diaryContent {
-  width: 100%;
-  max-width: 763px;
-  margin: 0;
-  padding-right: 32px;
+  z-index: 1;
+  transform: translateY(-60%) translateX(150px);
 }
 
 /* Tarih Bölümü */
@@ -80,15 +153,6 @@
   gap: 20px;
   margin-bottom: 60px;
   margin-top: 40px;
-}
-
-.dateTitle {
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 41px;
-  color: var(--text-title);
-  margin: 0;
-  font-family: Verdana, sans-serif;
 }
 
 .calendarWrapper {
@@ -376,28 +440,7 @@
     background-image: url('../../assets/svg/background/leaf.svg');
     background-size: contain;
     background-repeat: no-repeat;
-    background-position: -50px center;
-  }
-}
-
-@media screen and (min-width: 1024px) {
-  .diaryPage {
-    flex-direction: row;
-  }
-
-  .leftSection {
-    margin-left: 0;
-  }
-
-  .rightSection {
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    position: relative;
-    bottom: 0;
-    background-position: center;
-    min-height: 100vh;
-    height: 100vh;
+    background-position: 20px -50px;
   }
 }
 

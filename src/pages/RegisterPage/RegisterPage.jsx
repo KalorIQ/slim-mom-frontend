@@ -3,10 +3,13 @@ import style from "./RegisterPage.module.css";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/auth/authOperation.js";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useState } from "react";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleLogIn = () => {
     navigate("/login");
@@ -26,6 +29,10 @@ const RegisterPage = () => {
     } catch (error) {
       console.error("Registration failed:", error);
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -63,14 +70,24 @@ const RegisterPage = () => {
                 className={style.input}
               />
 
+              <div className={style.passwordWrapper}>
               <Field
-                type="password"
+                  type={showPassword ? "text" : "password"}
                 name="user_password"
                 id="user_password"
                 placeholder="Password"
                 autoComplete="new-password"
                 className={style.input}
               />
+                <button
+                  type="button"
+                  className={style.eyeButton}
+                  onClick={togglePasswordVisibility}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                >
+                  {showPassword ? <FaEye /> : <FaEyeSlash />}
+                </button>
+              </div>
             </div>
 
             <div className={style.btnContainer}>

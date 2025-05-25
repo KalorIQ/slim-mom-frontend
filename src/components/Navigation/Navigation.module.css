@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin: 20px 16px;
+    padding: 50px 50px 0 50px;
     position: relative;
     z-index: 1000;
 }
@@ -55,7 +55,7 @@
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: var(--text-primary);
+    background-color: #FC842D;
     transition: width 0.3s ease;
 }
 
@@ -68,7 +68,7 @@
 .navLink:hover,
 .navLink:focus,
 .navLink.active {
-    color: var(--text-primary);
+    color: #FC842D;
 }
 
 .rightSection {

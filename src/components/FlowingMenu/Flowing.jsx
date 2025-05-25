@@ -51,8 +51,8 @@ const Flowing = () => {
                 </div>
             )}
             <div className={style.flowingMenuContainer}>
-                <FlowingMenu items={demoItems} />
-            </div>
+            <FlowingMenu items={demoItems} />
+        </div>
         </>
     );
 };
