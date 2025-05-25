@@ -7,12 +7,14 @@ import LoginPage from "../../pages/LoginPage/LoginPage.jsx";
 import RegisterPage from "../../pages/RegisterPage/RegisterPage.jsx";
 import DiaryPage from "../../pages/DiaryPage/DiaryPage.jsx";
 import CalculatorPage from "../../pages/CalculatorPage/CalculatorPage.jsx";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage.jsx";
 import Background from "../Background/Background.jsx";
 import Flowing from "../FlowingMenu/Flowing.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "../../context/ThemeContext";
 import "../../styles/theme.css";
+import "../../i18n/i18n.js";
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/diary" element={<DiaryPage />} />
           <Route path="/calculator" element={<CalculatorPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
         <div className="flowingContainer">
           <Flowing />

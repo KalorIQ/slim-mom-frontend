@@ -1,13 +1,16 @@
+import { useTranslation } from 'react-i18next';
 import BlurText from "./BlurText";
 
 const Title = () => {
+  const { t } = useTranslation();
+  
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
   };
 
   return (
     <BlurText
-      text="Calculate your daily calorie intake right now!"
+      text={t('calculator.title')}
       delay={280}
       animateBy="words"
       direction="top"

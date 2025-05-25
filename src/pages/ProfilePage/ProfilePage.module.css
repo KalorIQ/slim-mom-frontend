@@ -1,0 +1,248 @@
+.profilePageContainer {
+  overflow: hidden;
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+}
+
+.profilePage {
+  display: flex;
+  align-items: flex-start;
+  position: relative;
+  min-height: 100vh;
+  background-color: var(--bg-primary);
+  margin: 0;
+  font-family: Verdana, sans-serif;
+  color: var(--text-primary);
+  padding: 70px 50px 50px 50px;
+}
+
+.profileContent {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: var(--bg-secondary);
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.welcomeTitle {
+  font-size: 32px;
+  line-height: 1.2;
+  margin-bottom: 35px;
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--text-title);
+  font-family: Verdana, sans-serif;
+  text-align: center;
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 3px solid #FC842D;
+  position: relative;
+}
+
+.welcomeTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, #FC842D, #ff9a4d);
+  border-radius: 2px;
+}
+
+.profileForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.infoGrid {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+  background-color: var(--bg-primary);
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.leftColumn,
+.rightColumn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-family: Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+}
+
+.input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 0;
+  border: none;
+  border-bottom: 2px solid var(--border-color);
+  background-color: var(--bg-input);
+  outline: none;
+  font-family: Verdana, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  border-bottom-color: var(--button-primary-bg);
+}
+
+.input.disabled {
+  color: var(--text-secondary);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.infoDisplay {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding: 15px 0;
+  border-bottom: 2px solid var(--border-color);
+  width: 100%;
+  transition: all 0.3s ease;
+  position: relative;
+  cursor: default;
+  user-select: none;
+}
+
+.infoDisplay:hover {
+  border-bottom-color: #FC842D;
+}
+
+.infoDisplay:hover::before {
+  display: none;
+}
+
+.infoLabel {
+  font-family: Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 17px;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+  min-width: 130px;
+  text-transform: uppercase;
+  cursor: default;
+  user-select: none;
+}
+
+.infoValue {
+  font-family: Verdana, sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  letter-spacing: 0.02em;
+  color: #9B9FAA;
+  flex: 1;
+  cursor: default;
+  user-select: none;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .profilePage {
+    padding: 40px 20px;
+  }
+
+  .profileContent {
+    padding: 30px;
+    max-width: 100%;
+  }
+
+  .welcomeTitle {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+
+  .infoGrid {
+    flex-direction: column;
+    gap: 30px;
+    padding: 25px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    gap: 20px;
+  }
+
+  .infoDisplay:hover {
+    padding-left: 5px;
+  }
+
+  .input {
+    max-width: 100%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profilePage {
+    padding: 30px 16px;
+  }
+
+  .profileContent {
+    padding: 25px;
+    border-radius: 8px;
+  }
+
+  .welcomeTitle {
+    font-size: 24px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+  }
+
+  .infoGrid {
+    gap: 25px;
+    padding: 20px;
+  }
+
+  .leftColumn,
+  .rightColumn {
+    gap: 18px;
+  }
+
+  .infoDisplay {
+    gap: 25px;
+    padding: 12px 0;
+  }
+
+  .infoLabel {
+    min-width: 90px;
+    font-size: 12px;
+  }
+
+  .infoValue {
+    font-size: 14px;
+  }
+} 

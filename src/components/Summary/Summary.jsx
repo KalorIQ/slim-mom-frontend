@@ -1,4 +1,5 @@
 // Summary.jsx - Bu dosya değişmedi, önceki verdiğim kodla aynı.
+import { useTranslation } from 'react-i18next';
 import styles from "./Summary.module.css";
 import {
     selectDailyRate,
@@ -11,6 +12,7 @@ import {
 import { useSelector } from "react-redux";
 
 const Summary = () => {
+    const { t } = useTranslation();
     const dailyRate = useSelector(selectDailyRate);
     const dailyCalories = useSelector(selectDailyCalories);
     const leftCalories = useSelector(selectLeftCalories);
@@ -24,24 +26,24 @@ const Summary = () => {
     return (
         <div className={styles.summary}>
             <div className={styles.summaryContainer}>
-                <h3 className={styles.title}>Summary for {displayDate}</h3>
+                <h3 className={styles.title}>{t('summary.title')} {displayDate}</h3>
                 <div className={styles.textContainer}>
                     <p className={styles.text}>
-                        Left <span>{leftCalories || 0} kcal</span>
+                        {t('summary.leftToEat')} <span>{leftCalories || 0} kcal</span>
                     </p>
                     <p className={styles.text}>
-                        Consumed <span>{dailyCalories || 0} kcal</span>
+                        {t('summary.consumed')} <span>{dailyCalories || 0} kcal</span>
                     </p>
                     <p className={styles.text}>
-                        Daily rate <span>{dailyRate || 0} kcal</span>
+                        {t('summary.dailyRate')} <span>{dailyRate || 0} kcal</span>
                     </p>
                     <p className={styles.text}>
-                        n% of normal <span>{percentageConsumed || 0}%</span>
+                        {t('summary.percentOfNormal')} <span>{percentageConsumed || 0}%</span>
                     </p>
                 </div>
             </div>
             <div className={styles.summaryContainerAlt}>
-                <h3 className={styles.notRecommendedTitle}>Food not recommended</h3>
+                <h3 className={styles.notRecommendedTitle}>{t('summary.foodNotRecommended')}</h3>
                 {notAllowedFoods && notAllowedFoods.length > 0 ? (
                     <ul className={styles.notRecommendedList}>
                         {notAllowedFoods.map((food, index) => (
@@ -51,7 +53,7 @@ const Summary = () => {
                         ))}
                     </ul>
                 ) : (
-                    <p className={styles.noFoodsMessage}>Your diet will be displayed here</p>
+                    <p className={styles.noFoodsMessage}>{t('summary.noFoodsMessage')}</p>
                 )}
             </div>
         </div>

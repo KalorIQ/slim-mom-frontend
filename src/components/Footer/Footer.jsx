@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 import CircleTitle from "../CircleTitle/CircleTitle.jsx";
 import style from './Footer.module.css';
 import logo from '../../assets/svg/logo/slimMomLogo.svg';
@@ -14,10 +15,13 @@ import sebnem from "../../assets/image/members/sebnem.jpeg";
 
 
 const Footer = () => {
+  const { t, i18n } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [index, setIndex] = useState(0);
 
+  // Get animated words from translations
+  const texts = t('footer.animatedWords', { returnObjects: true });
 
   useEffect(() => {
   const interval = setInterval(() => {
@@ -25,19 +29,8 @@ const Footer = () => {
   }, 2000); 
 
   return () => clearInterval(interval);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [texts.length]);
 
-  const texts = [
-      "Students",
-      "Developers", 
-      "Programmers",
-      "Creators",
-      "Innovators",
-      "Thinkers",
-      "Dreamers",
-      "Builders",
-  ];
   const containerVariants = {
     hidden: {},
     visible: {
@@ -62,10 +55,29 @@ const Footer = () => {
 
         <div className={style.footerInfo}>
           <p className={style.footerText}>
-            Built with love by GO IT{" "}
-            <button className={style.modalButton} onClick={() => setIsModalOpen(true)}>
-              students
-            </button>.
+            {i18n.language === 'en' ? (
+              <>
+                {t('footer.builtWithLove')}{" "}
+                <button className={style.modalButton} onClick={() => setIsModalOpen(true)}>
+                  {t('footer.students')}
+                </button>.
+              </>
+            ) : i18n.language === 'tr' ? (
+              <>
+                {t('footer.builtWithLove')}{" "}
+                <button className={style.modalButton} onClick={() => setIsModalOpen(true)}>
+                  {t('footer.students')}
+                </button>{" "}
+                {t('footer.byStudents')}.
+              </>
+            ) : (
+              <>
+                {t('footer.builtWithLove')}{" "}
+                <button className={style.modalButton} onClick={() => setIsModalOpen(true)}>
+                  {t('footer.students')}
+                </button>.
+              </>
+            )}
           </p>
         </div>
 
@@ -147,7 +159,7 @@ const Footer = () => {
               </div>
             </div>
             <button className={style.closeButton} onClick={() => setIsModalOpen(false)}>
-              Close
+              {t('footer.close')}
             </button>
           </div>
         </div>

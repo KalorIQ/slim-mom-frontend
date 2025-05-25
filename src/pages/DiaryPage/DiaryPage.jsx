@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import styles from "./DiaryPage.module.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoMdAdd } from "react-icons/io";
@@ -26,6 +27,7 @@ import ModalWrapper from "../../components/ModalWrapper/ModalWrapper.jsx";
 import Summary from "../../components/Summary/Summary.jsx";
 
 const DiaryPage = () => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const diaryEntries = useSelector(selectProcessedDiaryEntries);
   const currentDate = useSelector(selectCurrentDate);
@@ -78,54 +80,48 @@ const DiaryPage = () => {
     }
   };
 
-  const handleRemoveItem = (entryId) => {
-    dispatch(removeProduct({ productId: entryId, date: currentDate }))
-      .unwrap()
-      .then(() => {
-        dispatch(getDiaryEntries(currentDate));
-        dispatch(getDailyCalories(currentDate));
-      })
-      .catch((error) => {
-        console.error('Failed to remove product:', error);
-      });
+  const handleRemoveItem = (itemId) => {
+    dispatch(removeProduct(itemId)).then(() => {
+      dispatch(getDiaryEntries(currentDate));
+      dispatch(getDailyCalories(currentDate));
+    });
   };
 
-  const handleProductNameChange = (e) => {
-    const value = e.target.value;
+  const handleProductSearch = (value) => {
     setProductName(value);
-
-    if (selectedProduct && value !== selectedProduct.title) {
-      setSelectedProduct(null);
-    }
+    setSelectedProduct(null);
 
     if (searchTimeoutId) {
       clearTimeout(searchTimeoutId);
     }
 
-    if (value.length >= 3 && !selectedProduct) {
+    if (value.trim().length > 0) {
       const timeoutId = setTimeout(() => {
-        dispatch(searchProducts(value));
+        dispatch(searchProducts(value.trim()));
         setShowSearchResults(true);
-      }, 500);
+      }, 300);
       setSearchTimeoutId(timeoutId);
     } else {
       setShowSearchResults(false);
-      setSearchTimeoutId(null);
     }
   };
-
-  const displayDate = new Date(currentDate).toLocaleDateString('en-US', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
 
   const handleDateChange = (date) => {
     const formattedDate = date.toISOString().split('T')[0];
     dispatch({ type: 'products/setCurrentDate', payload: formattedDate });
     setShowCalendar(false);
   };
+
+  const formatDisplayDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
+
+  const displayDate = formatDisplayDate(currentDate);
 
   return (
     <div className={styles.diaryPageContainer}>
@@ -144,9 +140,9 @@ const DiaryPage = () => {
           ) : showBlockMessage ? (
             <div className={styles.blockMessageWrapper}>
               <div className={styles.blockMessageBox}>
-                <h2 className={styles.blockMessageTitle}>We're Sorry!</h2>
+                <h2 className={styles.blockMessageTitle}>{t('diary.blockTitle')}</h2>
                 <p className={styles.blockMessageText}>
-                  To proceed with adding products, please calculate your daily calorie needs first. This helps us personalize your experience.
+                  {t('diary.blockMessage')}
                 </p>
               </div>
             </div>
@@ -172,46 +168,50 @@ const DiaryPage = () => {
               </div>
 
               <div className={styles.addProductForm}>
-                <div className={styles.productInputContainer}>
+                <div className={styles.productInputWrapper}>
                   <input
                     type="text"
-                    placeholder="Enter product name"
                     value={productName}
-                    onChange={handleProductNameChange}
+                    onChange={(e) => handleProductSearch(e.target.value)}
+                    placeholder={t('diary.searchPlaceholder')}
                     className={styles.productInput}
-                    disabled={isLoading}
                   />
+                  
                   {showSearchResults && searchResults.length > 0 && (
                     <div className={styles.searchResults}>
-                      {searchResults.slice(0, 15).map((product) => (
+                      {searchResults.slice(0, 10).map((product) => (
                         <div
                           key={product._id}
                           className={styles.searchResultItem}
                           onClick={() => handleProductSelect(product)}
                         >
-                          <span className={styles.productTitle}>{product.title}</span>
-                          <span className={styles.productCalories}>
-                            {product.calories} kcal/100g
-                          </span>
+                          {product.title}
                         </div>
                       ))}
                     </div>
                   )}
+                  
+                  {showSearchResults && searchResults.length === 0 && productName.trim() && (
+                    <div className={styles.noResults}>
+                      {t('diary.noResults')}
+                    </div>
+                  )}
                 </div>
+
                 <input
                   type="number"
-                  placeholder="Grams"
                   value={grams}
                   onChange={(e) => setGrams(e.target.value)}
+                  placeholder={t('diary.grams')}
                   className={styles.gramsInput}
-                  disabled={isLoading}
                 />
+
                 <button
                   onClick={handleAddProduct}
+                  disabled={!selectedProduct || !grams}
                   className={styles.addButton}
-                  disabled={isLoading || !selectedProduct || !grams}
                 >
-                  <IoMdAdd />
+                  <IoMdAdd className={styles.addIcon} />
                 </button>
               </div>
 
@@ -225,7 +225,7 @@ const DiaryPage = () => {
                       <button
                         onClick={() => handleRemoveItem(item._id)}
                         className={styles.removeButton}
-                        aria-label="Remove item"
+                        aria-label={t('diary.removeItem')}
                       >
                         <RiDeleteBin6Line />
                       </button>
@@ -234,7 +234,7 @@ const DiaryPage = () => {
                 </div>
               ) : (
                 <p className={styles.noEntriesMessage}>
-                  Your food diary is empty. Add your first product!
+                  {t('diary.emptyMessage')}
                 </p>
               )}
             </div>

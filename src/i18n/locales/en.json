@@ -1,0 +1,112 @@
+{
+  "navigation": {
+    "diary": "Diary",
+    "calculator": "Calculator",
+    "profile": "Profile",
+    "logout": "Logout",
+    "registration": "Registration",
+    "login": "Log In"
+  },
+  "auth": {
+    "loginTitle": "Log In",
+    "registerTitle": "Registration",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "loginButton": "Log In",
+    "registerButton": "Register",
+    "loginSuccess": "Login successful",
+    "registerSuccess": "Registration successful",
+    "loginFailed": "Login failed",
+    "registerFailed": "Registration failed",
+    "logoutSuccess": "Logout successful",
+    "logoutFailed": "We couldn't log you out. Please try again!",
+    "forgotPassword": "Forgot Password?",
+    "hidePassword": "Hide password",
+    "showPassword": "Show password"
+  },
+  "calculator": {
+    "title": "Calculate your daily calorie intake right now",
+    "height": "Height",
+    "age": "Age",
+    "currentWeight": "Current Weight",
+    "desiredWeight": "Desired Weight",
+    "bloodType": "Blood type",
+    "startButton": "Start losing weight",
+    "updateButton": "Update My Info",
+    "calculateButton": "Calculate",
+    "dailyCalorieNeeds": "Calculate Your Daily Calorie Needs",
+    "updateSuccess": "User info updated successfully",
+    "updateFailed": "Failed to update user info"
+  },
+  "diary": {
+    "title": "Diary",
+    "date": "Date",
+    "product": "Product",
+    "grams": "Grams",
+    "addButton": "Add",
+    "emptyMessage": "Your food diary is empty",
+    "searchPlaceholder": "Search for products...",
+    "noResults": "No products found",
+    "blockTitle": "We're Sorry!",
+    "blockMessage": "To proceed with adding products, please calculate your daily calorie needs first. This helps us personalize your experience.",
+    "removeItem": "Remove item"
+  },
+  "profile": {
+    "welcome": "Welcome",
+    "email": "Email",
+    "height": "Height",
+    "age": "Age",
+    "currentWeight": "Current Weight",
+    "desiredWeight": "Desired Weight",
+    "bloodType": "Blood Type",
+    "dailyCalorieRate": "Daily Calorie Rate",
+    "notSet": "Not set",
+    "notCalculated": "Not calculated",
+    "years": "years",
+    "cm": "cm",
+    "kg": "kg",
+    "kcal": "kcal"
+  },
+  "summary": {
+    "title": "Summary for",
+    "leftToEat": "Left to eat",
+    "consumed": "Consumed",
+    "dailyRate": "Daily rate",
+    "percentOfNormal": "% of normal",
+    "foodNotRecommended": "Food not recommended",
+    "noFoodsMessage": "Your diet will be displayed here"
+  },
+  "footer": {
+    "builtWithLove": "Built with love by GO IT",
+    "students": "students",
+    "close": "Close",
+    "animatedWords": ["Students", "Developers", "Programmers", "Creators", "Innovators", "Thinkers", "Dreamers", "Builders"]
+  },
+  "bloodTypes": {
+    "1": "A",
+    "2": "B", 
+    "3": "AB",
+    "4": "0"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email",
+    "minLength": "Minimum {{count}} characters required",
+    "number": "Please enter a valid number",
+    "positive": "Please enter a positive number"
+  },
+  "common": {
+    "close": "Close",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "loading": "Loading...",
+    "error": "An error occurred"
+  },
+  "flowingMenu": {
+    "eatHealthy": "Eat Healthy",
+    "lighterEveryDay": "Lighter Every Day"
+  }
+} 

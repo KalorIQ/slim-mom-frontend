@@ -1,4 +1,5 @@
 import { Formik, Field, Form } from "formik";
+import { useTranslation } from 'react-i18next';
 import style from "./LoginPage.module.css";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
@@ -7,6 +8,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
 
 const LoginPage = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
@@ -42,7 +44,7 @@ const LoginPage = () => {
       >
         {() => (
           <Form className={style.form} autoComplete="off">
-            <h2 className={style.title}>Log In</h2>
+            <h2 className={style.title}>{t('auth.loginTitle')}</h2>
 
             <input
               type="text"
@@ -56,25 +58,25 @@ const LoginPage = () => {
                 type="email"
                 name="email"
                 id="email"
-                placeholder="Email"
-                autoComplete="email"
+                placeholder={t('auth.email')}
+                autoComplete="new-email"
                 className={style.input}
               />
 
               <div className={style.passwordWrapper}>
-              <Field
+                <Field
                   type={showPassword ? "text" : "password"}
-                name="password"
-                id="password"
-                placeholder="Password"
-                autoComplete="new-password"
-                className={style.input}
-              />
+                  name="password"
+                  id="password"
+                  placeholder={t('auth.password')}
+                  autoComplete="new-password"
+                  className={style.input}
+                />
                 <button
                   type="button"
                   className={style.eyeButton}
                   onClick={togglePasswordVisibility}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  aria-label={showPassword ? t('auth.hidePassword') : t('auth.showPassword')}
                 >
                   {showPassword ? <FaEye /> : <FaEyeSlash />}
                 </button>
@@ -83,20 +85,20 @@ const LoginPage = () => {
 
             <div className={style.forgotPasswordContainer}>
               <a href="/forgot-password" className={style.forgotPasswordLink}>
-                Forgot Password?
+                {t('auth.forgotPassword')}
               </a>
             </div>
 
             <div className={style.btnContainer}>
               <button type="submit" className={style.logInButton}>
-                Log In
+                {t('auth.loginButton')}
               </button>
               <button
                 type="button"
                 className={style.registerButton}
                 onClick={handleRegister}
               >
-                Register
+                {t('auth.registerButton')}
               </button>
             </div>
           </Form>

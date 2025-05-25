@@ -1,0 +1,113 @@
+{
+  "navigation": {
+    "diary": "Günlük",
+    "calculator": "Hesaplayıcı",
+    "profile": "Profil",
+    "logout": "Çıkış",
+    "registration": "Kayıt",
+    "login": "Giriş"
+  },
+  "auth": {
+    "loginTitle": "Giriş Yap",
+    "registerTitle": "Kayıt Ol",
+    "name": "İsim",
+    "email": "E-posta",
+    "password": "Şifre",
+    "loginButton": "Giriş Yap",
+    "registerButton": "Kayıt Ol",
+    "loginSuccess": "Giriş başarılı",
+    "registerSuccess": "Kayıt başarılı",
+    "loginFailed": "Giriş başarısız",
+    "registerFailed": "Kayıt başarısız",
+    "logoutSuccess": "Çıkış başarılı",
+    "logoutFailed": "Çıkış yapılamadı. Lütfen tekrar deneyin!",
+    "forgotPassword": "Şifremi Unuttum?",
+    "hidePassword": "Şifreyi gizle",
+    "showPassword": "Şifreyi göster"
+  },
+  "calculator": {
+    "title": "Günlük kalori alımınızı şimdi hesaplayın",
+    "height": "Boy",
+    "age": "Yaş",
+    "currentWeight": "Mevcut Kilo",
+    "desiredWeight": "Hedef Kilo",
+    "bloodType": "Kan grubu",
+    "startButton": "Kilo vermeye başla",
+    "updateButton": "Bilgilerimi Güncelle",
+    "calculateButton": "Hesapla",
+    "dailyCalorieNeeds": "Günlük Kalori İhtiyacınızı Hesaplayın",
+    "updateSuccess": "Kullanıcı bilgileri başarıyla güncellendi",
+    "updateFailed": "Kullanıcı bilgileri güncellenemedi"
+  },
+  "diary": {
+    "title": "Günlük",
+    "date": "Tarih",
+    "product": "Ürün",
+    "grams": "Gram",
+    "addButton": "Ekle",
+    "emptyMessage": "Yemek günlüğünüz boş",
+    "searchPlaceholder": "Ürün ara...",
+    "noResults": "Ürün bulunamadı",
+    "blockTitle": "Üzgünüz!",
+    "blockMessage": "Ürün eklemek için önce günlük kalori ihtiyacınızı hesaplamanız gerekiyor. Bu deneyiminizi kişiselleştirmemize yardımcı olur.",
+    "removeItem": "Öğeyi kaldır"
+  },
+  "profile": {
+    "welcome": "Hoş geldin",
+    "email": "E-posta",
+    "height": "Boy",
+    "age": "Yaş",
+    "currentWeight": "Mevcut Kilo",
+    "desiredWeight": "Hedef Kilo",
+    "bloodType": "Kan Grubu",
+    "dailyCalorieRate": "Günlük Kalori Oranı",
+    "notSet": "Ayarlanmamış",
+    "notCalculated": "Hesaplanmamış",
+    "years": "yaş",
+    "cm": "cm",
+    "kg": "kg",
+    "kcal": "kcal"
+  },
+  "summary": {
+    "title": "Özet",
+    "leftToEat": "Yenilecek kalan",
+    "consumed": "Tüketilen",
+    "dailyRate": "Günlük oran",
+    "percentOfNormal": "% normal",
+    "foodNotRecommended": "Önerilmeyen yiyecekler",
+    "noFoodsMessage": "Diyetiniz burada görüntülenecek"
+  },
+  "footer": {
+    "builtWithLove": "GO IT",
+    "students": "öğrencileri",
+    "byStudents": "tarafından sevgiyle yapıldı",
+    "close": "Kapat",
+    "animatedWords": ["Öğrenciler", "Geliştiriciler", "Programcılar", "Yaratıcılar", "Yenilikçiler", "Düşünürler", "Hayalciler", "İnşacılar"]
+  },
+  "bloodTypes": {
+    "1": "A",
+    "2": "B",
+    "3": "AB", 
+    "4": "0"
+  },
+  "validation": {
+    "required": "Bu alan zorunludur",
+    "email": "Lütfen geçerli bir e-posta girin",
+    "minLength": "En az {{count}} karakter gerekli",
+    "number": "Lütfen geçerli bir sayı girin",
+    "positive": "Lütfen pozitif bir sayı girin"
+  },
+  "common": {
+    "close": "Kapat",
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "loading": "Yükleniyor...",
+    "error": "Bir hata oluştu"
+  },
+  "flowingMenu": {
+    "eatHealthy": "Sağlıklı Beslen",
+    "lighterEveryDay": "Her Gün Daha Hafif"
+  }
+} 

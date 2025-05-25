@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import validationSchema from "../../Validator/calcValidation.js";
 import Title from "./BlurTitle/Title.jsx";
 import style from "./UpdateUserInfoForm.module.css";
@@ -8,6 +9,7 @@ import { updateUserInfo } from "../../redux/auth/authOperation.js";
 import { selectUser } from "../../redux/auth/authSelectors.js";
 
 const UpdateUserInfoForm = () => {
+  const { t } = useTranslation();
   const [showErrors, setShowErrors] = useState(false);
   const [errorList, setErrorList] = useState([]);
   const dispatch = useDispatch();
@@ -78,19 +80,19 @@ const UpdateUserInfoForm = () => {
                   <Field
                     name="height"
                     type="number"
-                    placeholder="Height"
+                    placeholder={t('calculator.height')}
                     className={style.input}
                   />
                   <Field
                     name="age"
                     type="number"
-                    placeholder="Age"
+                    placeholder={t('calculator.age')}
                     className={style.input}
                   />
                   <Field
                     name="currentWeight"
                     type="number"
-                    placeholder="Current Weight"
+                    placeholder={t('calculator.currentWeight')}
                     className={style.input}
                   />
                 </div>
@@ -99,18 +101,18 @@ const UpdateUserInfoForm = () => {
                   <Field
                     name="desiredWeight"
                     type="number"
-                    placeholder="Desired Weight"
+                    placeholder={t('calculator.desiredWeight')}
                     className={style.input}
                   />
 
                   <div className={style.bloodTypeGroup}>
-                    <p className={style.bloodType}>Blood type</p>
+                    <p className={style.bloodType}>{t('calculator.bloodType')}</p>
                     <div className={style.radioGroup}>
                       {[
-                        { label: "A", value: "1" },
-                        { label: "B", value: "2" },
-                        { label: "AB", value: "3" },
-                        { label: "0", value: "4" },
+                        { label: t('bloodTypes.1'), value: "1" },
+                        { label: t('bloodTypes.2'), value: "2" },
+                        { label: t('bloodTypes.3'), value: "3" },
+                        { label: t('bloodTypes.4'), value: "4" },
                       ].map((type) => (
                         <label key={type.value} className={style.radioLabel}>
                           <Field
@@ -127,7 +129,9 @@ const UpdateUserInfoForm = () => {
                 </div>
               </div>
 
-              <button type="submit" className={style.submitButton}>{changeButton ? "Start losing weight" : "Update My Info"} </button>
+              <button type="submit" className={style.submitButton}>
+                {changeButton ? t('calculator.startButton') : t('calculator.updateButton')}
+              </button>
 
             </Form>
 
@@ -136,7 +140,7 @@ const UpdateUserInfoForm = () => {
               <div className={style.modal}>
                 <div className={style.modalContent}>
                   <h3 className={style.modalTitle}>
-                    Please Correct The Following!
+                    {t('validation.required')}
                   </h3>
                   <ul className={style.errorList}>
                     {errorList.map((err, idx) => (
@@ -149,7 +153,7 @@ const UpdateUserInfoForm = () => {
                     onClick={() => setShowErrors(false)}
                     className={style.modalClose}
                   >
-                    Close
+                    {t('common.close')}
                   </button>
                 </div>
               </div>

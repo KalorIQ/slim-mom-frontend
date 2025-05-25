@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import validationSchema from "../../Validator/calcValidation.js";
 import intakeCalorie from "../../utils/intakeCalorie.js";
 import style from "./CalculateModal.module.css";
@@ -8,12 +9,13 @@ import { IoCloseSharp } from "react-icons/io5";
 import { updateUserInfo } from "../../redux/auth/authOperation.js";
 
 const CalculateModal = ({ onClose }) => {
+  const { t } = useTranslation();
   const [calorieResult, setCalorieResult] = useState(null);
   const dispatch = useDispatch();
 
   return (
     <div className={style.container}>
-      <h2 className={style.title}>Calculate Your Daily Calorie Needs</h2>
+      <h2 className={style.title}>{t('calculator.dailyCalorieNeeds')}</h2>
       <Formik
         initialValues={{
           height: "",
@@ -54,24 +56,24 @@ const CalculateModal = ({ onClose }) => {
               className={style.form}
             >
               <div className={style.inputGroup}>
-                <Field name="height" type="number" placeholder="Height" className={style.input} />
+                <Field name="height" type="number" placeholder={t('calculator.height')} className={style.input} />
                 <ErrorMessage name="height" component="div" className={style.error} />
-                <Field name="age" type="number" placeholder="Age" className={style.input} />
+                <Field name="age" type="number" placeholder={t('calculator.age')} className={style.input} />
                 <ErrorMessage name="age" component="div" className={style.error} />
-                <Field name="currentWeight" type="number" placeholder="Current Weight" className={style.input} />
+                <Field name="currentWeight" type="number" placeholder={t('calculator.currentWeight')} className={style.input} />
                 <ErrorMessage name="currentWeight" component="div" className={style.error} />
-                <Field name="desiredWeight" type="number" placeholder="Desired Weight" className={style.input} />
+                <Field name="desiredWeight" type="number" placeholder={t('calculator.desiredWeight')} className={style.input} />
                 <ErrorMessage name="desiredWeight" component="div" className={style.error} />
               </div>
 
               <div className={style.bloodTypeGroup}>
-                <p className={style.bloodType}>Blood Type</p>
+                <p className={style.bloodType}>{t('calculator.bloodType')}</p>
                 <div className={style.radioGroup}>
                   {[
-                    { label: "A", value: "1" },
-                    { label: "B", value: "2" },
-                    { label: "AB", value: "3" },
-                    { label: "0", value: "4" },
+                    { label: t('bloodTypes.1'), value: "1" },
+                    { label: t('bloodTypes.2'), value: "2" },
+                    { label: t('bloodTypes.3'), value: "3" },
+                    { label: t('bloodTypes.4'), value: "4" },
                   ].map((type) => (
                     <label key={type.value} className={style.radioLabel}>
                       <Field
@@ -87,7 +89,7 @@ const CalculateModal = ({ onClose }) => {
                 </div>
               </div>
 
-              <button type="submit" className={style.submitButton}>Calculate</button>
+              <button type="submit" className={style.submitButton}>{t('calculator.calculateButton')}</button>
             </Form>
           </>
         )}
