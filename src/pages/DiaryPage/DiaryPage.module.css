@@ -149,26 +149,29 @@
 /* Tarih Bölümü */
 .dateSection {
   display: flex;
-  align-items: center;
-  gap: 20px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 40px;
   margin-bottom: 60px;
-  margin-top: 40px;
+  margin-top: 0;
 }
 
 .calendarWrapper {
   position: relative;
   display: inline-block;
+  margin-left: auto;
+  margin-top: 8px;
 }
 
 .calendarIcon {
   font-size: 20px;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   cursor: pointer;
   transition: color 0.2s ease;
 }
 
 .calendarIcon:hover {
-  color: var(--text-primary);
+  color: #FC842D;
 }
 
 .calendarPopup {
@@ -268,14 +271,13 @@
   align-items: flex-end;
   margin-bottom: 60px;
   padding-bottom: 60px;
-  border-bottom: 1px solid #E0E0E0;
 }
 
 .productInputContainer {
   flex: 1;
   position: relative;
-  max-width: 400px;
-  min-width: 320px;
+  max-width: 500px;
+  min-width: 400px;
 }
 
 .productInput {
@@ -302,7 +304,7 @@
 }
 
 .gramsInput {
-  width: 107px;
+  width: 150px;
   border: none;
   border-bottom: 1px solid var(--border-color);
   padding: 8px 0;
@@ -426,12 +428,14 @@
 .noEntriesMessage {
   text-align: center;
   color: #9B9FAA;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.04em;
   font-style: italic;
-  margin: 40px 0;
+  margin: 20px auto;
   font-family: Verdana, sans-serif;
+  width: 100%;
+  display: block;
 }
 
 /* Arka Plan Yaprakları (Sağ Bölüm) */

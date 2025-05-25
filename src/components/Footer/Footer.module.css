@@ -11,13 +11,12 @@
 
 .footerContainer {
     width: 100%;
-    max-width: 1200px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     gap: 20px;
-    padding: 0 16px;
+    padding: 0 50px 0 50px;
 }
 
 .footerLogo img {

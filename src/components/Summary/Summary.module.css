@@ -56,7 +56,7 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  color: var(--text-primary);
+  color: #9B9FAA;
 }
 
 .text:last-child {
@@ -69,7 +69,7 @@
   font-size: 14px;
   letter-spacing: 0.04em;
   text-align: right;
-  color: var(--text-primary);
+  color: #9B9FAA;
   min-width: 80px;
   margin-left: auto;
   padding-left: 120px;
