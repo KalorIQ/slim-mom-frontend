@@ -15,29 +15,39 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider } from "../../context/ThemeContext";
 import "../../styles/theme.css";
 import "../../i18n/i18n.js";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { restoreAuthState } from "../../redux/auth/authSlice.js";
 
 function App() {
+  const dispatch = useDispatch();
+
+  // Restore auth state from localStorage on app initialization
+  useEffect(() => {
+    dispatch(restoreAuthState());
+  }, [dispatch]);
+
   return (
     <ThemeProvider>
-    <div className="App">
-      <Background />
-      <Navigation />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/diary" element={<DiaryPage />} />
-          <Route path="/calculator" element={<CalculatorPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
-        <div className="flowingContainer">
-          <Flowing />
-        </div>
-      </main>
-      <footer className="footer">
-        <Footer />
-      </footer>
+      <div className="App">
+        <Background />
+        <Navigation />
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/diary" element={<DiaryPage />} />
+            <Route path="/calculator" element={<CalculatorPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
+          <div className="flowingContainer">
+            <Flowing />
+          </div>
+        </main>
+        <footer className="footer">
+          <Footer />
+        </footer>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -50,7 +60,7 @@ function App() {
           pauseOnHover
           theme="dark"
         />
-    </div>
+      </div>
     </ThemeProvider>
   );
 }

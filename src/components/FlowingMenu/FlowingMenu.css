@@ -108,8 +108,12 @@
 }
 
 @media screen and (max-width: 768px) {
+    .menu__item {
+        background: var(--bg-secondary);
+    }
+    
     .marquee {
-        background: #F0F1F3;
+        background: var(--bg-secondary);
     }
     
     .marquee span {

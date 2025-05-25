@@ -21,4 +21,27 @@
     top: 0;
     bottom: 0;
     font-size: 18px;
-    transition: all 0.5s cubic-bezier(0, 0, 0, 1); }
+    transition: all 0.5s cubic-bezier(0, 0, 0, 1);
+}
+
+@media screen and (max-width: 768px) {
+    .circular-text {
+        width: 90px;
+        height: 110px;
+    }
+    
+    .circular-text span {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .circular-text {
+        width: 70px;
+        height: 85px;
+    }
+    
+    .circular-text span {
+        font-size: 12px;
+    }
+}

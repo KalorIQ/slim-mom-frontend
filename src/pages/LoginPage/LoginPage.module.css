@@ -203,4 +203,101 @@
 .eyeButton:focus {
     outline: none;
     color: #FF6B00;
-        }
+}
+
+/* Responsive design for mobile devices */
+@media (max-width: 480px) {
+  .container {
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 20px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 200px);
+  }
+
+  .form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    margin: 0 auto;
+  }
+
+  .title {
+    font-size: 18px;
+    margin-bottom: 32px;
+    text-align: center;
+    align-self: center;
+  }
+
+  .inputContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-items: center;
+  }
+
+  .input {
+    width: 100%;
+    max-width: 280px;
+    font-size: 13px;
+    padding-bottom: 16px;
+    margin-bottom: 0;
+  }
+
+  .passwordWrapper {
+    width: 100%;
+    max-width: 280px;
+    position: relative;
+  }
+
+  .eyeButton {
+    bottom: 16px;
+    right: 8px;
+    font-size: 16px;
+  }
+
+  .forgotPasswordContainer {
+    position: static;
+    width: 100%;
+    text-align: center;
+    margin: 16px 0;
+  }
+
+  .forgotPasswordLink {
+    font-size: 11px;
+  }
+
+  .btnContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 0;
+    align-items: center;
+  }
+
+  .logInButton {
+    width: 100%;
+    max-width: 280px;
+    height: 48px;
+    font-size: 14px;
+    border-radius: 25px;
+    margin-bottom: 0;
+  }
+
+  .registerButton {
+    width: 100%;
+    max-width: 280px;
+    height: 48px;
+    font-size: 14px;
+    border-radius: 25px;
+    margin-bottom: 0;
+  }
+}

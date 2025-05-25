@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import CircleTitle from "../CircleTitle/CircleTitle.jsx";
 import style from './Footer.module.css';
 import logo from '../../assets/svg/logo/slimMomLogo.svg';
+import mobileLogo from '../../assets/svg/logo/slimMomLogoMobile.svg';
 // eslint-disable-next-line no-unused-vars
 import { motion } from "framer-motion";
 import atilla from "../../assets/image/members/atilla.jpg";
@@ -50,7 +51,8 @@ const Footer = () => {
     <footer className={style.footer}>
       <div className={style.footerContainer}>
         <div className={style.footerLogo}>
-          <img src={logo} alt="Slim Mom Logo" className={style.logoImg} />
+          <img src={logo} alt="Slim Mom Logo" className={style.logoDesktop} />
+          <img src={mobileLogo} alt="Slim Mom Mobile Logo" className={style.logoMobile} />
         </div>
 
         <div className={style.footerInfo}>

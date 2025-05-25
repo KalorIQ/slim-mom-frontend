@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import BlurText from "./BlurText";
+import './Title.css';
 
 const Title = () => {
   const { t, i18n } = useTranslation();
@@ -16,7 +17,7 @@ const Title = () => {
       animateBy="words"
       direction="top"
       onAnimationComplete={handleAnimationComplete}
-      className="font-bold" 
+      className="calculator-title" 
       style={{
         fontFamily: 'Verdana, sans-serif',
         fontSize: '34px',

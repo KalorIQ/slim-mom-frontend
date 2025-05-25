@@ -19,7 +19,6 @@ import {
   selectProcessedDiaryEntries,
   selectCurrentDate,
   selectSearchResults,
-  selectProductsLoading,
 } from "../../redux/products/productSelectors.js";
 import { selectUser } from "../../redux/auth/authSelectors.js";
 import CalculateModal from "../../components/CalculateModal/CalculateModal.jsx";
@@ -32,7 +31,6 @@ const DiaryPage = () => {
   const diaryEntries = useSelector(selectProcessedDiaryEntries);
   const currentDate = useSelector(selectCurrentDate);
   const searchResults = useSelector(selectSearchResults);
-  const isLoading = useSelector(selectProductsLoading);
   const user = useSelector(selectUser);
 
   const userInfo = user.infouser;

@@ -166,19 +166,19 @@
 
 /* Submit button styling */
 .submitButton {
-    width: 280px;
-    height: 48px;
+    width: 240px;
+    height: 56px;
     background: linear-gradient(135deg, #fc842d 0%, #e06e15 100%);
     border-radius: 30px;
     border: none;
     font-family: var(--font-family);
     font-weight: 700;
-    font-size: 16px;
+    font-size: 18px;
     color: #ffffff;
     cursor: pointer;
     box-shadow: 0px 6px 20px rgba(252, 132, 45, 0.3);
     transition: all 0.3s ease;
-    margin-left: 320px;
+    margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     position: relative;
@@ -369,19 +369,31 @@
     }
 
     .inputcontainer {
-        flex-direction: column;
-        gap: 16px;
+        display: flex;
+        flex-direction: row;
+        gap: 32px;
         margin-bottom: 24px;
     }
 
     .inputGroup {
         gap: 24px;
-        width: 100%;
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .inputGroup:first-child {
+        /* Sol taraf: Height ve Age */
+    }
+
+    .inputGroup:last-child {
+        /* Sağ taraf: Desired Weight ve Blood Type */
+        position: relative;
     }
 
     .input {
         width: 100%;
-        max-width: 280px;
+        max-width: none;
         font-size: 14px;
         margin-bottom: 20px;
     }
@@ -412,11 +424,9 @@
 
     .submitButton {
         width: 100%;
-        max-width: 280px;
-        height: 48px;
+        height: 52px;
         font-size: 16px;
-        margin-left: 0;
-        margin-top: 32px;
+        margin-top: 20px;
     }
 
     .modalContent {
@@ -432,25 +442,39 @@
         margin-left: 0;
         margin-top: 40px;
         padding: 0 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .form {
         margin-top: 32px;
+        width: 100%;
+        max-width: 320px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .inputcontainer {
-        gap: 12px;
+        flex-direction: column;
+        gap: 0;
         margin-bottom: 20px;
+        width: 100%;
     }
 
     .inputGroup {
-        gap: 20px;
+        width: 100%;
+        gap: 0;
+        flex-direction: column;
+        align-items: center;
     }
 
     .input {
-        max-width: 100%;
+        width: 100%;
+        max-width: 280px;
         font-size: 13px;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
     }
 
     .input::placeholder {
@@ -459,10 +483,23 @@
 
     .bloodType {
         font-size: 13px;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    .bloodTypeGroup {
+        width: 100%;
+        max-width: 280px;
+        margin-bottom: 24px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
     .radioGroup {
         gap: 12px;
+        margin-bottom: 24px;
+        justify-content: center;
     }
 
     .radioLabel {
@@ -471,9 +508,12 @@
 
     .submitButton {
         width: 100%;
+        max-width: 280px;
         height: 44px;
         font-size: 15px;
-        margin-top: 24px;
+        margin: 0 auto;
+        margin-top: 32px;
+        display: block;
     }
 
     .modalContent {

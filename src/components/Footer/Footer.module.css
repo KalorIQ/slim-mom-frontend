@@ -31,6 +31,14 @@
     opacity: 1;
 }
 
+.logoDesktop {
+    display: block;
+}
+
+.logoMobile {
+    display: none;
+}
+
 .footerInfo {
     text-align: center;
 }
@@ -174,4 +182,85 @@
 .textWrapper {
     margin-left: 20px;
     color: var(--text-primary);
+}
+
+/* Mobile responsive styles */
+@media screen and (max-width: 768px) {
+    .footerContainer {
+        padding: 0 20px;
+        align-items: center;
+        justify-content: space-between;
+        gap: 15px;
+    }
+    
+    .logoDesktop {
+        display: none;
+    }
+    
+    .logoMobile {
+        display: block;
+        max-width: 160px;
+    }
+    
+    .footerLogo {
+        flex: 0 0 auto;
+    }
+    
+    .footerInfo {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .footerTitle {
+        flex: 0 0 auto;
+    }
+    
+    .footerText {
+        font-size: 16px;
+    }
+    
+    .modalButton {
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding: 30px 0;
+    }
+    
+    .footerContainer {
+        flex-direction: column;
+        padding: 0 16px;
+        gap: 20px;
+        text-align: center;
+    }
+    
+    .footerLogo {
+        order: 1;
+    }
+    
+    .logoMobile {
+        max-width: 140px;
+    }
+    
+    .footerInfo {
+        order: 2;
+        flex: none;
+    }
+    
+    .footerText {
+        font-size: 14px;
+        line-height: 1.4;
+        margin: 0;
+    }
+    
+    .modalButton {
+        font-size: 14px;
+    }
+    
+    .footerTitle {
+        order: 3;
+        flex: none;
+    }
 }

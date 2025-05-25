@@ -125,7 +125,7 @@
   position: fixed;
   right: 0;
   top: 0;
-  width: 750px;
+  width: 590px;
   height: 100vh;
   background-color: var(--bg-secondary);
   z-index: 0;
@@ -177,7 +177,7 @@
 .calendarPopup {
   position: absolute;
   top: calc(100% + 10px);
-  right: 0;
+  left: 0;
   z-index: 1000;
   background: var(--bg-calendar);
   border-radius: 8px;
@@ -914,5 +914,422 @@
     padding: 6px 14px;
     min-width: 110px;
     font-size: 14px;
+  }
+}
+
+/* Responsive Design for DiaryPage */
+
+/* 1024px and below */
+@media screen and (max-width: 1024px) {
+  .diaryPage {
+    flex-direction: column;
+    padding: 0;
+    align-items: stretch;
+  }
+
+  .leftSection {
+    width: 100%;
+    max-width: none;
+    padding: 60px 32px 40px 32px;
+    min-height: auto;
+  }
+
+  .calendarPopup {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    right: auto;
+    z-index: 1000;
+    background: var(--bg-calendar);
+    border-radius: 8px;
+    box-shadow: var(--shadow-modal);
+    padding: 8px;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .rightSection {
+    position: static;
+    width: 100%;
+    max-width: none;
+    min-height: 300px;
+    padding: 30px 60px;
+    margin-top: 30px;
+    background-color: var(--bg-secondary);
+    border-radius: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+
+  .rightSection > div {
+    width: 100%;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: stretch;
+  }
+
+  /* Summary bileşeni için 1024px özel ayarlar */
+  .rightSection .summary {
+    width: 100% !important;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .rightSection .summaryContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    order: 1;
+  }
+
+  .rightSection .summaryContainerAlt {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+    order: 2;
+  }
+
+  .rightSection h3 {
+    font-size: 12px;
+    margin-bottom: 24px;
+    text-align: left;
+    width: 100%;
+    color: var(--text-primary);
+  }
+
+  .rightSection p,
+  .rightSection span {
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  /* Remove fixed background elements */
+  .diaryPage::after {
+    display: none;
+  }
+
+  .diaryPage::before {
+    display: none;
+  }
+
+  .dateTitle {
+    font-size: 28px;
+    margin-bottom: 24px;
+  }
+}
+
+/* 768px and below */
+@media screen and (max-width: 768px) {
+  .diaryPage {
+    padding: 0;
+  }
+
+  .leftSection {
+    padding: 40px 20px 32px 20px;
+  }
+
+  .rightSection {
+    margin-top: 32px;
+    padding: 24px 20px;
+    border-radius: 0;
+    width: 100%;
+    max-width: none;
+    background-color: var(--bg-secondary);
+  }
+
+  .rightSection > div {
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .dateTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .dateSection {
+    margin-bottom: 40px;
+    gap: 20px;
+  }
+
+  .addProductForm {
+    flex-direction: row;
+    gap: 16px;
+    margin-bottom: 32px;
+    align-items: flex-end;
+  }
+
+  .productInputContainer {
+    flex: 1;
+    position: relative;
+    min-width: 0;
+  }
+
+  .productInput {
+    width: 100%;
+    font-size: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .gramsInput {
+    width: 100px;
+    font-size: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .addButton {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    font-size: 18px;
+  }
+
+  .foodItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 16px 0;
+    gap: 16px;
+    border-bottom: 1px solid var(--border-color);
+  }
+
+  .foodName {
+    flex: 1;
+    font-size: 14px;
+    margin-bottom: 0;
+    margin-right: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+  }
+
+  .foodGrams {
+    font-size: 12px;
+    margin-right: 16px;
+    min-width: 60px;
+    text-align: center;
+  }
+
+  .foodCalories {
+    font-size: 12px;
+    margin-right: 16px;
+    min-width: 50px;
+    text-align: center;
+  }
+
+  .removeButton {
+    align-self: center;
+    margin-top: 0;
+    width: 20px;
+    height: 20px;
+    font-size: 14px;
+  }
+
+  .searchResults {
+    max-height: 250px;
+    border-radius: 8px;
+  }
+
+  .searchResultItem {
+    padding: 16px;
+    min-width: auto;
+    flex-direction: row;
+    gap: 16px;
+  }
+
+  .productTitle {
+    font-size: 14px;
+    line-height: 1.3;
+    min-width: 150px;
+    flex: 1;
+  }
+
+  .productCalories {
+    font-size: 12px;
+    padding: 6px 12px;
+    min-width: 80px;
+  }
+}
+
+/* 480px and below */
+@media screen and (max-width: 480px) {
+  .diaryPage {
+    padding: 0;
+  }
+
+  .leftSection {
+    padding: 32px 16px 24px 16px;
+  }
+
+  .calendarPopup {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: var(--bg-calendar);
+    border-radius: 8px;
+    box-shadow: var(--shadow-modal);
+    padding: 8px;
+    animation: fadeIn 0.2s ease-out;
+    max-width: calc(100vw - 32px);
+    width: 280px;
+  }
+
+  .calendar {
+    border: none !important;
+    font-family: Verdana, sans-serif !important;
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .rightSection {
+    margin-top: 24px;
+    padding: 20px 16px;
+    border-radius: 0;
+    width: 100%;
+    max-width: none;
+    background-color: var(--bg-secondary);
+  }
+
+  .rightSection > div {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+
+  .dateTitle {
+    font-size: 20px;
+    margin-bottom: 16px;
+    line-height: 1.3;
+  }
+
+  .dateSection {
+    margin-bottom: 32px;
+    gap: 16px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .calendarWrapper {
+    margin-left: 0;
+    margin-top: 0;
+    flex-shrink: 0;
+    align-self: center;
+  }
+
+  .addProductForm {
+    margin-bottom: 24px;
+  }
+
+  .productInputContainer {
+    gap: 12px;
+  }
+
+  .productInput,
+  .gramsInput {
+    font-size: 13px;
+    padding: 10px 14px;
+    height: 44px;
+  }
+
+  .addButton {
+    height: 44px;
+    font-size: 14px;
+    max-width: 180px;
+  }
+
+  .foodList {
+    margin-bottom: 20px;
+  }
+
+  .foodItem {
+    padding: 12px;
+    gap: 6px;
+  }
+
+  .foodName {
+    font-size: 13px;
+    line-height: 1.3;
+  }
+
+  .foodGrams,
+  .foodCalories {
+    font-size: 11px;
+  }
+
+  .removeButton {
+    font-size: 16px;
+    padding: 4px;
+  }
+
+  .searchResults {
+    max-height: 200px;
+  }
+
+  .searchResultItem {
+    padding: 12px;
+  }
+
+  .productTitle {
+    font-size: 13px;
+  }
+
+  .productCalories {
+    font-size: 11px;
+  }
+
+  /* Block message responsive */
+  .blockMessageBox {
+    padding: 24px 20px;
+    margin: 0 16px;
+  }
+
+  .blockMessageTitle {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .blockMessageText {
+    font-size: 14px;
+    line-height: 1.4;
+  }
+}
+
+/* 1024px to 769px range - Summary left alignment */
+@media screen and (max-width: 1024px) and (min-width: 769px) {
+  .rightSection {
+    justify-content: flex-start;
+    padding: 30px 32px;
+  }
+
+  .rightSection > div {
+    max-width: 700px;
+    align-items: flex-start;
+  }
+
+  .rightSection .summary {
+    align-items: flex-start;
+  }
+
+  .rightSection .summaryContainer,
+  .rightSection .summaryContainerAlt {
+    align-items: flex-start;
   }
 }

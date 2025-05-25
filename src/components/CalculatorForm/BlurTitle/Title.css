@@ -1,0 +1,7 @@
+/* Calculator Title Responsive Styles */
+@media (max-width: 480px) {
+    .calculator-title {
+        font-size: 18px !important;
+        margin-bottom: 24px !important;
+    }
+} 

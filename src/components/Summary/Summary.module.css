@@ -29,8 +29,8 @@
 .title {
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 12px;
+  line-height: 15px;
   letter-spacing: 0.04em;
   margin-bottom: 40px;
   color: var(--text-primary);
@@ -49,8 +49,8 @@
 .text {
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 12px;
+  line-height: 15px;
   letter-spacing: 0.04em;
   display: flex;
   justify-content: flex-start;
@@ -66,7 +66,7 @@
 .text span {
   font-family: var(--font-family);
   font-weight: 400;
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   text-align: right;
   color: #9B9FAA;
@@ -79,8 +79,8 @@
 .notRecommendedTitle {
   font-family: var(--font-family);
   font-weight: 700;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 12px;
+  line-height: 15px;
   letter-spacing: 0.04em;
   color: var(--text-primary);
   margin-bottom: 40px;
@@ -116,11 +116,11 @@
 .noFoodsMessage {
   color: var(--text-primary);
   font-family: var(--font-family);
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 400;
   font-style: italic;
   margin: 0;
-  line-height: 17px;
+  line-height: 16px;
   letter-spacing: 0.04em;
 }
 
@@ -128,6 +128,74 @@
 @media screen and (max-width: 1279px) {
   .summary {
     gap: 40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .summary {
+    width: 100%;
+    height: auto;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .summaryContainer,
+  .summaryContainerAlt {
+    width: 100%;
+    max-width: none;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+  }
+
+  .title,
+  .notRecommendedTitle {
+    font-size: 12px;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+  }
+
+  .notRecommendedList {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .notRecommendedItem {
+    display: block;
+    font-size: 14px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(155, 159, 170, 0.15);
+  }
+
+  .notRecommendedItem:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .text {
+    font-size: 12px;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  .text span {
+    font-size: 12px;
+    padding-left: 16px;
+  }
+
+  .noFoodsMessage {
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text-secondary);
+  }
+
+  .textContainer {
+    gap: 12px;
   }
 }
 
@@ -145,8 +213,78 @@
   }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
+  .summaryContainer,
+  .summaryContainerAlt {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .title,
+  .notRecommendedTitle {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .notRecommendedItem {
+    font-size: 13px;
+    padding: 4px 0;
+    margin-bottom: 8px;
+  }
+
+  .text {
+    font-size: 10px;
+    margin-bottom: 8px;
+  }
+
+  .text span {
+    font-size: 10px;
+    padding-left: 12px;
+  }
+
+  .noFoodsMessage {
+    font-size: 10px;
+  }
+
   .textContainer {
-    gap: 16px;
+    gap: 8px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .summaryContainer,
+  .summaryContainerAlt {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+
+  .title,
+  .notRecommendedTitle {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+
+  .notRecommendedItem {
+    font-size: 12px;
+    padding: 3px 0;
+    margin-bottom: 6px;
+  }
+
+  .text {
+    font-size: 9px;
+    margin-bottom: 6px;
+  }
+
+  .text span {
+    font-size: 9px;
+    padding-left: 8px;
+  }
+
+  .noFoodsMessage {
+    font-size: 9px;
+  }
+
+  .textContainer {
+    gap: 6px;
   }
 }

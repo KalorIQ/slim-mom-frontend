@@ -131,12 +131,12 @@ const CalculatorForm = () => {
                       ))}
                     </div>
                   </div>
+
+                  <button type="submit" className={style.submitButton}>
+                    {t('calculator.startButton')}
+                  </button>
                 </div>
               </div>
-
-              <button type="submit" className={style.submitButton}>
-                {t('calculator.startButton')}
-              </button>
             </Form>
 
             {/* Hata Modalı */}

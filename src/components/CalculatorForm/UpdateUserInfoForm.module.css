@@ -188,7 +188,10 @@
 
 /* Submit button styling */
 .submitButton {
-  width: 280px;
+  margin-left: auto;
+  width: 200px;
+  max-width: none;
+  margin-top: 20px;
   height: 48px;
   background: linear-gradient(135deg, #fc842d 0%, #e06e15 100%);
   border-radius: 30px;
@@ -204,8 +207,6 @@
   letter-spacing: 0.05em;
   position: relative;
   overflow: hidden;
-  align-self: flex-end;
-  margin-top: 20px;
 }
 
 .submitButton:hover {
@@ -379,6 +380,7 @@
     padding: 0 16px;
     align-items: flex-start;
     width: 100%;
+    min-height: 0;
   }
 
   .form {
@@ -387,30 +389,42 @@
   }
 
   .inputcontainer {
-    flex-direction: column;
-    gap: 16px;
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
     margin-bottom: 24px;
   }
 
   .inputGroup {
     gap: 24px;
-    width: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .inputGroup:first-child {
+    /* Sol taraf: Height ve Age */
+  }
+
+  .inputGroup:last-child {
+    /* Sağ taraf: Desired Weight ve Blood Type */
+    position: relative;
   }
 
   .input {
     width: 100%;
-    max-width: 280px;
+    max-width: none;
     margin-bottom: 20px;
   }
 
   .bloodType {
     width: 100%;
-    max-width: 280px;
+    max-width: none;
   }
 
   .bloodTypeGroup {
     width: 100%;
-    max-width: 280px;
+    max-width: none;
   }
 
   .radioGroup {
@@ -421,9 +435,12 @@
 
   .submitButton {
     margin-left: 0;
-    width: 100%;
-    max-width: 280px;
-    margin-top: 32px;
+    width: 200px;
+    max-width: none;
+    margin-top: 20px;
+    position: absolute;
+    right: 0;
+    bottom: -20px;
   }
 
   .modalContent {
@@ -439,34 +456,64 @@
     margin-left: 0;
     margin-top: 0;
     padding: 0 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
   }
 
   .inputcontainer {
-    gap: 12px;
+    flex-direction: column;
+    gap: 0;
     margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
   }
 
   .inputGroup {
-    gap: 20px;
+    width: 100%;
+    gap: 0;
+    flex-direction: column;
+    align-items: center;
   }
 
   .input {
-    max-width: 100%;
+    width: 100%;
+    max-width: 280px;
     font-size: 13px;
-    margin-bottom: 16px;
+    margin-bottom: 24px;
   }
 
   .bloodType {
-    max-width: 100%;
+    width: 100%;
+    max-width: 280px;
     font-size: 13px;
   }
 
   .bloodTypeGroup {
-    max-width: 100%;
+    width: 100%;
+    max-width: 280px;
+    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .radioGroup {
     gap: 12px;
+    margin-bottom: 24px;
+    justify-content: center;
   }
 
   .radioLabel {
@@ -474,10 +521,27 @@
   }
 
   .submitButton {
-    width: 100%;
-    height: 44px;
-    font-size: 15px;
-    margin-top: 24px;
+    width: 320px !important;
+    height: 52px !important;
+    font-size: 14px !important;
+    margin: 20px auto 0 auto !important;
+    border-radius: 25px !important;
+    background: linear-gradient(135deg, #fc842d 0%, #e06e15 100%) !important;
+    color: white !important;
+    border: none !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 15px rgba(252, 132, 45, 0.3) !important;
+    display: block !important;
+    position: static !important;
+  }
+
+  .submitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(252, 132, 45, 0.4);
   }
 
   .modalContent {
