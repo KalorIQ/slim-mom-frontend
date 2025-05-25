@@ -11,30 +11,33 @@
 }
 
 .container {
-    width: 700px;
-    height: 580px;
+    width: 100%;
+    max-width: 700px;
+    height: auto;
     position: relative;
-
+    margin: 0 auto;
 }
 
 .form {
-    margin-top: 34px;
+    margin-top: 24px;
 }
 
 .inputcontainer {
     display: flex;
     gap: 16px;
-
+    flex-wrap: wrap;
 }
 
 .inputGroup {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    width: 100%;
 }
 
 .input {
-    width: 240px;
+    width: 100%;
+    max-width: 240px;
     height: auto;
     padding-bottom: 20px;
     border: none;
@@ -49,6 +52,11 @@
     line-height: 100%;
     letter-spacing: 0.04em;
     color: #9B9FAA;
+    transition: border-bottom-color 0.3s ease;
+}
+
+.input:focus {
+    border-bottom-color: #FC842D;
 }
 
 .input::placeholder {
@@ -62,7 +70,8 @@
 }
 
 .bloodType {
-    width: 240px;
+    width: 100%;
+    max-width: 240px;
     height: auto;
     padding-bottom: 20px;
     border: none;
@@ -77,6 +86,13 @@
     line-height: 100%;
     letter-spacing: 0.04em;
     color: #9B9FAA;
+    text-align: left;
+    padding-left: 0;
+}
+
+.bloodTypeGroup {
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .radioGroup {
@@ -85,9 +101,9 @@
     position: relative;
     padding-bottom: 20px;
     margin-bottom: 32px;
+    flex-wrap: wrap;
+    margin-top: 16px;
 }
-
-
 
 .radioLabel {
     display: flex;
@@ -97,6 +113,13 @@
     font-size: 16px;
     color: #9B9FAA;
     gap: 4px;
+    align-items: center;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.radioLabel:hover {
+    color: #FC842D;
 }
 
 .radioInput {
@@ -111,6 +134,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
 }
 
 .radioInput:checked {
@@ -125,10 +149,12 @@
     background-color: #FC842D;
     border-radius: 50%;
     position: absolute;
+    animation: radioSelect 0.3s ease;
 }
 
 .submitButton {
-    width: 240px;
+    width: 100%;
+    max-width: 240px;
     height: 40px;
     background-color: #FC842D;
     border-radius: 30px;
@@ -140,116 +166,136 @@
     cursor: pointer;
     box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
     transition: all 0.3s ease;
-    margin-left: 360px
+    margin: 20px auto 0;
+    display: block;
 }
 
 .submitButton:hover {
     box-shadow: 0px 4px 4px #FC842D;
     background-color: #fa8f31;
+    transform: translateY(-2px);
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+.modalCloseTop {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: #FC842D;
+    border: 2px solid #fa8f31;
+    border-radius: 50%;
+    box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 999;
+    transition: all 0.3s ease;
 }
 
-.modalContent {
-    background: #ffffff;
-    padding: 32px;
-    border-radius: 16px;
-    max-width: 420px;
-    width: 90%;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    font-family: "Segoe UI", sans-serif;
-    animation: fadeIn 0.3s ease-in-out;
+.modalCloseTop:hover {
+    background-color: #fa8f31;
+    transform: scale(1.1);
 }
 
-.modalTitle {
-    font-size: 22px;
+.close {
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.title {
+    font-family: Verdana, sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 1.2;
     color: #333;
-    font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
-.errorList {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 20px 0;
-}
-
-.modalError {
+.error {
     color: #c0392b;
-    font-size: 16px;
+    font-size: 14px;
+    margin-top: -20px;
     margin-bottom: 10px;
     font-weight: 500;
 }
 
-.modalClose {
-    padding: 10px 20px;
-    background-color: #fc842d;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 15px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.modalClose:hover {
-    background-color: #e06e15;
-}
-
-@keyframes fadeIn {
-    from {
-        transform: scale(0.9);
-        opacity: 0;
+/* Animations */
+@keyframes radioSelect {
+    0% {
+        transform: scale(0);
     }
-
-    to {
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
         transform: scale(1);
-        opacity: 1;
     }
 }
-.modalCloseTop {
-    position: absolute;
-    top: 6px;
-    right: -86px;
-    background: none;
-    border: 2px solid #fa8f31;
-    border-radius: 50%;
-    box-shadow: 0px 4px 4px rgba(252, 131, 45, 0.451);
-    background-color: #FC842D;
-    cursor: pointer;
-    font-size: 24px;
-    color: #333;
 
+/* Responsive design */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+    
+    .inputcontainer {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    .input,
+    .bloodType {
+        max-width: 100%;
+    }
+    
+    .radioGroup {
+        justify-content: center;
+        gap: 16px;
+    }
+    
+    .radioLabel {
+        margin-right: 0;
+        font-size: 14px;
+    }
+    
+    .submitButton {
+        max-width: 100%;
+        margin-top: 30px;
+    }
+    
+    .modalCloseTop {
+        top: -15px;
+        right: -15px;
+        width: 35px;
+        height: 35px;
+    }
+    
+    .close {
+        font-size: 18px;
+    }
+    
+    .title {
+        font-size: 20px;
+        margin-bottom: 16px;
+    }
 }
-.close{
-    font-size: 24px;
-    color: #fffcfc;
 
-}
-
-.error {
-  color: #c0392b;
-  font-size: 14px;
-  margin-top: -20px;
-  margin-bottom: 10px;
-  font-weight: 500;
+@media (max-width: 480px) {
+    .radioGroup {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+    
+    .radioLabel {
+        font-size: 13px;
+    }
+    
+    .title {
+        font-size: 18px;
+    }
 }

@@ -50,6 +50,25 @@
 }
 
 /* Responsive Design */
+@media screen and (max-width: 1024px) {
+  /* Force vertical layout when inside Settings dropdown */
+  .languageSwitcher {
+    flex-direction: column !important;
+    gap: 8px !important;
+    align-items: stretch !important;
+  }
+
+  .languageButton {
+    width: 100% !important;
+    min-width: auto !important;
+    justify-content: center !important;
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+  }
+}
+
 @media screen and (max-width: 480px) {
   .languageSwitcher {
     gap: 6px;

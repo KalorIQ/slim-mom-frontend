@@ -1,0 +1,313 @@
+.settingsContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.settingsButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  user-select: none;
+  position: relative;
+  font-family: var(--font-family);
+  text-decoration: none;
+}
+
+.settingsButton:after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #FC842D;
+  transition: width 0.3s ease;
+}
+
+.settingsButton:hover:after,
+.settingsButton:focus:after {
+  width: 100%;
+}
+
+.settingsButton:hover,
+.settingsButton:focus {
+  background-color: transparent;
+  color: #FC842D;
+}
+
+.settingsIcon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.settingsButton:hover .settingsIcon {
+  transform: rotate(90deg);
+}
+
+.settingsText {
+  font-family: inherit;
+}
+
+.settingsDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  min-width: 280px;
+  z-index: 999;
+  margin-top: 8px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.settingsItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.settingsItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.settingsItem:first-child {
+  padding-top: 0;
+}
+
+.settingsLabelContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.settingsLabel {
+  font-size: 15px;
+  font-weight: 600;
+  color: #2B2B2B;
+  user-select: none;
+}
+
+.themeStatus {
+  font-size: 12px;
+  font-weight: 400;
+  color: #9b9faa;
+  user-select: none;
+  text-transform: capitalize;
+}
+
+/* Dark theme adjustments */
+[data-theme="dark"] .settingsDropdown {
+  background: #2B2B2B;
+  border-color: #404040;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] .settingsLabel {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .themeStatus {
+  color: #9b9faa;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .settingsButton {
+    padding: 8px;
+  }
+  
+  .settingsDropdown {
+    right: -8px;
+    min-width: 250px;
+    padding: 16px;
+  }
+  
+  .settingsItem {
+    padding: 14px 0;
+  }
+}
+
+/* Tablet responsive for 769px to 1024px - Show text */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .settingsText {
+    display: block;
+  }
+  
+  .settingsButton {
+    padding: 8px 0;
+  }
+}
+
+/* Tablet and Mobile responsive for 1024px and below */
+@media (max-width: 1024px) {
+  .settingsDropdown {
+    right: -100px;
+    min-width: 200px;
+    max-width: 200px;
+    width: 200px;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    min-height: 280px;
+  }
+
+  .settingsItem {
+    padding: 16px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .settingsItem:first-child {
+    padding-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 8px;
+  }
+
+  .settingsItem:last-child {
+    padding-bottom: 0;
+    padding-top: 16px;
+    align-items: center;
+  }
+
+  .settingsLabelContainer {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .settingsLabel {
+    font-size: 14px;
+    margin-bottom: 4px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  .themeStatus {
+    font-size: 11px;
+    color: var(--text-secondary);
+  }
+
+  /* Language switcher vertical layout for 1024px and below */
+  .settingsItem:first-child {
+    align-items: stretch;
+  }
+
+  /* Theme toggle alignment for 1024px and below */
+  .settingsItem:last-child {
+    align-items: center;
+  }
+}
+
+/* Language switcher responsive styles - Force vertical layout */
+@media (max-width: 1024px) {
+  .settingsDropdown .languageSwitcher {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    width: 100% !important;
+    align-items: stretch !important;
+  }
+
+  .settingsDropdown .languageButton {
+    width: 100% !important;
+    padding: 10px 14px !important;
+    font-size: 12px !important;
+    min-width: auto !important;
+    justify-content: center !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+    display: block !important;
+  }
+
+  .settingsDropdown .themeToggle {
+    width: 36px !important;
+    height: 36px !important;
+    padding: 8px !important;
+    align-self: center !important;
+  }
+
+  .settingsDropdown .themeToggle .icon {
+    font-size: 18px !important;
+  }
+}
+
+/* Extra small mobile responsive for 480px and below */
+@media (max-width: 480px) {
+  .settingsDropdown {
+    right: -65px !important;
+    min-width: 180px !important;
+    max-width: 180px !important;
+    width: 180px !important;
+    padding: 12px !important;
+    min-height: 240px !important;
+  }
+
+  .settingsItem {
+    padding: 12px 0 !important;
+    gap: 8px !important;
+  }
+
+  .settingsItem:first-child {
+    padding-bottom: 12px !important;
+    margin-bottom: 6px !important;
+  }
+
+  .settingsItem:last-child {
+    padding-top: 12px !important;
+  }
+
+  .settingsLabel {
+    font-size: 13px !important;
+    margin-bottom: 2px !important;
+  }
+
+  .themeStatus {
+    font-size: 10px !important;
+  }
+
+  .settingsDropdown .languageButton {
+    padding: 8px 10px !important;
+    font-size: 11px !important;
+    border-radius: 6px !important;
+  }
+
+  .settingsDropdown .themeToggle {
+    width: 28px !important;
+    height: 28px !important;
+    padding: 6px !important;
+  }
+
+  .settingsDropdown .themeToggle .icon {
+    font-size: 14px !important;
+  }
+} 

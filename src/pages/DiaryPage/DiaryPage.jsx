@@ -81,9 +81,19 @@ const DiaryPage = () => {
   };
 
   const handleRemoveItem = (itemId) => {
-    dispatch(removeProduct(itemId)).then(() => {
+    // DEBUG: DiaryPage'den gönderilen verileri logla
+    console.log("=== DIARY PAGE DELETE REQUEST ===");
+    console.log("- Item ID:", itemId);
+    console.log("- Current Date:", currentDate);
+    console.log("- Item ID Type:", typeof itemId);
+    console.log("- Current Date Type:", typeof currentDate);
+    
+    dispatch(removeProduct({ productId: itemId, date: currentDate })).then(() => {
+      console.log("- Delete operation completed successfully");
       dispatch(getDiaryEntries(currentDate));
       dispatch(getDailyCalories(currentDate));
+    }).catch((error) => {
+      console.error("- Delete operation failed:", error);
     });
   };
 
@@ -132,10 +142,13 @@ const DiaryPage = () => {
               setShowCalculateModal(false);
               setShowBlockMessage(true);
             }}>
-              <CalculateModal onClose={() => {
-                setShowCalculateModal(false);
-                setShowBlockMessage(true);
-              }} />
+              <CalculateModal 
+                key={t('calculator.dailyCalorieNeeds')}
+                onClose={() => {
+                  setShowCalculateModal(false);
+                  setShowBlockMessage(true);
+                }} 
+              />
             </ModalWrapper>
           ) : showBlockMessage ? (
             <div className={styles.blockMessageWrapper}>
@@ -168,7 +181,7 @@ const DiaryPage = () => {
               </div>
 
               <div className={styles.addProductForm}>
-                <div className={styles.productInputWrapper}>
+                <div className={styles.productInputContainer}>
                   <input
                     type="text"
                     value={productName}
@@ -185,7 +198,10 @@ const DiaryPage = () => {
                           className={styles.searchResultItem}
                           onClick={() => handleProductSelect(product)}
                         >
-                          {product.title}
+                          <span className={styles.productTitle}>{product.title}</span>
+                          <span className={styles.productCalories}>
+                            {product.calories} kcal/100g
+                          </span>
                         </div>
                       ))}
                     </div>

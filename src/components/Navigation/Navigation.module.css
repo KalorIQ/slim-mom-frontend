@@ -128,15 +128,14 @@
     color: var(--text-primary);
 }
 
-.languageSwitcherContainer {
-    display: flex;
-    align-items: center;
+.settingsContainer {
+    margin-left: 16px;
 }
 
+/* Remove old containers */
+.languageSwitcherContainer,
 .themeSwitcherContainer {
-    display: flex;
-    align-items: center;
-    padding-left: 16px;
+    display: none;
 }
 
 .profileLink {
@@ -195,7 +194,703 @@
     color: inherit;
 }
 
-/* Responsive styles */
+/* Hamburger Menu Styles */
+.hamburgerButton {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: var(--text-primary);
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.hamburgerButton:hover {
+    background: rgba(252, 132, 45, 0.1);
+    color: #FC842D;
+    transform: scale(1.1);
+}
+
+.menuOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease;
+}
+
+.mobileMenu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 320px;
+    max-width: 85vw;
+    background: #ffffff;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+    animation: slideInRight 0.3s ease;
+    overflow-y: auto;
+    z-index: 1001;
+    border-left: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+}
+
+.mobileMenuHeader {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #FC842D, #ff6b35);
+    min-height: 60px;
+}
+
+.mobileMenuTitle {
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.closeButton {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+}
+
+.closeButton:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg) scale(1.1);
+}
+
+.mobileMenuContent {
+    padding: 20px;
+    background: #ffffff;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mobileUserInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: #f8f9fa;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mobileUserAvatar {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #FC842D, #ff6b35);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 12px rgba(252, 132, 45, 0.3);
+}
+
+.mobileUserName {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+    text-align: center;
+}
+
+.mobileMenuItems {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+}
+
+.mobileMenuItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #333333;
+    font-weight: 600;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.mobileMenuItem:hover,
+.mobileMenuItem.active {
+    background: linear-gradient(135deg, rgba(252, 132, 45, 0.1), rgba(255, 107, 53, 0.1));
+    border-color: #FC842D;
+    transform: translateX(4px);
+    color: #FC842D;
+}
+
+.mobileMenuIcon {
+    font-size: 16px;
+    color: inherit;
+}
+
+/* Make Settings container exactly like mobileMenuItem */
+.mobileSettingsContainer {
+    /* Remove all custom styling - let mobileMenuItem class handle everything */
+}
+
+/* Remove all settings button overrides - let it inherit from mobileMenuItem */
+.mobileSettingsContainer .settingsButton {
+    /* Reset everything to inherit from parent mobileMenuItem */
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+    outline: none;
+}
+
+.mobileSettingsContainer .settingsButton:hover,
+.mobileSettingsContainer .settingsButton:focus,
+.mobileSettingsContainer .settingsButton:active {
+    /* No overrides - inherit from mobileMenuItem */
+}
+
+.mobileSettingsContainer .settingsButton:after {
+    display: none !important;
+}
+
+.mobileSettingsContainer .settingsIcon {
+    font-size: 16px;
+    color: inherit;
+}
+
+.mobileSettingsContainer .settingsText {
+    display: block !important;
+    color: inherit !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Remove dropdown styling when in mobile menu */
+.mobileSettingsContainer .settingsDropdown {
+    display: none !important;
+}
+
+.mobileMenuFooter {
+    padding: 20px;
+    background: #ffffff;
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto;
+}
+
+.mobileLogout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    color: #333333;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    font-family: var(--font-family);
+}
+
+.mobileLogout:hover {
+    background: linear-gradient(135deg, rgba(220, 53, 69, 0.1), rgba(220, 53, 69, 0.05));
+    border-color: #dc3545;
+    transform: translateX(4px);
+    color: #dc3545;
+}
+
+.mobileOnlySettings {
+    display: flex;
+    align-items: center;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Update existing responsive styles to show hamburger menu */
+@media screen and (max-width: 1024px) {
+    .hamburgerButton {
+        display: block;
+    }
+
+    .userInfo {
+        display: none !important;
+    }
+
+    .settingsContainer {
+        display: none !important;
+    }
+}
+
+/* Tablet Responsive Styles (769px - 1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .header {
+        padding: 40px 30px 0 30px;
+    }
+
+    .logoContainer {
+        gap: 12px;
+    }
+
+    .stroke {
+        font-size: 30px;
+        margin: 0 6px;
+        margin-top: 40px;
+    }
+
+    .mainNav {
+        margin-left: 24px;
+    }
+
+    .navLinks,
+    .authLinks {
+        gap: 24px;
+    }
+
+    .navLink,
+    .profileLink {
+        font-size: 14px;
+        gap: 5px;
+    }
+
+    .navIcon,
+    .profileIcon,
+    .logoutIcon {
+        font-size: 14px;
+    }
+
+    .rightSection {
+        gap: 12px;
+    }
+
+    .hamburgerButton {
+        font-size: 22px;
+        padding: 6px;
+    }
+
+    .mobileMenu {
+        width: 300px;
+    }
+}
+
+/* Mobile Responsive Styles (481px - 768px) */
+@media screen and (max-width: 768px) and (min-width: 481px) {
+    .header {
+        padding: 30px 20px 0 20px;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .leftSection {
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .logoContainer {
+        gap: 10px;
+    }
+
+    .stroke {
+        font-size: 28px;
+        margin: 0 5px;
+        margin-top: 35px;
+    }
+
+    .mainNav {
+        margin-left: 20px;
+    }
+
+    .navLinks,
+    .authLinks {
+        gap: 20px;
+    }
+
+    .navLink,
+    .profileLink {
+        font-size: 13px;
+        gap: 4px;
+        padding: 6px 0;
+    }
+
+    .navIcon,
+    .profileIcon,
+    .logoutIcon {
+        font-size: 13px;
+    }
+
+    .rightSection {
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .userInfo {
+        gap: 16px;
+        flex-wrap: wrap;
+    }
+
+    .userInfo:after {
+        height: 28px;
+    }
+
+    .userName {
+        font-size: 13px;
+        white-space: nowrap;
+    }
+
+    .logout {
+        font-size: 13px;
+        gap: 4px;
+    }
+
+    .settingsContainer {
+        margin-left: 12px;
+    }
+}
+
+/* Small Mobile Responsive Styles (426px - 480px) */
+@media screen and (min-width: 426px) and (max-width: 480px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+        padding: 20px 12px 0 12px;
+        gap: 16px;
+    }
+
+    .leftSection {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .logoContainer {
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .stroke {
+        font-size: 24px;
+        margin: 0 4px;
+        margin-top: 30px;
+    }
+
+    .mainNav {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .navLinks,
+    .authLinks {
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .navLink,
+    .profileLink {
+        font-size: 12px;
+        gap: 3px;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: rgba(252, 132, 45, 0.1);
+        transition: all 0.3s ease;
+    }
+
+    .navLink:hover,
+    .profileLink:hover {
+        background: rgba(252, 132, 45, 0.2);
+        transform: translateY(-1px);
+    }
+
+    .navLink:after,
+    .profileLink:after {
+        display: none;
+    }
+
+    .navIcon,
+    .profileIcon,
+    .logoutIcon {
+        font-size: 12px;
+    }
+
+    .rightSection {
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .userInfo {
+        flex-direction: row;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 12px;
+        background: var(--secondary-bg-color);
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .userInfo:after {
+        display: none;
+    }
+
+    .userName {
+        font-size: 12px;
+        order: 1;
+        flex: 1;
+        text-align: center;
+        min-width: 100%;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .profileLink {
+        order: 2;
+        flex: 1;
+        justify-content: center;
+        min-width: 120px;
+    }
+
+    .logout {
+        font-size: 12px;
+        gap: 3px;
+        order: 3;
+        flex: 1;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 8px;
+        background: rgba(220, 53, 69, 0.1);
+        transition: all 0.3s ease;
+        min-width: 120px;
+    }
+
+    .logout:hover {
+        background: rgba(220, 53, 69, 0.2);
+        transform: translateY(-1px);
+    }
+
+    .settingsContainer {
+        margin-left: 0;
+        order: 4;
+    }
+}
+
+/* Extra Small Mobile (max-width: 360px) */
+@media screen and (max-width: 360px) {
+    .header {
+        padding: 16px 8px 0 8px;
+        gap: 12px;
+    }
+
+    .leftSection {
+        gap: 8px;
+    }
+
+    .logoContainer {
+        gap: 6px;
+    }
+
+    .stroke {
+        font-size: 20px;
+        margin: 0 3px;
+        margin-top: 25px;
+    }
+
+    .navLinks,
+    .authLinks {
+        gap: 12px;
+    }
+
+    .navLink,
+    .profileLink {
+        font-size: 11px;
+        padding: 6px 8px;
+        gap: 2px;
+    }
+
+    .navIcon,
+    .profileIcon,
+    .logoutIcon {
+        font-size: 11px;
+    }
+
+    .userInfo {
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .userName {
+        font-size: 11px;
+    }
+
+    .logout {
+        font-size: 11px;
+        padding: 6px 8px;
+        gap: 2px;
+        min-width: 100px;
+    }
+
+    .profileLink {
+        min-width: 100px;
+    }
+}
+
+/* Landscape Mobile Responsive Styles */
+@media screen and (max-width: 768px) and (orientation: landscape) and (max-height: 500px) {
+    .header {
+        flex-direction: row;
+        padding: 12px 16px 0 16px;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .leftSection {
+        flex-direction: row;
+        align-items: center;
+        gap: 16px;
+        flex: 1;
+    }
+
+    .logoContainer {
+        gap: 6px;
+    }
+
+    .stroke {
+        font-size: 20px;
+        margin: 0 3px;
+        margin-top: 20px;
+    }
+
+    .mainNav {
+        margin-left: 16px;
+    }
+
+    .navLinks,
+    .authLinks {
+        gap: 12px;
+        flex-wrap: nowrap;
+    }
+
+    .navLink,
+    .profileLink {
+        font-size: 11px;
+        padding: 4px 8px;
+        gap: 2px;
+    }
+
+    .rightSection {
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        flex-shrink: 0;
+    }
+
+    .userInfo {
+        flex-direction: row;
+        gap: 8px;
+        padding: 6px 8px;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    .userName {
+        font-size: 11px;
+        order: 0;
+        flex: none;
+        text-align: left;
+        min-width: auto;
+        margin-bottom: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+    }
+
+    .profileLink {
+        order: 0;
+        flex: none;
+        min-width: auto;
+    }
+
+    .logout {
+        order: 0;
+        flex: none;
+        min-width: auto;
+        padding: 4px 8px;
+        background: transparent;
+    }
+
+    .logout:hover {
+        background: rgba(220, 53, 69, 0.1);
+    }
+
+    .settingsContainer {
+        order: 0;
+    }
+}
+
+/* Remove old responsive styles */
 @media screen and (max-width: 768px) {
     .header {
         margin: 16px;
@@ -260,5 +955,158 @@
     .themeSwitcherContainer {
         padding-left: 0;
         padding-top: 12px;
+    }
+}
+
+/* Dark mode support for mobile menu */
+[data-theme="dark"] .mobileMenu {
+    background: #1a1a1a;
+    border-left: 1px solid #333333;
+}
+
+[data-theme="dark"] .mobileMenuContent {
+    background: #1a1a1a;
+}
+
+[data-theme="dark"] .mobileUserInfo {
+    background: #2d2d2d;
+}
+
+[data-theme="dark"] .mobileMenuItem {
+    background: #2d2d2d;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .mobileMenuFooter {
+    background: #1a1a1a;
+    border-top: 1px solid #333333;
+}
+
+[data-theme="dark"] .mobileLogout {
+    background: #2d2d2d;
+    color: #ffffff;
+}
+
+[data-theme="dark"] .mobileUserName {
+    color: #ffffff;
+}
+
+[data-theme="dark"] .mobileSettingsContainer .settingsButton {
+    /* Let mobileMenuItem handle dark mode styling */
+}
+
+[data-theme="dark"] .mobileSettingsContainer .settingsButton:hover,
+[data-theme="dark"] .mobileSettingsContainer .settingsButton:focus,
+[data-theme="dark"] .mobileSettingsContainer .settingsButton:active {
+    /* Let mobileMenuItem handle dark mode hover styling */
+}
+
+/* Force settings text to show in mobile menu at all screen sizes */
+@media (max-width: 768px) {
+    .mobileSettingsContainer .settingsText {
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+.mobileLogoImg {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* Extra Small Mobile (max-width: 425px) */
+@media screen and (max-width: 425px) {
+    .header {
+        padding: 16px 12px 0 12px;
+        gap: 12px;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .leftSection {
+        flex: none;
+        gap: 8px;
+    }
+
+    .logoContainer {
+        gap: 6px;
+        justify-content: flex-start;
+    }
+
+    .mobileLogoImg {
+        height: 35px;
+    }
+
+    .mainNav {
+        display: none;
+    }
+
+    .navLinks,
+    .authLinks {
+        display: none;
+    }
+
+    .rightSection {
+        flex: none;
+        gap: 8px;
+    }
+
+    .hamburgerButton {
+        display: block !important;
+        font-size: 20px;
+        padding: 6px;
+        background: transparent;
+        border: none;
+        color: var(--text-primary);
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .hamburgerButton:hover {
+        background: rgba(252, 132, 45, 0.1);
+        color: #FC842D;
+        transform: scale(1.1);
+    }
+
+    .mobileMenu {
+        width: 280px;
+        max-width: 90vw;
+    }
+
+    .mobileMenuContent {
+        padding: 16px;
+    }
+
+    .mobileUserInfo {
+        padding: 16px;
+        margin-bottom: 16px;
+    }
+
+    .mobileUserAvatar {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+
+    .mobileUserName {
+        font-size: 14px;
+    }
+
+    .mobileMenuItem {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .mobileMenuIcon {
+        font-size: 14px;
+    }
+
+    .mobileLogout {
+        padding: 14px;
+        font-size: 14px;
     }
 }

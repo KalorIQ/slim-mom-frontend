@@ -9,14 +9,15 @@ import { IoCloseSharp } from "react-icons/io5";
 import { updateUserInfo } from "../../redux/auth/authOperation.js";
 
 const CalculateModal = ({ onClose }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [calorieResult, setCalorieResult] = useState(null);
   const dispatch = useDispatch();
 
   return (
-    <div className={style.container}>
+    <div className={style.container} key={i18n.language}>
       <h2 className={style.title}>{t('calculator.dailyCalorieNeeds')}</h2>
       <Formik
+        key={i18n.language}
         initialValues={{
           height: "",
           age: "",
@@ -52,18 +53,23 @@ const CalculateModal = ({ onClose }) => {
       >
         {({ values, submitForm, errors, touched }) => (
           <>
-            <Form
-              className={style.form}
-            >
-              <div className={style.inputGroup}>
-                <Field name="height" type="number" placeholder={t('calculator.height')} className={style.input} />
-                <ErrorMessage name="height" component="div" className={style.error} />
-                <Field name="age" type="number" placeholder={t('calculator.age')} className={style.input} />
-                <ErrorMessage name="age" component="div" className={style.error} />
-                <Field name="currentWeight" type="number" placeholder={t('calculator.currentWeight')} className={style.input} />
-                <ErrorMessage name="currentWeight" component="div" className={style.error} />
-                <Field name="desiredWeight" type="number" placeholder={t('calculator.desiredWeight')} className={style.input} />
-                <ErrorMessage name="desiredWeight" component="div" className={style.error} />
+            <Form className={style.form}>
+              <div className={style.inputcontainer}>
+                <div className={style.inputGroup}>
+                  <Field name="height" type="number" placeholder={t('calculator.height')} className={style.input} />
+                  <ErrorMessage name="height" component="div" className={style.error} />
+                  
+                  <Field name="age" type="number" placeholder={t('calculator.age')} className={style.input} />
+                  <ErrorMessage name="age" component="div" className={style.error} />
+                </div>
+                
+                <div className={style.inputGroup}>
+                  <Field name="currentWeight" type="number" placeholder={t('calculator.currentWeight')} className={style.input} />
+                  <ErrorMessage name="currentWeight" component="div" className={style.error} />
+                  
+                  <Field name="desiredWeight" type="number" placeholder={t('calculator.desiredWeight')} className={style.input} />
+                  <ErrorMessage name="desiredWeight" component="div" className={style.error} />
+                </div>
               </div>
 
               <div className={style.bloodTypeGroup}>
@@ -85,16 +91,21 @@ const CalculateModal = ({ onClose }) => {
                       {type.label}
                     </label>
                   ))}
-                  <ErrorMessage name="bloodType" component="div" className={style.error} />
                 </div>
+                <ErrorMessage name="bloodType" component="div" className={style.error} />
               </div>
 
-              <button type="submit" className={style.submitButton}>{t('calculator.calculateButton')}</button>
+              <button type="submit" className={style.submitButton}>
+                {t('calculator.calculateButton')}
+              </button>
             </Form>
           </>
         )}
       </Formik>
-      <button className={style.modalCloseTop} onClick={onClose}><IoCloseSharp className={style.close} /></button>
+      
+      <button className={style.modalCloseTop} onClick={onClose}>
+        <IoCloseSharp className={style.close} />
+      </button>
     </div>
   );
 };

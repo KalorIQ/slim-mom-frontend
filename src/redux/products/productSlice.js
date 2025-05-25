@@ -6,6 +6,14 @@ import {
   getDailyCalories,
   getDailyCalorieNeeds,
   searchProducts,
+  getWeeklyCalories,
+  getWeightProgress,
+  getUserActivityStats,
+  getWeightHistory,
+  getMacroBreakdown,
+  getUserAchievements,
+  getDetailedWeeklyCalories,
+  getUserStatsFromBackend,
 } from "./productOperation.js";
 import { toast, Bounce } from "react-toastify";
 
@@ -43,6 +51,33 @@ const initialState = {
   dailyCalories: 0,
   dailyRate: 0,
   notAllowedFoods: [],
+  weeklyCalories: [],
+  weightProgress: [],
+  userStats: {
+    streak: 0,
+    daysActive: 0,
+    totalEntries: 0,
+    bmi: 24.1,
+    weightLoss: 0,
+    averageDailyCalories: 1850,
+  },
+  activityStats: {
+    totalDays: 0,
+    consecutiveDays: 0,
+    totalCaloriesBurned: 0,
+    averageCaloriesPerDay: 0,
+    bestStreak: 0,
+    currentStreak: 0,
+  },
+  weightHistory: [],
+  macroBreakdown: {
+    carbs: 0,
+    protein: 0,
+    fat: 0,
+    fiber: 0,
+  },
+  achievements: [],
+  detailedWeeklyData: [],
   isLoading: false,
   error: null,
 };
@@ -105,7 +140,10 @@ const productSlice = createSlice({
       .addCase(getDiaryEntries.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
-        toast.error("Failed to load diary entries", toastSettings.error);
+        // Only show toast for non-authentication errors
+        if (!action.payload?.message?.includes("Authentication failed")) {
+          toast.error("Failed to load diary entries", toastSettings.error);
+        }
       })
 
       // Get Daily Calories Cases
@@ -150,6 +188,151 @@ const productSlice = createSlice({
         state.isLoading = false;
         state.error = action.payload;
         toast.error("Failed to search products", toastSettings.error);
+      })
+
+      // Get Weekly Calories Cases
+      .addCase(getWeeklyCalories.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getWeeklyCalories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.weeklyCalories = action.payload || [];
+      })
+      .addCase(getWeeklyCalories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to load weekly calories", toastSettings.error);
+      })
+
+      // Get Weight Progress Cases
+      .addCase(getWeightProgress.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getWeightProgress.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.weightProgress = action.payload || [];
+      })
+      .addCase(getWeightProgress.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to load weight progress", toastSettings.error);
+      })
+
+      // Get User Activity Stats Cases
+      .addCase(getUserActivityStats.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserActivityStats.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.activityStats = action.payload || {
+            totalDays: 0,
+            consecutiveDays: 0,
+            totalCaloriesBurned: 0,
+            averageCaloriesPerDay: 0,
+            bestStreak: 0,
+            currentStreak: 0,
+          };
+        }
+      })
+      .addCase(getUserActivityStats.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get Weight History Cases
+      .addCase(getWeightHistory.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getWeightHistory.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.weightHistory = action.payload || [];
+        }
+      })
+      .addCase(getWeightHistory.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get Macro Breakdown Cases
+      .addCase(getMacroBreakdown.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getMacroBreakdown.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.macroBreakdown = action.payload || {
+            carbs: 0,
+            protein: 0,
+            fat: 0,
+            fiber: 0,
+          };
+        }
+      })
+      .addCase(getMacroBreakdown.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get User Achievements Cases
+      .addCase(getUserAchievements.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserAchievements.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.achievements = action.payload || [];
+        }
+      })
+      .addCase(getUserAchievements.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get Detailed Weekly Calories Cases
+      .addCase(getDetailedWeeklyCalories.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getDetailedWeeklyCalories.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.detailedWeeklyData = action.payload || [];
+        }
+      })
+      .addCase(getDetailedWeeklyCalories.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+
+      // Get User Stats From Backend Cases
+      .addCase(getUserStatsFromBackend.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getUserStatsFromBackend.fulfilled, (state, action) => {
+        state.isLoading = false;
+        if (action.payload !== null) {
+          state.userStats = action.payload || {
+            streak: 0,
+            daysActive: 0,
+            totalEntries: 0,
+            bmi: 24.1,
+            weightLoss: 0,
+            averageDailyCalories: 1850,
+          };
+        }
+      })
+      .addCase(getUserStatsFromBackend.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
       });
   },
 });

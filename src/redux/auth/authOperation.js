@@ -43,7 +43,8 @@ const logoutUser = createAsyncThunk(
   "api/auth/logout",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
-    const token = state.auth.accessToken;
+    const token = state.auth.accessToken || localStorage.getItem("accessToken");
+    
     try {
       const axiosInstance = await getAxiosInstance();
       const response = await axiosInstance.post(
@@ -57,8 +58,18 @@ const logoutUser = createAsyncThunk(
         }
       );
       localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
       return response.data;
     } catch (error) {
+      // Even if backend logout fails, clear local storage
+      localStorage.removeItem("accessToken");
+      localStorage.removeItem("user");
+      
+      // Don't reject if it's just a network error - user should still be logged out locally
+      if (error.code === 'NETWORK_ERROR' || error.response?.status >= 500) {
+        return { message: "Logged out locally due to network error" };
+      }
+      
       return thunkAPI.rejectWithValue(error.response?.data);
     }
   }

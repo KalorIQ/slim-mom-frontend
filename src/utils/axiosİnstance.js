@@ -3,7 +3,7 @@ import axios from "axios";
 import store from "../redux/store.js"; // Redux store'un yolunu doğru ver
 
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, // Vite ortam değişkeni
+  baseURL: import.meta.env.VITE_API_URL || "https://slim-mom-backend-ckg8.onrender.com/", // Vite ortam değişkeni
   withCredentials: true, // Çerezle refresh yapılacaksa şart
 });
 

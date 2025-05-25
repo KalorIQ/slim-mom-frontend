@@ -231,37 +231,140 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 400px;
+  min-height: 60vh;
   width: 100%;
+  padding: 20px;
+  margin-left: 100px;
+  margin-top: -10vh;
 }
 
 .blockMessageBox {
-  background: #fff7f0;
-  border: 2px solid #fc842d;
-  border-radius: 18px;
-  box-shadow: 0 6px 24px rgba(252, 131, 45, 0.12);
-  padding: 48px 36px;
+  background: linear-gradient(135deg, #fff9f5 0%, #fff7f0 100%);
+  border: 3px solid transparent;
+  border-radius: 24px;
+  background-clip: padding-box;
+  box-shadow: 
+    0 20px 40px rgba(252, 132, 45, 0.18),
+    0 8px 25px rgba(252, 132, 45, 0.12),
+    0 3px 10px rgba(0, 0, 0, 0.08),
+    inset 0 2px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(252, 132, 45, 0.1);
+  padding: 60px 50px;
   text-align: center;
-  max-width: 420px;
+  max-width: 480px;
   width: 100%;
   margin: 0 auto;
+  position: relative;
+  animation: slideInUp 0.7s ease-out;
+  overflow: hidden;
+}
+
+.blockMessageBox::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(135deg, #fc842d, #ff9500, #fc842d, #ff6b35);
+  border-radius: 27px;
+  z-index: -1;
+  animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+.blockMessageBox::after {
+  content: '✨';
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 24px;
+  animation: sparkle 2s ease-in-out infinite;
 }
 
 .blockMessageTitle {
-  font-size: 2.1rem;
-  color: #fc842d;
-  font-weight: 800;
-  margin-bottom: 18px;
+  font-size: 2.4rem;
+  background: linear-gradient(135deg, #fc842d 0%, #ff6b35 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 900;
+  margin-bottom: 24px;
   letter-spacing: 0.02em;
-  font-family: 'Segoe UI', Verdana, sans-serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  text-shadow: 0 2px 4px rgba(252, 132, 45, 0.2);
+  position: relative;
+  animation: titlePulse 3s ease-in-out infinite;
+}
+
+.blockMessageTitle::before {
+  content: '🚫';
+  position: absolute;
+  left: -50px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  animation: bounce 2s ease-in-out infinite;
 }
 
 .blockMessageText {
-  font-size: 1.15rem;
-  color: #333;
+  font-size: 1.25rem;
+  color: #555;
   font-weight: 500;
-  line-height: 1.6;
-  font-family: 'Segoe UI', Verdana, sans-serif;
+  line-height: 1.8;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  opacity: 0.95;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes borderGlow {
+  from {
+    opacity: 0.8;
+    filter: blur(0px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(1px);
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.2) rotate(180deg);
+    opacity: 1;
+  }
+}
+
+@keyframes titlePulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-50%) scale(1);
+  }
+  50% {
+    transform: translateY(-60%) scale(1.1);
+  }
 }
 
 /* Ürün Ekleme Formu */
@@ -276,17 +379,17 @@
 .productInputContainer {
   flex: 1;
   position: relative;
-  max-width: 500px;
-  min-width: 400px;
+  max-width: 600px;
+  min-width: 500px;
 }
 
 .productInput {
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--border-color);
-  padding: 8px 0;
-  font-size: 14px;
-  line-height: 17px;
+  padding: 12px 0;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.04em;
   font-family: Verdana, sans-serif;
   color: var(--text-input);
@@ -365,50 +468,57 @@
 .foodItem {
   display: flex;
   align-items: center;
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border-color);
+  padding: 24px 0;
+  border-bottom: 2px solid var(--border-color);
+  transition: border-color 0.2s ease;
 }
 
 .foodItem:last-child {
-  border-bottom: none;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.foodItem:hover {
+  border-bottom-color: #FC842D;
 }
 
 .foodName {
   flex: 1;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.04em;
   color: var(--text-primary);
   margin-right: 48px;
-  max-width: 240px;
+  max-width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   font-family: Verdana, sans-serif;
+  font-weight: 500;
 }
 
 .foodGrams, .foodCalories {
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
   font-family: Verdana, sans-serif;
+  font-weight: 500;
 }
 
 .foodGrams {
-  width: 107px;
+  width: 120px;
   margin-right: 32px;
 }
 
 .foodCalories {
-  width: 60px;
+  width: 80px;
   text-align: right;
   margin-right: 32px;
 }
 
 .removeButton {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   background: transparent;
   border: none;
   color: #9B9FAA;
@@ -418,10 +528,11 @@
   align-items: center;
   justify-content: center;
   transition: color 0.2s ease;
+  font-size: 18px;
 }
 
 .removeButton:hover {
-  color: #212121;
+  color: #FC842D;
 }
 
 /* "Aradığınız tarihe uygun ürün bulunamadı" mesajı */
@@ -489,6 +600,14 @@
     max-width: 360px;
     min-width: 280px;
   }
+
+  .searchResults {
+    max-width: 600px;
+  }
+
+  .noResults {
+    max-width: 600px;
+  }
 }
 
 @media screen and (max-width: 767px) {
@@ -533,38 +652,80 @@
 
   .foodItem {
     flex-wrap: wrap;
-    gap: 8px;
-    padding: 16px 0;
+    gap: 12px;
+    padding: 20px 0;
+    border-bottom: 2px solid var(--border-color);
   }
 
   .foodName {
     flex: 1 1 100%;
     margin-right: 0;
     max-width: 100%;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 15px;
+    line-height: 18px;
   }
 
   .foodGrams {
     margin-right: 16px;
+    font-size: 15px;
+    line-height: 18px;
   }
 
   .foodCalories {
     margin-right: 16px;
+    font-size: 15px;
+    line-height: 18px;
   }
 
   .removeButton {
     margin-left: auto;
+    width: 22px;
+    height: 22px;
+    font-size: 16px;
+  }
+
+  .searchResults {
+    max-width: 100%;
+    max-height: 350px;
+    top: 100%;
+    border-radius: 8px;
+  }
+
+  .noResults {
+    max-width: 100%;
+    top: 100%;
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 15px;
+  }
+
+  .searchResultItem {
+    padding: 20px 24px;
+    min-width: auto;
+  }
+
+  .productTitle {
+    font-size: 15px;
+    line-height: 18px;
+    min-width: 180px;
+  }
+
+  .productCalories {
+    padding: 6px 14px;
+    min-width: 110px;
+    font-size: 14px;
   }
 }
 
 /* Search Results Styles */
 .searchResults {
   position: absolute;
-  top: calc(100% + 12px);
+  top: 100%;
   left: 0;
   min-width: 100%;
   width: max-content;
-  max-width: 480px;
+  max-width: 600px;
   background: var(--bg-search-result);
   border-radius: 12px;
   box-shadow: var(--shadow-dropdown);
@@ -575,6 +736,28 @@
   overflow-y: auto;
   backdrop-filter: blur(8px);
   transform-origin: top;
+  animation: dropDown 0.2s ease-out;
+}
+
+.noResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  max-width: 600px;
+  background: var(--bg-search-result);
+  border-radius: 12px;
+  box-shadow: var(--shadow-dropdown);
+  z-index: 100;
+  border: 1px solid var(--border-color);
+  padding: 24px 28px;
+  font-family: Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--text-secondary);
+  text-align: center;
+  backdrop-filter: blur(8px);
   animation: dropDown 0.2s ease-out;
 }
 
@@ -609,18 +792,18 @@
 }
 
 .searchResultItem {
-  padding: 20px 24px;
+  padding: 24px 28px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   border-bottom: 1px solid var(--border-color);
   transition: all 0.3s ease;
   background: var(--bg-search-result);
   position: relative;
   overflow: hidden;
-  min-width: 320px;
+  min-width: 550px;
 }
 
 .searchResultItem::before {
@@ -637,7 +820,7 @@
 
 .searchResultItem:hover {
   background-color: var(--bg-secondary);
-  padding-left: 28px;
+  padding-left: 32px;
 }
 
 .searchResultItem:hover::before {
@@ -654,12 +837,12 @@
 
 .productTitle {
   font-family: Verdana, sans-serif;
-  font-size: 15px;
-  line-height: 18px;
+  font-size: 16px;
+  line-height: 20px;
   letter-spacing: 0.04em;
   color: var(--text-primary);
   flex: 1;
-  min-width: 200px;
+  min-width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -672,16 +855,16 @@
 
 .productCalories {
   font-family: Verdana, sans-serif;
-  font-size: 14px;
-  line-height: 17px;
+  font-size: 15px;
+  line-height: 18px;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
   white-space: nowrap;
   background: var(--bg-secondary);
-  padding: 6px 16px;
+  padding: 8px 18px;
   border-radius: 50px;
   transition: all 0.2s ease;
-  min-width: 120px;
+  min-width: 130px;
   text-align: center;
 }
 
@@ -692,7 +875,11 @@
 
 @media screen and (max-width: 1279px) {
   .searchResults {
-    max-width: 440px;
+    max-width: 600px;
+  }
+
+  .noResults {
+    max-width: 600px;
   }
 }
 
@@ -700,24 +887,32 @@
   .searchResults {
     max-width: 100%;
     max-height: 350px;
-    top: calc(100% + 8px);
+    top: 100%;
     border-radius: 8px;
   }
 
+  .noResults {
+    max-width: 100%;
+    top: 100%;
+    border-radius: 8px;
+    padding: 20px 24px;
+    font-size: 15px;
+  }
+
   .searchResultItem {
-    padding: 16px 20px;
+    padding: 20px 24px;
     min-width: auto;
   }
 
   .productTitle {
-    font-size: 14px;
-    line-height: 17px;
-    min-width: 160px;
+    font-size: 15px;
+    line-height: 18px;
+    min-width: 180px;
   }
 
   .productCalories {
-    padding: 4px 12px;
-    min-width: 100px;
-    font-size: 13px;
+    padding: 6px 14px;
+    min-width: 110px;
+    font-size: 14px;
   }
 }

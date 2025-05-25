@@ -88,11 +88,11 @@
 .bloodType {
     width: 240px;
     height: auto;
-    padding-bottom: 20px;
+    padding: 8px 0 20px 0;
+    margin: 0 0 16px 0;
     border: none;
     border-bottom: 2px solid #e0e0e0;
     appearance: none;
-    margin-bottom: 16px;
     background-color: transparent;
     outline: none;
     font-family: Verdana, sans-serif;
@@ -101,6 +101,7 @@
     line-height: 100%;
     letter-spacing: 0.04em;
     color: #9b9faa;
+    text-align: left;
 }
 
 /* Radio group styling */

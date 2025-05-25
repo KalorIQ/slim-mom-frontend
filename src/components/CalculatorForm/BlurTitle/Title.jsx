@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import BlurText from "./BlurText";
 
 const Title = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   
   const handleAnimationComplete = () => {
     console.log('Animation completed!');
@@ -10,6 +10,7 @@ const Title = () => {
 
   return (
     <BlurText
+      key={i18n.language}
       text={t('calculator.title')}
       delay={280}
       animateBy="words"

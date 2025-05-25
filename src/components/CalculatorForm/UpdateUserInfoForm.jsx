@@ -9,7 +9,7 @@ import { updateUserInfo } from "../../redux/auth/authOperation.js";
 import { selectUser } from "../../redux/auth/authSelectors.js";
 
 const UpdateUserInfoForm = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [showErrors, setShowErrors] = useState(false);
   const [errorList, setErrorList] = useState([]);
   const dispatch = useDispatch();
@@ -48,9 +48,10 @@ const UpdateUserInfoForm = () => {
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container} key={i18n.language}>
       <Title />
       <Formik
+        key={i18n.language}
         initialValues={{
           height: user.infouser?.height || "",
           age: user.infouser?.age || "",

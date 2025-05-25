@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Formik, Form, Field } from "formik";
 import { useDispatch } from "react-redux";
+import { useTranslation } from 'react-i18next';
 import validationSchema from "../../Validator/calcValidation.js";
 import Title from "./BlurTitle/Title.jsx";
 import style from "./CalculatorForm.module.css";
@@ -9,6 +10,7 @@ import ResultModal from "../ResultModal/ResultModal.jsx";
 import { updateUserInfo } from "../../redux/auth/authOperation.js";
 
 const CalculatorForm = () => {
+  const { t, i18n } = useTranslation();
   const [showErrors, setShowErrors] = useState(false);
   const [errorList, setErrorList] = useState([]);
   const [calorieResult, setCalorieResult] = useState(null);
@@ -30,9 +32,10 @@ const CalculatorForm = () => {
   };
 
   return (
-    <div className={style.container}>
+    <div className={style.container} key={i18n.language}>
       <Title />
       <Formik
+        key={i18n.language}
         initialValues={{
           height: "",
           age: "",
@@ -82,19 +85,19 @@ const CalculatorForm = () => {
                   <Field
                     name="height"
                     type="number"
-                    placeholder="Height"
+                    placeholder={t('calculator.height')}
                     className={style.input}
                   />
                   <Field
                     name="age"
                     type="number"
-                    placeholder="Age"
+                    placeholder={t('calculator.age')}
                     className={style.input}
                   />
                   <Field
                     name="currentWeight"
                     type="number"
-                    placeholder="Current Weight"
+                    placeholder={t('calculator.currentWeight')}
                     className={style.input}
                   />
                 </div>
@@ -103,18 +106,18 @@ const CalculatorForm = () => {
                   <Field
                     name="desiredWeight"
                     type="number"
-                    placeholder="Desired Weight"
+                    placeholder={t('calculator.desiredWeight')}
                     className={style.input}
                   />
 
                   <div className={style.bloodTypeGroup}>
-                    <p className={style.bloodType}>Blood type</p>
+                    <p className={style.bloodType}>{t('calculator.bloodType')}</p>
                     <div className={style.radioGroup}>
                       {[
-                        { label: "A", value: "1" },
-                        { label: "B", value: "2" },
-                        { label: "AB", value: "3" },
-                        { label: "0", value: "4" },
+                        { label: t('bloodTypes.1'), value: "1" },
+                        { label: t('bloodTypes.2'), value: "2" },
+                        { label: t('bloodTypes.3'), value: "3" },
+                        { label: t('bloodTypes.4'), value: "4" },
                       ].map((type) => (
                         <label key={type.value} className={style.radioLabel}>
                           <Field
@@ -132,7 +135,7 @@ const CalculatorForm = () => {
               </div>
 
               <button type="submit" className={style.submitButton}>
-                Start losing weight
+                {t('calculator.startButton')}
               </button>
             </Form>
 
@@ -141,7 +144,7 @@ const CalculatorForm = () => {
               <div className={style.modal}>
                 <div className={style.modalContent}>
                   <h3 className={style.modalTitle}>
-                    Please Correct The Following!
+                    {t('validation.required')}
                   </h3>
                   <ul className={style.errorList}>
                     {errorList.map((err, idx) => (
@@ -154,7 +157,7 @@ const CalculatorForm = () => {
                     onClick={() => setShowErrors(false)}
                     className={style.modalClose}
                   >
-                    Kapat
+                    {t('common.close')}
                   </button>
                 </div>
               </div>
