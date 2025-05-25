@@ -167,12 +167,14 @@
   .App {
     flex-direction: column;
     align-items: center;
+    overflow-x: hidden;
   }
 
   .container {
     padding: 40px 32px;
     max-width: 100%;
     justify-content: center;
+    width: 100%;
   }
 
   .rightSection {
@@ -189,6 +191,10 @@
     display: none;
   }
 
+  .App::after {
+    width: 100%;
+  }
+
   .formSection {
     padding: 40px 0;
     max-width: 100%;
@@ -198,16 +204,52 @@
 }
 
 @media screen and (max-width: 767px) {
+  .App {
+    padding: 0 20px;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
   .container {
-    padding: 40px 20px;
+    padding: 40px 0;
+    width: 100%;
+    min-height: auto;
   }
   
   .formSection {
     padding: 20px 0;
+    width: 100%;
   }
 
   .rightSection {
-    padding: 0;
+    padding: 40px 0;
+    width: 100%;
+    min-height: auto;
+  }
+
+  .App::after {
+    width: 100%;
+    position: relative;
+    height: auto;
+    min-height: 300px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .App {
+    padding: 0 16px;
+  }
+
+  .container {
+    padding: 20px 0;
+  }
+
+  .formSection {
+    padding: 16px 0;
+  }
+
+  .rightSection {
+    padding: 32px 0;
   }
 }
 
