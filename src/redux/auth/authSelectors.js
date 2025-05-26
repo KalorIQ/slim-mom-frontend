@@ -1,8 +1,10 @@
-const selectLoading = (state) => state.auth.isLoading;
-const selectError = (state) => state.auth.error;
-const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
+export const selectIsLoading = (state) => state.auth.isLoading;
+export const selectError = (state) => state.auth.error;
+
+export const selectUserName = (state) => state.auth.user?.name;
+
 const selectUser = (state) => state.auth.user;
-const selectUserName = (state) => state.auth.user?.name || null;
 const selectUserEmail = (state) => state.auth.user?.email || null;
 const selectUserInfo = (state) => state.auth.user?.infouser || null;
 const selectAccessToken = (state) => state.auth.accessToken;
@@ -18,11 +20,7 @@ const selectUserNotAllowedProducts = (state) => state.auth.user?.infouser?.notAl
 const selectUserNotAllowedProductsAll = (state) => state.auth.user?.infouser?.notAllowedProductsAll || null;
 
 export { 
-  selectLoading, 
-  selectError, 
-  selectIsLoggedIn, 
   selectUser, 
-  selectUserName, 
   selectUserEmail,
   selectUserInfo,
   selectAccessToken,

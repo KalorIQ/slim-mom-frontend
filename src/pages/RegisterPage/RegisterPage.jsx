@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { registerUser } from "../../redux/auth/authOperation.js";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import MobileBackground from "../../components/Background/MobileBackground.jsx";
 
 const RegisterPage = () => {
   const { t } = useTranslation();
@@ -107,6 +108,7 @@ const RegisterPage = () => {
           </Form>
         )}
       </Formik>
+      <MobileBackground />
     </div>
   );
 };

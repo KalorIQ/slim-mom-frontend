@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../../redux/auth/authOperation.js";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useState } from "react";
+import MobileBackground from "../../components/Background/MobileBackground.jsx";
 
 const LoginPage = () => {
   const { t } = useTranslation();
@@ -17,19 +18,18 @@ const LoginPage = () => {
     navigate("/register");
   };
 
-  const handleLogin = async (values) => {
-    console.log("In login Handle Email:", values.email);
-    console.log("In login Handle Password:", values.password);
-    const { email, password } = values;
-    try {
-      await dispatch(loginUser({ email, password }))
-        .unwrap()
-        .then(() => {
-          navigate("/diary");
-        });
-    } catch (error) {
-      console.error("Login failed:", error);
-    }
+  const handleSubmit = (values, { setSubmitting }) => {
+    dispatch(loginUser(values))
+      .unwrap()
+      .then(() => {
+        navigate("/diary");
+      })
+      .catch((error) => {
+        console.error("Login error:", error);
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
   };
 
   const togglePasswordVisibility = () => {
@@ -40,7 +40,7 @@ const LoginPage = () => {
     <div className={style.container}>
       <Formik
         initialValues={{ email: "", password: "" }}
-        onSubmit={handleLogin}
+        onSubmit={handleSubmit}
       >
         {() => (
           <Form className={style.form} autoComplete="off">
@@ -104,6 +104,7 @@ const LoginPage = () => {
           </Form>
         )}
       </Formik>
+      <MobileBackground />
     </div>
   );
 };

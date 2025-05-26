@@ -36,7 +36,6 @@ const DiaryPage = () => {
   const user = useSelector(selectUser);
   const isLoading = useSelector(selectProductsLoading);
 
-  // Safety checks for user and userInfo
   const userInfo = user?.infouser || {
     currentWeight: null,
     height: null,
@@ -95,15 +94,7 @@ const DiaryPage = () => {
   };
 
   const handleRemoveItem = (itemId) => {
-    // DEBUG: DiaryPage'den gönderilen verileri logla
-    console.log("=== DIARY PAGE DELETE REQUEST ===");
-    console.log("- Item ID:", itemId);
-    console.log("- Current Date:", currentDate);
-    console.log("- Item ID Type:", typeof itemId);
-    console.log("- Current Date Type:", typeof currentDate);
-    
     dispatch(removeProduct({ productId: itemId, date: currentDate })).then(() => {
-      console.log("- Delete operation completed successfully");
       dispatch(getDiaryEntries(currentDate));
       dispatch(getDailyCalories(currentDate));
     }).catch((error) => {

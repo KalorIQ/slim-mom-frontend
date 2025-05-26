@@ -4,10 +4,6 @@ import './Title.css';
 
 const Title = () => {
   const { t, i18n } = useTranslation();
-  
-  const handleAnimationComplete = () => {
-    console.log('Animation completed!');
-  };
 
   return (
     <BlurText
@@ -16,7 +12,6 @@ const Title = () => {
       delay={280}
       animateBy="words"
       direction="top"
-      onAnimationComplete={handleAnimationComplete}
       className="calculator-title" 
       style={{
         fontFamily: 'Verdana, sans-serif',

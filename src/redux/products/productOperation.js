@@ -12,11 +12,6 @@ const getToken = (state) => {
   const reduxToken = state.auth.accessToken;
   const localToken = localStorage.getItem("accessToken");
   
-  // Only log if there's an issue with tokens
-  if (!reduxToken && !localToken) {
-    console.log("⚠️ No authentication token found in Redux or localStorage");
-  }
-  
   const finalToken = reduxToken || localToken;
   return finalToken;
 };
@@ -64,22 +59,12 @@ const removeProduct = createAsyncThunk(
     const state = thunkAPI.getState();
     const token = getToken(state);
 
-    console.log("=== REMOVE PRODUCT OPERATION DEBUG ===");
-    console.log("- Product ID:", productId);
-    console.log("- Date:", date);
-    console.log("- Product ID Type:", typeof productId);
-    console.log("- Date Type:", typeof date);
-    console.log("- Token exists:", !!token);
-
     if (!token) {
-      console.log("❌ No authentication token found");
       return thunkAPI.rejectWithValue({ message: "No authentication token found" });
     }
 
     try {
       const deleteUrl = `api/user/products/${productId}?date=${date}`;
-      console.log("- Delete URL:", deleteUrl);
-      console.log("- Full URL:", BASE_URL + deleteUrl);
       
       const response = await instance.delete(deleteUrl, {
         headers: {
@@ -87,20 +72,8 @@ const removeProduct = createAsyncThunk(
         },
       });
       
-      console.log("✅ Delete successful");
-      console.log("- Response status:", response.status);
-      console.log("- Response data:", response.data);
-      console.log("=== END REMOVE PRODUCT DEBUG ===");
-      
       return { ...response.data, productId };
     } catch (error) {
-      console.log("❌ Delete failed");
-      console.log("- Error status:", error.response?.status);
-      console.log("- Error data:", error.response?.data);
-      console.log("- Error message:", error.message);
-      console.log("- Full error:", error);
-      console.log("=== END REMOVE PRODUCT DEBUG ===");
-      
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });

@@ -1,4 +1,4 @@
-// Summary.jsx - Bu dosya değişmedi, önceki verdiğim kodla aynı.
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styles from "./Summary.module.css";
 import {
@@ -20,8 +20,15 @@ const Summary = () => {
     const notAllowedFoods = useSelector(selectNotAllowedFoods);
     const currentDate = useSelector(selectCurrentDate);
 
-    // Ekran görüntüsündeki tarih formatı "5/24/2025"
-    const displayDate = currentDate ? new Date(currentDate).toLocaleDateString("en-US") : "";
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        const year = date.getFullYear();
+        return `${month}/${day}/${year}`;
+    };
+
+    const displayDate = currentDate ? formatDate(currentDate) : "";
 
     return (
         <div className={styles.summary}>

@@ -6,6 +6,7 @@ const selectDiaryEntries = (state) => state.products.diaryEntries;
 const selectSearchResults = (state) => state.products.searchResults;
 const selectCurrentDate = (state) => state.products.currentDate;
 const selectDailyCalories = (state) => state.products.dailyCalories;
+const selectDailyCalorieNeeds = (state) => state.products.dailyCalorieNeeds;
 const selectDailyRate = (state) => state.products.dailyRate;
 const selectNotAllowedFoods = (state) => state.products.notAllowedFoods;
 
@@ -124,6 +125,7 @@ export {
   selectSearchResults,
   selectCurrentDate,
   selectDailyCalories,
+  selectDailyCalorieNeeds,
   selectDailyRate,
   selectNotAllowedFoods,
   selectWeeklyCalories,

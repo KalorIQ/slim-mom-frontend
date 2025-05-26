@@ -31,6 +31,8 @@
     z-index: 0;
     overflow: hidden;
     background-color: var(--bg-primary);
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 .wave {
@@ -45,6 +47,8 @@
     background-size: contain;
     opacity: var(--wave-opacity);
     transition: opacity 0.3s ease;
+    max-width: 100vw;
+    overflow: hidden;
 }
 
 :global([data-theme="dark"]) .wave {
@@ -56,17 +60,15 @@
 }
 
 /* Ensure the app container has proper overflow handling */
-:global(.App) {
-    position: relative;
-    overflow-x: hidden;
-    width: 100%;
-}
+/* Removed global App overflow - handled in App.css */
 
 .container {
     position: absolute;
     width: 100%;
     height: 100%;
     overflow: hidden;
+    max-width: 100vw;
+    box-sizing: border-box;
 }
 
 @media screen and (max-width: 1280px) {
@@ -151,6 +153,8 @@
         bottom: -200px;
         z-index: 1;
         width: max-content;
+        max-width: 100vw;
+        overflow: hidden;
     }
 
     .leaf {
@@ -167,12 +171,13 @@
 
 @media screen and (min-width: 1024px) {
     .container {
-        min-width: max-content;
         overflow: hidden;
+        max-width: 100vw;
+        box-sizing: border-box;
     }
 
     .strawberry {
-        top: 550px;
+        top: 650px;
         right: 10px;
         width: 286px;
         height: 253px;
@@ -181,23 +186,26 @@
     }
 
     .backshadow {
-        top: 150px;
+        top: 250px;
         right: -30px;
         width: 750px;
+        max-width: 100vw;
     }
 
     .banana {
-        top: 50px;
+        top: 150px;
         width: 773px;
         right: -200px;
+        max-width: 100vw;
     }
 
     .leaf {
-        top: 0px;
+        top: 100px;
         right: 15vw;
         width: 746px;
         transform: rotate(360deg);
         animation: pulseScale ease-in-out 4s;
+        max-width: 100vw;
     }
 }
 

@@ -13,6 +13,10 @@ const CalculateModal = ({ onClose }) => {
   const [calorieResult, setCalorieResult] = useState(null);
   const dispatch = useDispatch();
 
+  const handleUpdateUserInfo = (userData) => {
+    dispatch(updateUserInfo(userData));
+  };
+
   return (
     <div className={style.container} key={i18n.language}>
       <h2 className={style.title}>{t('calculator.dailyCalorieNeeds')}</h2>
@@ -32,7 +36,6 @@ const CalculateModal = ({ onClose }) => {
           const result = intakeCalorie(values);
           setCalorieResult(result);
 
-          // Kullanıcı bilgilerini güncelle
           const userData = {
             height: Number(values.height),
             age: Number(values.age),
@@ -43,7 +46,7 @@ const CalculateModal = ({ onClose }) => {
           };
 
           try {
-            await dispatch(updateUserInfo(userData)).unwrap();
+            await handleUpdateUserInfo(userData);
             onClose(); // Başarılı güncelleme sonrası modalı kapat
           } catch (error) {
             console.error("Failed to update user info:", error);

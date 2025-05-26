@@ -122,6 +122,12 @@ const ProfilePage = () => {
         borderColor: '#FC842D',
         backgroundColor: 'rgba(252, 132, 45, 0.1)',
         tension: 0.4,
+        borderWidth: 3,
+        pointBackgroundColor: '#FC842D',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 6,
+        pointHoverRadius: 8,
       },
       {
         label: t('profile.calorieGoal'),
@@ -129,6 +135,11 @@ const ProfilePage = () => {
         borderColor: '#9b9faa',
         backgroundColor: 'rgba(155, 159, 170, 0.1)',
         borderDash: [5, 5],
+        borderWidth: 2,
+        pointBackgroundColor: '#9b9faa',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 4,
       }
     ],
   });
@@ -140,7 +151,10 @@ const ProfilePage = () => {
         label: t('profile.weight'),
         data: [],
         backgroundColor: '#FC842D',
+        borderColor: '#FC842D',
+        borderWidth: 2,
         borderRadius: 8,
+        borderSkipped: false,
       }
     ],
   });
@@ -150,8 +164,19 @@ const ProfilePage = () => {
     datasets: [
       {
         data: [0, 0, 0],
-        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-        hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+        backgroundColor: [
+          '#FC842D',  // Orange for carbs
+          '#2ecc71',  // Green for protein  
+          '#e74c3c'   // Red for fat
+        ],
+        hoverBackgroundColor: [
+          '#e87728',  // Darker orange
+          '#27ae60',  // Darker green
+          '#c0392b'   // Darker red
+        ],
+        borderWidth: 3,
+        borderColor: '#ffffff',
+        hoverBorderWidth: 4,
       }
     ],
   });
@@ -172,11 +197,28 @@ const ProfilePage = () => {
             ...prev.datasets[0],
             data: caloriesData,
             label: t('profile.caloriesConsumed'),
+            borderColor: '#FC842D',
+            backgroundColor: 'rgba(252, 132, 45, 0.1)',
+            tension: 0.4,
+            borderWidth: 3,
+            pointBackgroundColor: '#FC842D',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 6,
+            pointHoverRadius: 8,
           },
           {
             ...prev.datasets[1],
             data: goalData,
             label: t('profile.calorieGoal'),
+            borderColor: '#9b9faa',
+            backgroundColor: 'rgba(155, 159, 170, 0.1)',
+            borderDash: [5, 5],
+            borderWidth: 2,
+            pointBackgroundColor: '#9b9faa',
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 2,
+            pointRadius: 4,
           }
         ]
       }));
@@ -198,6 +240,11 @@ const ProfilePage = () => {
             ...prev.datasets[0],
             data: weightData,
             label: t('profile.weight'),
+            backgroundColor: '#FC842D',
+            borderColor: '#FC842D',
+            borderWidth: 2,
+            borderRadius: 8,
+            borderSkipped: false,
           }
         ]
       }));
@@ -213,6 +260,19 @@ const ProfilePage = () => {
           {
             ...prev.datasets[0],
             data: formattedMacroData.data,
+            backgroundColor: [
+              '#FC842D',  // Orange for carbs
+              '#2ecc71',  // Green for protein  
+              '#e74c3c'   // Red for fat
+            ],
+            hoverBackgroundColor: [
+              '#e87728',  // Darker orange
+              '#27ae60',  // Darker green
+              '#c0392b'   // Darker red
+            ],
+            borderWidth: 3,
+            borderColor: '#ffffff',
+            hoverBorderWidth: 4,
           }
         ]
       }));
@@ -221,6 +281,24 @@ const ProfilePage = () => {
       setMacroData(prev => ({
         ...prev,
         labels: [t('profile.carbs'), t('profile.protein'), t('profile.fat')],
+        datasets: [
+          {
+            ...prev.datasets[0],
+            backgroundColor: [
+              '#FC842D',  // Orange for carbs
+              '#2ecc71',  // Green for protein  
+              '#e74c3c'   // Red for fat
+            ],
+            hoverBackgroundColor: [
+              '#e87728',  // Darker orange
+              '#27ae60',  // Darker green
+              '#c0392b'   // Darker red
+            ],
+            borderWidth: 3,
+            borderColor: '#ffffff',
+            hoverBorderWidth: 4,
+          }
+        ]
       }));
     }
   }, [formattedMacroData, t]);
@@ -329,16 +407,153 @@ const ProfilePage = () => {
 
   const chartOptions = {
     responsive: true,
+    maintainAspectRatio: false,
+    interaction: {
+      intersect: false,
+      mode: 'index',
+    },
     plugins: {
       legend: {
         position: 'top',
+        labels: {
+          color: '#2c3e50',
+          font: {
+            family: 'Verdana, sans-serif',
+            size: 12,
+            weight: '600',
+          },
+          padding: 20,
+          usePointStyle: true,
+        }
       },
+      tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        titleColor: '#2c3e50',
+        bodyColor: '#2c3e50',
+        borderColor: '#FC842D',
+        borderWidth: 2,
+        cornerRadius: 8,
+        titleFont: {
+          family: 'Verdana, sans-serif',
+          size: 14,
+          weight: '700',
+        },
+        bodyFont: {
+          family: 'Verdana, sans-serif',
+          size: 12,
+          weight: '600',
+        },
+        padding: 12,
+      }
     },
     scales: {
+      x: {
+        ticks: {
+          color: '#666',
+          font: {
+            family: 'Verdana, sans-serif',
+            size: 11,
+            weight: '600',
+          }
+        },
+        grid: {
+          color: 'rgba(252, 132, 45, 0.1)',
+          lineWidth: 1,
+        },
+        border: {
+          color: 'rgba(252, 132, 45, 0.2)',
+          width: 2,
+        }
+      },
       y: {
-        beginAtZero: false,
+        beginAtZero: true,
+        ticks: {
+          color: '#666',
+          font: {
+            family: 'Verdana, sans-serif',
+            size: 11,
+            weight: '600',
+          }
+        },
+        grid: {
+          color: 'rgba(252, 132, 45, 0.1)',
+          lineWidth: 1,
+        },
+        border: {
+          color: 'rgba(252, 132, 45, 0.2)',
+          width: 2,
+        }
       },
     },
+    elements: {
+      line: {
+        tension: 0.4,
+      },
+      point: {
+        hoverRadius: 8,
+      }
+    }
+  };
+
+  const doughnutOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          color: '#2c3e50',
+          font: {
+            family: 'Verdana, sans-serif',
+            size: 12,
+            weight: '600',
+          },
+          padding: 20,
+          usePointStyle: true,
+          pointStyle: 'circle',
+        }
+      },
+      tooltip: {
+        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+        titleColor: '#2c3e50',
+        bodyColor: '#2c3e50',
+        borderColor: '#FC842D',
+        borderWidth: 2,
+        cornerRadius: 8,
+        titleFont: {
+          family: 'Verdana, sans-serif',
+          size: 14,
+          weight: '700',
+        },
+        bodyFont: {
+          family: 'Verdana, sans-serif',
+          size: 12,
+          weight: '600',
+        },
+        padding: 12,
+        callbacks: {
+          label: function(context) {
+            const label = context.label || '';
+            const value = context.parsed || 0;
+            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+            return `${label}: ${percentage}%`;
+          }
+        }
+      }
+    },
+    cutout: '60%',
+    elements: {
+      arc: {
+        borderWidth: 3,
+        borderColor: '#ffffff',
+        hoverBorderWidth: 4,
+      }
+    },
+    animation: {
+      animateRotate: true,
+      animateScale: true,
+    }
   };
 
   // Get time-based greeting
@@ -543,7 +758,7 @@ const ProfilePage = () => {
 
             <div className={styles.chartCard}>
               <h3>{t('profile.macroBreakdown')}</h3>
-              <Doughnut data={macroData} />
+              <Doughnut data={macroData} options={doughnutOptions} />
             </div>
           </div>
         </div>

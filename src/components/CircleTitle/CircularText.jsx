@@ -98,10 +98,20 @@ const CircularText = ({
     >
       {letters.map((letter, i) => {
         const rotation = (360 / letters.length) * i;
-        const factor = Number((Math.PI / letters.length).toFixed(0));
-        const x = factor * i;
-        const y = factor * i;
-        const transform = `rotateZ(${rotation}deg) translate3d(${x}px, ${y}px, 0)`;
+        // Daha küçük radius ile yazıları merkeze yaklaştır
+        const getRadius = () => {
+          if (typeof window !== 'undefined') {
+            if (window.innerWidth <= 480) return 20;
+            if (window.innerWidth <= 768) return 25;
+          }
+          return 28;
+        };
+        const radius = getRadius();
+        const angle = (rotation * Math.PI) / 180;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+        // Harflerin rotasyonunu düzelt ki daha okunabilir olsun
+        const transform = `translate(-50%, -50%) translate(${x}px, ${y}px) rotate(${rotation + 90}deg)`;
 
         return (
           <span key={i} style={{ transform, WebkitTransform: transform }}>

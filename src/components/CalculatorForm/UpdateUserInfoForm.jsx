@@ -7,15 +7,15 @@ import Title from "./BlurTitle/Title.jsx";
 import style from "./UpdateUserInfoForm.module.css";
 import { updateUserInfo } from "../../redux/auth/authOperation.js";
 import { selectUser } from "../../redux/auth/authSelectors.js";
+import { toast } from "react-toastify";
 
-const UpdateUserInfoForm = () => {
+const UpdateUserInfoForm = ({ onClose }) => {
   const { t, i18n } = useTranslation();
   const [showErrors, setShowErrors] = useState(false);
   const [errorList, setErrorList] = useState([]);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   
-  // Safety checks for user and userInfo
   const userInfo = user?.infouser || {
     currentWeight: null,
     height: null,
@@ -54,15 +54,17 @@ const UpdateUserInfoForm = () => {
     };
 
     try {
-      console.log("=== UPDATE USER INFO DEBUG ===");
-      console.log("Sending data:", userData);
-      console.log("Current user before update:", user);
-      
       const result = await dispatch(updateUserInfo(userData)).unwrap();
       
-      console.log("Response from backend:", result);
-      console.log("User after update:", user);
-      console.log("=== END DEBUG ===");
+      toast.success(t('calculator.updateSuccess'), {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+      
     } catch (error) {
       console.error("Failed to update user info:", error);
     }

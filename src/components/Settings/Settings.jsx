@@ -12,11 +12,9 @@ const Settings = () => {
   const settingsRef = useRef(null);
 
   useEffect(() => {
-    // Get current theme from document
     const theme = document.documentElement.getAttribute('data-theme') || 'light';
     setCurrentTheme(theme);
 
-    // Listen for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'attributes' && mutation.attributeName === 'data-theme') {

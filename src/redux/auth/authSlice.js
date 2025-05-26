@@ -243,53 +243,28 @@ const authSlice = createSlice({
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.isLoading = false;
         
-        console.log("=== AUTH SLICE UPDATE DEBUG ===");
-        console.log("Current state.user:", state.user);
-        console.log("Action payload:", action.payload);
-        
         // Safely update user info - preserve existing user data
-        if (action.payload?.data?.user) {
-          // If backend returns complete user object
-          state.user = {
-            ...state.user,
-            ...action.payload.data.user,
-            infouser: {
-              ...state.user.infouser,
-              ...action.payload.data.user.infouser,
-            },
-          };
-        } else if (action.payload?.data) {
-          // If backend returns only infouser data
-          state.user = {
-            ...state.user,
-            infouser: {
-              ...state.user.infouser,
-              ...action.payload.data,
-            },
-          };
-        } else if (action.payload?.user) {
-          // Alternative response structure
-          state.user = {
-            ...state.user,
-            ...action.payload.user,
-            infouser: {
-              ...state.user.infouser,
-              ...action.payload.user.infouser,
-            },
-          };
-        }
-        
-        console.log("Updated state.user:", state.user);
-        console.log("=== END AUTH SLICE DEBUG ===");
-        
-        // Update localStorage safely
-        try {
-          if (state.user) {
-            localStorage.setItem("user", JSON.stringify(state.user));
+        if (state.user) {
+          if (action.payload.user) {
+            state.user = {
+              ...state.user,
+              ...action.payload.user
+            };
+          } else if (action.payload.infouser) {
+            state.user = {
+              ...state.user,
+              ...action.payload.infouser
+            };
+          } else if (action.payload.name || action.payload.email || action.payload.height || action.payload.age || action.payload.currentWeight || action.payload.desiredWeight || action.payload.bloodType || action.payload.dailyRate) {
+            state.user = {
+              ...state.user,
+              ...action.payload
+            };
           }
-        } catch (error) {
-          console.error("Error storing user data to localStorage:", error);
+
+          saveToLocalStorage('user', state.user);
         }
+        
         toast.success("User info updated successfully", toastSettings.success);
       })
       .addCase(updateUserInfo.rejected, (state, action) => {

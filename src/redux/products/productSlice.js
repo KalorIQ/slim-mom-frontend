@@ -49,6 +49,7 @@ const initialState = {
   searchResults: [],
   currentDate: new Date().toISOString().split("T")[0],
   dailyCalories: 0,
+  dailyCalorieNeeds: 0,
   dailyRate: 0,
   notAllowedFoods: [],
   weeklyCalories: [],
@@ -167,6 +168,7 @@ const productSlice = createSlice({
       })
       .addCase(getDailyCalorieNeeds.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.dailyCalorieNeeds = action.payload.data?.dailyRate || 0;
         state.dailyRate = action.payload.data?.dailyRate || 0;
         state.notAllowedFoods = action.payload.data?.notAllowedFoods || [];
       })

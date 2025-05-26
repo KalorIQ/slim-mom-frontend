@@ -1,6 +1,7 @@
 .settingsContainer {
   position: relative;
   display: inline-block;
+  z-index: 10001;
 }
 
 .settingsButton {
@@ -69,9 +70,11 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
   padding: 20px;
   min-width: 280px;
-  z-index: 999;
+  z-index: 10000;
   margin-top: 8px;
   animation: slideDown 0.2s ease-out;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 @keyframes slideDown {
