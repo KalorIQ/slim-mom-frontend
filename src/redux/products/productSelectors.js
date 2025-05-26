@@ -25,15 +25,20 @@ const selectDetailedWeeklyData = (state) => state.products.detailedWeeklyData;
 const selectProcessedDiaryEntries = createSelector(
   [selectDiaryEntries],
   (diaryEntries) => {
+    // Güvenli array kontrolü
+    if (!diaryEntries || !Array.isArray(diaryEntries)) {
+      return [];
+    }
+    
     return diaryEntries.map((entry) => ({
-      _id: entry._id,
-      name: entry.productId?.title || "Unknown Product",
-      grams: entry.productWeight,
+      _id: entry?._id || '',
+      name: entry?.productId?.title || "Unknown Product",
+      grams: entry?.productWeight || 0,
       calories: Math.round(
-        ((entry.productId?.calories || 0) * entry.productWeight) / 100
+        ((entry?.productId?.calories || 0) * (entry?.productWeight || 0)) / 100
       ),
-      categories: entry.productId?.categories || "",
-      date: entry.date,
+      categories: entry?.productId?.categories || "",
+      date: entry?.date || '',
     }));
   }
 );
@@ -64,12 +69,16 @@ const selectPercentageConsumed = createSelector(
 const selectEnhancedUserStats = createSelector(
   [selectUserStats, selectActivityStats],
   (userStats, activityStats) => {
+    // Güvenli obje kontrolü
+    const safeUserStats = userStats || {};
+    const safeActivityStats = activityStats || {};
+    
     return {
-      ...userStats,
-      ...activityStats,
+      ...safeUserStats,
+      ...safeActivityStats,
       // Combine both stats for comprehensive view
-      totalDays: activityStats.totalDays || userStats.daysActive,
-      streak: activityStats.currentStreak || userStats.streak,
+      totalDays: safeActivityStats.totalDays || safeUserStats.daysActive || 0,
+      streak: safeActivityStats.currentStreak || safeUserStats.streak || 0,
     };
   }
 );
@@ -77,15 +86,15 @@ const selectEnhancedUserStats = createSelector(
 const selectFormattedWeightHistory = createSelector(
   [selectWeightHistory],
   (weightHistory) => {
-    if (!weightHistory || weightHistory.length === 0) {
+    if (!weightHistory || !Array.isArray(weightHistory) || weightHistory.length === 0) {
       return [];
     }
     
     return weightHistory.map((entry, index) => ({
       week: `Week ${index + 1}`,
-      weight: entry.weight,
-      date: entry.date,
-      change: index > 0 ? entry.weight - weightHistory[index - 1].weight : 0,
+      weight: entry?.weight || 0,
+      date: entry?.date || '',
+      change: index > 0 ? (entry?.weight || 0) - (weightHistory[index - 1]?.weight || 0) : 0,
     }));
   }
 );
@@ -93,14 +102,17 @@ const selectFormattedWeightHistory = createSelector(
 const selectFormattedMacroData = createSelector(
   [selectMacroBreakdown],
   (macroBreakdown) => {
+    // Güvenli obje kontrolü
+    const safeMacroBreakdown = macroBreakdown || {};
+    
     return {
       labels: ['Carbs', 'Protein', 'Fat'],
       data: [
-        macroBreakdown.carbs || 45,
-        macroBreakdown.protein || 30,
-        macroBreakdown.fat || 25,
+        safeMacroBreakdown.carbs || 45,
+        safeMacroBreakdown.protein || 30,
+        safeMacroBreakdown.fat || 25,
       ],
-      total: (macroBreakdown.carbs || 0) + (macroBreakdown.protein || 0) + (macroBreakdown.fat || 0),
+      total: (safeMacroBreakdown.carbs || 0) + (safeMacroBreakdown.protein || 0) + (safeMacroBreakdown.fat || 0),
     };
   }
 );

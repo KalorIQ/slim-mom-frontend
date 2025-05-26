@@ -272,23 +272,60 @@ const ProfilePage = () => {
   ];
 
   const calculateBMI = () => {
-    if (userInfo?.height && userInfo?.currentWeight) {
-      const heightInM = userInfo.height / 100;
-      return (userInfo.currentWeight / (heightInM * heightInM)).toFixed(1);
+    const height = userInfo?.height || 0;
+    const weight = userInfo?.currentWeight || 0;
+    
+    if (height > 0 && weight > 0) {
+      const heightInM = height / 100;
+      const bmi = weight / (heightInM * heightInM);
+      
+      // BMI'nin mantıklı bir değer olup olmadığını kontrol et
+      if (isNaN(bmi) || !isFinite(bmi)) {
+        return (enhancedUserStats?.bmi || userStats?.bmi || 24.1).toFixed(1);
+      }
+      
+      return bmi.toFixed(1);
     }
-    return enhancedUserStats.bmi || userStats.bmi;
+    
+    return (enhancedUserStats?.bmi || userStats?.bmi || 24.1).toFixed(1);
   };
 
   const getBMICategory = (bmi) => {
-    if (bmi < 18.5) return { category: t('profile.underweight'), color: '#3498db' };
-    if (bmi < 25) return { category: t('profile.normal'), color: '#2ecc71' };
-    if (bmi < 30) return { category: t('profile.overweight'), color: '#f39c12' };
+    const numericBMI = parseFloat(bmi) || 24.1;
+    
+    if (numericBMI < 18.5) return { category: t('profile.underweight'), color: '#3498db' };
+    if (numericBMI < 25) return { category: t('profile.normal'), color: '#2ecc71' };
+    if (numericBMI < 30) return { category: t('profile.overweight'), color: '#f39c12' };
     return { category: t('profile.obese'), color: '#e74c3c' };
   };
 
-  const progressPercentage = userInfo?.desireWeight && userInfo?.currentWeight 
-    ? Math.max(0, Math.min(100, ((userInfo.currentWeight - userInfo.desireWeight) / (userInfo.currentWeight - userInfo.desireWeight + enhancedUserStats.weightLoss)) * 100))
-    : 0;
+  const calculateProgressPercentage = () => {
+    // Güvenli değer kontrolü
+    const currentWeight = userInfo?.currentWeight || 0;
+    const desiredWeight = userInfo?.desireWeight || 0;
+    const weightLoss = enhancedUserStats?.weightLoss || 0;
+    
+    // Eğer gerekli değerler yoksa 0 döndür
+    if (!currentWeight || !desiredWeight || currentWeight <= desiredWeight) {
+      return 0;
+    }
+    
+    // Toplam hedef kilo kaybı
+    const totalWeightToLose = currentWeight - desiredWeight;
+    
+    // Eğer toplam hedef 0 veya negatifse 0 döndür
+    if (totalWeightToLose <= 0) {
+      return 0;
+    }
+    
+    // İlerleme yüzdesi hesapla
+    const progressPercentage = (weightLoss / totalWeightToLose) * 100;
+    
+    // 0-100 arasında sınırla
+    return Math.max(0, Math.min(100, progressPercentage));
+  };
+
+  const progressPercentage = calculateProgressPercentage();
 
   const chartOptions = {
     responsive: true,
