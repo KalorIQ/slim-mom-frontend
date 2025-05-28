@@ -294,4 +294,213 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-**Start your healthy lifestyle journey with Slim Mom!** 🌟 
+**Start your healthy lifestyle journey with Slim Mom!** 🌟
+
+## 🔧 Backend Konfigürasyonu
+
+### Backend API Bilgileri
+- **Base URL:** `http://localhost:3000`
+- **API Prefix:** `/api`
+- **Dokümantasyon:** `http://localhost:3000/api-docs`
+- **Database:** MongoDB Atlas
+- **Port:** 3000
+
+### Backend Bağlantısı
+Frontend, yerel backend sunucusuna bağlanacak şekilde konfigüre edilmiştir:
+
+```javascript
+// Axios Instance Configuration
+baseURL: "http://localhost:3000"
+```
+
+### API Test Etme
+Backend bağlantısını test etmek için:
+
+```javascript
+// Browser console'da çalıştırın
+import apiTest from './src/utils/apiTest.js';
+apiTest.runAllTests();
+```
+
+### Mevcut API Endpointleri
+
+#### Kimlik Doğrulama
+- `POST /api/auth/register` - Kullanıcı kaydı
+- `POST /api/auth/login` - Kullanıcı girişi
+- `POST /api/auth/logout` - Çıkış yapma
+- `POST /api/auth/refresh` - Token yenileme
+- `POST /api/auth/forgot-password` - Şifre sıfırlama
+- `POST /api/auth/send-mail` - Mail gönderme
+
+#### Ürün Yönetimi
+- `GET /api/products/allProducts` - Tüm ürünleri getir
+- `GET /api/products/searchProducts` - Ürün arama
+- `POST /api/user/products` - Ürün ekleme
+- `GET /api/user/products` - Kullanıcı ürünleri
+- `DELETE /api/user/products/:id` - Ürün silme
+
+#### Kullanıcı İstatistikleri
+- `GET /api/user/my-daily-calories` - Günlük kalori
+- `GET /api/user/my-daily-calory-needs` - Kalori ihtiyacı
+- `POST /api/user/daily-calory-needs` - Kalori hesaplama
+- `GET /api/user/weekly-calories` - Haftalık kalori
+- `GET /api/user/weight-progress` - Kilo takibi
+- `GET /api/user/stats` - Genel istatistikler
+- `PATCH /api/user/infouser-update` - Kullanıcı güncelleme
+
+## 🎯 Kullanım
+
+### 1. Hesap Oluşturma
+- Ana sayfada "Kayıt Ol" butonuna tıklayın
+- Gerekli bilgileri doldurun
+- Email doğrulaması yapın
+
+### 2. Profil Kurulumu
+- Boy, kilo, yaş bilgilerini girin
+- Hedef kiloyu belirleyin
+- Aktivite seviyesini seçin
+
+### 3. Günlük Takip
+- Tükettiğiniz besinleri ekleyin
+- Kalori alımınızı kontrol edin
+- İlerlemenizi takip edin
+
+### 4. Raporlar
+- Haftalık/aylık raporları inceleyin
+- Grafikleri analiz edin
+- Hedeflerinizi güncelleyin
+
+## 🔧 Geliştirme
+
+### Proje Yapısı
+```
+src/
+├── components/          # React bileşenleri
+├── pages/              # Sayfa bileşenleri
+├── redux/              # State yönetimi
+│   ├── auth/           # Kimlik doğrulama
+│   └── products/       # Ürün yönetimi
+├── utils/              # Yardımcı fonksiyonlar
+│   ├── axiosInstance.js # API konfigürasyonu
+│   └── apiTest.js      # API test araçları
+├── assets/             # Statik dosyalar
+└── locales/            # Çeviri dosyaları
+```
+
+### API Konfigürasyonu
+```javascript
+// src/utils/axiosInstance.js
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:3000",
+  withCredentials: true,
+});
+```
+
+### Yeni Endpoint Ekleme
+```javascript
+// src/redux/products/productOperation.js
+const newEndpoint = createAsyncThunk(
+  "api/endpoint-name",
+  async (data, thunkAPI) => {
+    // Implementation
+  }
+);
+```
+
+## 🧪 Test Etme
+
+### API Testleri
+```javascript
+// Browser console'da
+import apiTest from './src/utils/apiTest.js';
+
+// Tüm testleri çalıştır
+apiTest.runAllTests();
+
+// Tek test çalıştır
+apiTest.testBackendConnection();
+apiTest.testProductSearch("apple");
+```
+
+### Manuel Test
+```bash
+# Backend bağlantısı
+curl http://localhost:3000/
+
+# Ürün arama
+curl "http://localhost:3000/api/products/searchProducts?title=apple"
+
+# Kullanıcı kaydı
+curl -X POST http://localhost:3000/api/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{"email":"test@example.com","password":"123456","name":"Test"}'
+```
+
+## 📊 Kod İstatistikleri
+
+- **Toplam Satır:** 15,854
+- **Dosya Sayısı:** 107
+- **CSS:** 64.3% (10,193 satır)
+- **JavaScript/JSX:** 32.6% (5,164 satır)
+- **JSON:** 3.1% (497 satır)
+
+## 🚀 Deployment
+
+### Vercel Deployment
+```bash
+# Vercel CLI ile deploy
+npm i -g vercel
+vercel --prod
+```
+
+### Environment Variables
+```env
+VITE_API_URL=http://localhost:3000
+VITE_APP_NAME=KalorIQ
+```
+
+## 🤝 Katkıda Bulunma
+
+1. Projeyi fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
+4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
+5. Pull Request oluşturun
+
+## 📄 Lisans
+
+Bu proje MIT Lisansı altında lisanslanmıştır. Detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+## 👥 Geliştirme Ekibi
+
+- **Frontend Developer**: Modern React ve Redux uzmanı
+- **Backend Integration**: RESTful API entegrasyonu
+- **UI/UX Designer**: Kullanıcı deneyimi odaklı tasarım
+
+## 📞 İletişim
+
+- **Website**: [KalorIQ](#)
+- **Email**: support@kaloriq.com
+- **GitHub**: [KalorIQ/slim-mom-frontend](https://github.com/KalorIQ/slim-mom-frontend)
+
+## 🔄 Güncellemeler
+
+### v1.0.0 (2025)
+- ✅ Backend API entegrasyonu
+- ✅ JWT kimlik doğrulama
+- ✅ Kalori hesaplama sistemi
+- ✅ Besin takip sistemi
+- ✅ Çok dil desteği
+- ✅ Responsive tasarım
+- ✅ API test araçları
+
+### Gelecek Özellikler
+- 🔄 Sosyal medya entegrasyonu
+- 🔄 Beslenme uzmanı danışmanlığı
+- 🔄 Mobil uygulama
+- 🔄 Giyilebilir cihaz entegrasyonu
+- 🔄 AI destekli beslenme önerileri
+
+---
+
+**KalorIQ ile sağlıklı yaşam yolculuğunuza başlayın!** 🌟 

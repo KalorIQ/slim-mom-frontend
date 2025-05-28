@@ -13,8 +13,15 @@ const CalculateModal = ({ onClose }) => {
   const [calorieResult, setCalorieResult] = useState(null);
   const dispatch = useDispatch();
 
-  const handleUpdateUserInfo = (userData) => {
-    dispatch(updateUserInfo(userData));
+  const handleUpdateUserInfo = async (userData) => {
+    try {
+      const result = await dispatch(updateUserInfo(userData)).unwrap();
+      console.log("CalculateModal: User info updated successfully", result);
+      return result;
+    } catch (error) {
+      console.error("CalculateModal: Failed to update user info:", error);
+      throw error;
+    }
   };
 
   return (
@@ -33,25 +40,31 @@ const CalculateModal = ({ onClose }) => {
         validateOnBlur={true}
         validateOnChange={true}
         onSubmit={async (values, { setSubmitting }) => {
-          const result = intakeCalorie(values);
-          setCalorieResult(result);
-
-          const userData = {
-            height: Number(values.height),
-            age: Number(values.age),
-            currentWeight: Number(values.currentWeight),
-            desireWeight: Number(values.desiredWeight),
-            bloodType: Number(values.bloodType),
-            dailyRate: result
-          };
-
           try {
+            const result = intakeCalorie(values);
+            setCalorieResult(result);
+
+            const userData = {
+              height: Number(values.height),
+              age: Number(values.age),
+              currentWeight: Number(values.currentWeight),
+              desireWeight: Number(values.desiredWeight),
+              bloodType: Number(values.bloodType)
+            };
+
+            console.log("CalculateModal: Submitting user data:", userData);
+            
             await handleUpdateUserInfo(userData);
-            onClose(); // Başarılı güncelleme sonrası modalı kapat
+            console.log("CalculateModal: Update completed successfully");
+            
+            // Only close modal if update was successful
+            onClose();
           } catch (error) {
-            console.error("Failed to update user info:", error);
+            console.error("CalculateModal: Submit failed:", error);
+            // Don't close modal if there was an error
+          } finally {
+            setSubmitting(false);
           }
-          setSubmitting(false);
         }}
       >
         {({ values, submitForm, errors, touched }) => (

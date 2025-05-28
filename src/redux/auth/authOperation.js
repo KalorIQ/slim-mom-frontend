@@ -7,7 +7,7 @@ const setAccessToken = (token) => {
 
 const getAxiosInstance = async () => {
   // Dinamik import ile döngüsel bağımlılık önlenir
-  const module = await import("../../utils/axiosİnstance.js");
+  const module = await import("../../utils/axiosInstance.js");
   return module.default;
 };
 
@@ -80,6 +80,10 @@ const updateUserInfo = createAsyncThunk(
   async (userInfoData, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = state.auth.accessToken;
+    
+    console.log("Sending updateUserInfo request:", userInfoData);
+    console.log("Using token:", token ? "Token exists" : "No token");
+    
     try {
       const axiosInstance = await getAxiosInstance();
       const response = await axiosInstance.patch(
@@ -91,8 +95,11 @@ const updateUserInfo = createAsyncThunk(
           },
         }
       );
+      
+      console.log("Backend response received:", response.data);
       return response.data;
     } catch (error) {
+      console.error("updateUserInfo error:", error.response?.data || error.message);
       return thunkAPI.rejectWithValue(error.response?.data);
     }
   }
@@ -117,4 +124,40 @@ const refreshToken = createAsyncThunk(
   }
 );
 
-export { loginUser, registerUser, logoutUser, updateUserInfo, refreshToken };
+// Forgot password (from backend documentation)
+const forgotPassword = createAsyncThunk(
+  "api/auth/forgot-password",
+  async (emailData, thunkAPI) => {
+    try {
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post("api/auth/forgot-password", emailData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+// Send mail (from backend documentation)
+const sendMail = createAsyncThunk(
+  "api/auth/send-mail",
+  async (mailData, thunkAPI) => {
+    try {
+      const axiosInstance = await getAxiosInstance();
+      const response = await axiosInstance.post("api/auth/send-mail", mailData);
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data);
+    }
+  }
+);
+
+export { 
+  loginUser, 
+  registerUser, 
+  logoutUser, 
+  updateUserInfo, 
+  refreshToken,
+  forgotPassword,
+  sendMail 
+};

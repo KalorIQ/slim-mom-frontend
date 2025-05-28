@@ -20,9 +20,9 @@ const LoginPage = () => {
 
   const handleSubmit = (values, { setSubmitting }) => {
     dispatch(loginUser(values))
-      .unwrap()
-      .then(() => {
-        navigate("/diary");
+        .unwrap()
+        .then(() => {
+          navigate("/diary");
       })
       .catch((error) => {
         console.error("Login error:", error);

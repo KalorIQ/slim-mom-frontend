@@ -1,11 +1,5 @@
-import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-
-const BASE_URL = (import.meta.env.VITE_API_URL || "https://slim-mom-backend-ckg8.onrender.com/").replace(/\/$/, '') + '/';
-
-const instance = axios.create({
-  baseURL: BASE_URL,
-});
+import axiosInstance from "../../utils/axiosInstance.js";
 
 // Helper function to get token from Redux state or localStorage
 const getToken = (state) => {
@@ -28,7 +22,7 @@ const addProduct = createAsyncThunk(
     }
 
     try {
-      const response = await instance.post(
+      const response = await axiosInstance.post(
         "api/user/products",
         {
           productId: productData.productId,
@@ -66,7 +60,7 @@ const removeProduct = createAsyncThunk(
     try {
       const deleteUrl = `api/user/products/${productId}?date=${date}`;
       
-      const response = await instance.delete(deleteUrl, {
+      const response = await axiosInstance.delete(deleteUrl, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -95,7 +89,7 @@ const getDiaryEntries = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get(`api/user/products?date=${date}`, {
+      const response = await axiosInstance.get(`api/user/products?date=${date}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -132,7 +126,7 @@ const getDailyCalories = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get(
+      const response = await axiosInstance.get(
         `api/user/my-daily-calories?date=${date}`,
         {
           headers: {
@@ -163,7 +157,7 @@ const getDailyCalorieNeeds = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get(
+      const response = await axiosInstance.get(
         `api/user/my-daily-calory-needs?date=${date}`,
         {
           headers: {
@@ -187,7 +181,7 @@ const searchProducts = createAsyncThunk(
   "api/products/searchProducts",
   async (query, thunkAPI) => {
     try {
-      const response = await instance.get(
+      const response = await axiosInstance.get(
         `api/products/searchProducts?title=${query}&limit=15`
       );
       return response.data;
@@ -198,11 +192,10 @@ const searchProducts = createAsyncThunk(
 );
 
 // ========== NEW ENDPOINTS FOR PROFILE PAGE ==========
-// These endpoints will show 404 errors until backend implements them
 
-// Get user activity history and statistics
-const getUserActivityStats = createAsyncThunk(
-  "api/user/activity-stats",
+// Get weight progress data
+const getWeightProgress = createAsyncThunk(
+  "api/user/weight-progress",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = getToken(state);
@@ -212,16 +205,13 @@ const getUserActivityStats = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get("api/user/activity-stats", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/weight-progress", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/activity-stats endpoint");
-        return null; // Return null to indicate endpoint not available
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -231,7 +221,7 @@ const getUserActivityStats = createAsyncThunk(
   }
 );
 
-// Get user weight history
+// Get weight history data
 const getWeightHistory = createAsyncThunk(
   "api/user/weight-history",
   async (_, thunkAPI) => {
@@ -243,16 +233,13 @@ const getWeightHistory = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get("api/user/weight-history", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/weight-history", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/weight-history endpoint");
-        return null; // Return null to indicate endpoint not available
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -262,10 +249,10 @@ const getWeightHistory = createAsyncThunk(
   }
 );
 
-// Get macro nutrients breakdown
-const getMacroBreakdown = createAsyncThunk(
-  "api/user/macro-breakdown",
-  async (period = '7days', thunkAPI) => {
+// Get user statistics
+const getUserStats = createAsyncThunk(
+  "api/user/stats",
+  async (_, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = getToken(state);
 
@@ -274,16 +261,41 @@ const getMacroBreakdown = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get(`api/user/macro-breakdown?period=${period}`, {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/macro-breakdown endpoint");
-        return null; // Return null to indicate endpoint not available
+      if (error.response?.status === 401) {
+        localStorage.removeItem("accessToken");
+        return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
       }
+      return thunkAPI.rejectWithValue(error.response?.data || { message: error.message });
+    }
+  }
+);
+
+// Get user activity statistics
+const getUserActivityStats = createAsyncThunk(
+  "api/user/activity-stats",
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState();
+    const token = getToken(state);
+
+    if (!token) {
+      return thunkAPI.rejectWithValue({ message: "No authentication token found" });
+    }
+
+    try {
+      const response = await axiosInstance.get("api/user/activity-stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return response.data;
+    } catch (error) {
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -305,16 +317,13 @@ const getUserAchievements = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get("api/user/achievements", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/achievements", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/achievements endpoint");
-        return null; // Return null to indicate endpoint not available
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -324,10 +333,10 @@ const getUserAchievements = createAsyncThunk(
   }
 );
 
-// Get detailed weekly calories with more data
-const getDetailedWeeklyCalories = createAsyncThunk(
-  "api/user/detailed-weekly-calories",
-  async (_, thunkAPI) => {
+// Get macro breakdown
+const getMacroBreakdown = createAsyncThunk(
+  "api/user/macro-breakdown",
+  async (period = "7days", thunkAPI) => {
     const state = thunkAPI.getState();
     const token = getToken(state);
 
@@ -336,16 +345,13 @@ const getDetailedWeeklyCalories = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get("api/user/weekly-calories-detailed", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get(`api/user/macro-breakdown?period=${period}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/weekly-calories-detailed endpoint");
-        return null; // Return null to indicate endpoint not available
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -355,8 +361,8 @@ const getDetailedWeeklyCalories = createAsyncThunk(
   }
 );
 
-// Get comprehensive user statistics
-const getUserStatsFromBackend = createAsyncThunk(
+// Get comprehensive statistics
+const getComprehensiveStats = createAsyncThunk(
   "api/user/comprehensive-stats",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState();
@@ -367,16 +373,13 @@ const getUserStatsFromBackend = createAsyncThunk(
     }
 
     try {
-      const response = await instance.get("api/user/comprehensive-stats", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/comprehensive-stats", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      // 404 errors will be visible in console to help backend developers
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/comprehensive-stats endpoint");
-        return null; // Return null to indicate endpoint not available
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -386,9 +389,7 @@ const getUserStatsFromBackend = createAsyncThunk(
   }
 );
 
-// ========== MISSING FUNCTIONS THAT WERE CAUSING IMPORT ERRORS ==========
-
-// Get weekly calories (simple version for compatibility)
+// Get weekly calories (existing function - keeping for compatibility)
 const getWeeklyCalories = createAsyncThunk(
   "api/user/weekly-calories",
   async (_, thunkAPI) => {
@@ -400,24 +401,13 @@ const getWeeklyCalories = createAsyncThunk(
     }
 
     try {
-      // Try the detailed endpoint first, fallback to simple calculation
-      const response = await instance.get("api/user/weekly-calories-detailed", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axiosInstance.get("api/user/weekly-calories", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       return response.data;
     } catch (error) {
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/weekly-calories endpoint");
-        // Return mock data for now
-        return {
-          data: {
-            weeks: [
-              { weekStart: "2024-01-08", weekEnd: "2024-01-14", weeklyTotal: 12250, weeklyAverage: 1750 },
-              { weekStart: "2024-01-01", weekEnd: "2024-01-07", weeklyTotal: 11800, weeklyAverage: 1686 }
-            ]
-          }
-        };
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -427,10 +417,25 @@ const getWeeklyCalories = createAsyncThunk(
   }
 );
 
-// Get weight progress (simple version for compatibility)
-const getWeightProgress = createAsyncThunk(
-  "api/user/weight-progress",
+// ========== EXISTING ENDPOINTS ==========
+
+// Get all products (from backend documentation)
+const getAllProducts = createAsyncThunk(
+  "api/products/allProducts",
   async (_, thunkAPI) => {
+    try {
+      const response = await axiosInstance.get("api/products/allProducts");
+      return response.data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data || { message: error.message });
+    }
+  }
+);
+
+// Calculate daily calorie needs (from backend documentation)
+const calculateDailyCalorieNeeds = createAsyncThunk(
+  "api/user/daily-calory-needs",
+  async (userData, thunkAPI) => {
     const state = thunkAPI.getState();
     const token = getToken(state);
 
@@ -439,26 +444,11 @@ const getWeightProgress = createAsyncThunk(
     }
 
     try {
-      // Try the weight history endpoint first
-      const response = await instance.get("api/user/weight-history", {
+      const response = await axiosInstance.post("api/user/daily-calory-needs", userData, {
         headers: { Authorization: `Bearer ${token}` },
       });
       return response.data;
     } catch (error) {
-      if (error.response?.status === 404) {
-        console.warn("🚨 BACKEND TODO: Implement GET /api/user/weight-progress endpoint");
-        // Return mock data for now
-        return {
-          data: {
-            entries: [
-              { date: "2024-01-01", weight: 75.5, notes: "Starting weight" },
-              { date: "2024-01-08", weight: 74.8, notes: "Good progress" }
-            ],
-            trend: "losing",
-            totalChange: -0.7
-          }
-        };
-      }
       if (error.response?.status === 401) {
         localStorage.removeItem("accessToken");
         return thunkAPI.rejectWithValue({ message: "Authentication failed", shouldRefresh: true });
@@ -475,12 +465,14 @@ export {
   getDailyCalories,
   getDailyCalorieNeeds,
   searchProducts,
+  getWeightProgress,
   getUserActivityStats,
   getWeightHistory,
   getMacroBreakdown,
   getUserAchievements,
-  getDetailedWeeklyCalories,
-  getUserStatsFromBackend,
+  getComprehensiveStats,
   getWeeklyCalories,
-  getWeightProgress,
+  getUserStats,
+  getAllProducts,
+  calculateDailyCalorieNeeds,
 }; 

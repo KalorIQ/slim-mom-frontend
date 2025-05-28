@@ -44,15 +44,27 @@ const DiaryPage = () => {
     bloodType: null,
   };
   
-  const showModal = userInfo.currentWeight === null || 
-                   userInfo.height === null || 
-                   userInfo.age === null || 
-                   userInfo.desireWeight === null || 
-                   userInfo.bloodType === null;
+  // Check if user info is complete
+  const isUserInfoComplete = userInfo.currentWeight !== null && 
+                            userInfo.height !== null && 
+                            userInfo.age !== null && 
+                            userInfo.desireWeight !== null && 
+                            userInfo.bloodType !== null;
                    
-  const [showCalculateModal, setShowCalculateModal] = useState(showModal);
+  const [showCalculateModal, setShowCalculateModal] = useState(!isUserInfoComplete);
   const [showBlockMessage, setShowBlockMessage] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
+  
+  // Update modal state when user info changes
+  useEffect(() => {
+    if (isUserInfoComplete) {
+      setShowCalculateModal(false);
+      setShowBlockMessage(false);
+    } else {
+      setShowCalculateModal(true);
+      setShowBlockMessage(false);
+    }
+  }, [isUserInfoComplete]);
   
   const [productName, setProductName] = useState("");
   const [grams, setGrams] = useState("");
@@ -122,13 +134,21 @@ const DiaryPage = () => {
   };
 
   const handleDateChange = (date) => {
-    const formattedDate = date.toISOString().split('T')[0];
+    // Timezone sorununu çözmek için yerel tarih formatlaması kullanıyoruz
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
+    
     dispatch({ type: 'products/setCurrentDate', payload: formattedDate });
     setShowCalendar(false);
   };
 
   const formatDisplayDate = (dateString) => {
-    const date = new Date(dateString);
+    // Timezone sorununu önlemek için tarih string'ini doğrudan parse ediyoruz
+    const [year, month, day] = dateString.split('-');
+    const date = new Date(year, month - 1, day); // month - 1 çünkü JS'de aylar 0-11 arası
+    
     return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
@@ -145,14 +165,20 @@ const DiaryPage = () => {
         <div className={styles.leftSection}>
           {showCalculateModal ? (
             <ModalWrapper isOpen={showCalculateModal} onClose={() => {
-              setShowCalculateModal(false);
-              setShowBlockMessage(true);
+              if (isUserInfoComplete) {
+                setShowCalculateModal(false);
+              } else {
+                setShowBlockMessage(true);
+              }
             }}>
               <CalculateModal 
                 key={t('calculator.dailyCalorieNeeds')}
                 onClose={() => {
-                  setShowCalculateModal(false);
-                  setShowBlockMessage(true);
+                  if (isUserInfoComplete) {
+                    setShowCalculateModal(false);
+                  } else {
+                    setShowBlockMessage(true);
+                  }
                 }} 
               />
             </ModalWrapper>
@@ -178,7 +204,11 @@ const DiaryPage = () => {
                     <div className={styles.calendarPopup}>
                       <Calendar
                         onChange={handleDateChange}
-                        value={new Date(currentDate)}
+                        value={(() => {
+                          // currentDate string'ini güvenli bir şekilde Date objesine çeviriyoruz
+                          const [year, month, day] = currentDate.split('-');
+                          return new Date(year, month - 1, day);
+                        })()}
                         className={styles.calendar}
                       />
                     </div>

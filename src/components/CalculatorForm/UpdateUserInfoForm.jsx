@@ -53,8 +53,11 @@ const UpdateUserInfoForm = ({ onClose }) => {
       bloodType: Number(values.bloodType),
     };
 
+    console.log("UpdateUserInfoForm: Submitting user data:", userData);
+
     try {
       const result = await dispatch(updateUserInfo(userData)).unwrap();
+      console.log("UpdateUserInfoForm: Update successful:", result);
       
       toast.success(t('calculator.updateSuccess'), {
         position: "top-right",
@@ -66,7 +69,15 @@ const UpdateUserInfoForm = ({ onClose }) => {
       });
       
     } catch (error) {
-      console.error("Failed to update user info:", error);
+      console.error("UpdateUserInfoForm: Failed to update user info:", error);
+      toast.error(t('calculator.updateError') || "Failed to update user info", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
     }
   };
 

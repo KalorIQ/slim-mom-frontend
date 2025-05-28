@@ -8,6 +8,8 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./redux/store.js";
 import { PersistGate } from "redux-persist/integration/react";
 import PageLoader from "./components/PageLoader/PageLoader.jsx";
+import "./utils/clearStorage.js"; // Import storage utilities for debugging
+import "./utils/debugAuth.js"; // Import auth debugging utilities
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

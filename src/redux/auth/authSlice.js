@@ -5,6 +5,8 @@ import {
   logoutUser,
   updateUserInfo,
   refreshToken,
+  forgotPassword,
+  sendMail,
 } from "./authOperation.js";
 import { toast, Bounce } from "react-toastify";
 
@@ -163,14 +165,26 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
+        state.error = null;
+        
         // Store in localStorage safely
         try {
           if (action.payload.data.user) {
             localStorage.setItem("user", JSON.stringify(action.payload.data.user));
           }
+          if (action.payload.data.accessToken) {
+            localStorage.setItem("accessToken", action.payload.data.accessToken);
+          }
         } catch (error) {
           console.error("Error storing user data to localStorage:", error);
         }
+        
+        console.log("✅ Login successful - State updated:", {
+          isLoggedIn: state.isLoggedIn,
+          hasToken: !!state.accessToken,
+          hasUser: !!state.user
+        });
+        
         toast.success("Login successful", toastSettings.success);
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -187,14 +201,26 @@ const authSlice = createSlice({
         state.user = action.payload.data.user;
         state.accessToken = action.payload.data.accessToken;
         state.isLoggedIn = true;
+        state.error = null;
+        
         // Store in localStorage safely
         try {
           if (action.payload.data.user) {
             localStorage.setItem("user", JSON.stringify(action.payload.data.user));
           }
+          if (action.payload.data.accessToken) {
+            localStorage.setItem("accessToken", action.payload.data.accessToken);
+          }
         } catch (error) {
           console.error("Error storing user data to localStorage:", error);
         }
+        
+        console.log("✅ Registration successful - State updated:", {
+          isLoggedIn: state.isLoggedIn,
+          hasToken: !!state.accessToken,
+          hasUser: !!state.user
+        });
+        
         toast.success("Registration successful", toastSettings.success);
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -243,26 +269,27 @@ const authSlice = createSlice({
       .addCase(updateUserInfo.fulfilled, (state, action) => {
         state.isLoading = false;
         
+        console.log("Backend response for updateUserInfo:", action.payload);
+        
         // Safely update user info - preserve existing user data
-        if (state.user) {
-          if (action.payload.user) {
-            state.user = {
-              ...state.user,
-              ...action.payload.user
-            };
-          } else if (action.payload.infouser) {
-            state.user = {
-              ...state.user,
-              ...action.payload.infouser
-            };
-          } else if (action.payload.name || action.payload.email || action.payload.height || action.payload.age || action.payload.currentWeight || action.payload.desiredWeight || action.payload.bloodType || action.payload.dailyRate) {
-            state.user = {
-              ...state.user,
-              ...action.payload
-            };
-          }
+        if (state.user && action.payload.data) {
+          // Backend returns user data directly in action.payload.data
+          state.user = {
+            ...state.user,
+            ...action.payload.data,
+            infouser: {
+              ...state.user.infouser,
+              ...action.payload.data.infouser
+            }
+          };
 
-          saveToLocalStorage('user', state.user);
+          // Store updated user data to localStorage safely
+          try {
+            localStorage.setItem('user', JSON.stringify(state.user));
+            console.log("Updated user data stored to localStorage:", state.user);
+          } catch (error) {
+            console.error("Error storing updated user data to localStorage:", error);
+          }
         }
         
         toast.success("User info updated successfully", toastSettings.success);
@@ -303,6 +330,36 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         clearLocalStorage();
         toast.error("Failed to refresh token", toastSettings.error);
+      })
+
+      // Forgot Password Cases
+      .addCase(forgotPassword.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(forgotPassword.fulfilled, (state, action) => {
+        state.isLoading = false;
+        toast.success("Password reset email sent successfully", toastSettings.success);
+      })
+      .addCase(forgotPassword.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to send password reset email", toastSettings.error);
+      })
+
+      // Send Mail Cases
+      .addCase(sendMail.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(sendMail.fulfilled, (state, action) => {
+        state.isLoading = false;
+        toast.success("Email sent successfully", toastSettings.success);
+      })
+      .addCase(sendMail.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to send email", toastSettings.error);
       });
   },
 });

@@ -47,24 +47,27 @@ const CalculatorForm = () => {
         validateOnBlur={false}
         validateOnChange={false}
         onSubmit={async (values) => {
-          setCalorieResult(null);
+          try {
+            setCalorieResult(null);
             const result = intakeCalorie(values);
             setCalorieResult(result);
 
-          // Kullanıcı bilgilerini güncelle
-          const userData = {
-            height: Number(values.height),
-            age: Number(values.age),
-            currentWeight: Number(values.currentWeight),
-            desireWeight: Number(values.desiredWeight),
-            bloodType: Number(values.bloodType),
-            dailyRate: result
-          };
+            // Kullanıcı bilgilerini güncelle
+            const userData = {
+              height: Number(values.height),
+              age: Number(values.age),
+              currentWeight: Number(values.currentWeight),
+              desireWeight: Number(values.desiredWeight),
+              bloodType: Number(values.bloodType)
+            };
 
-          try {
-            await dispatch(updateUserInfo(userData)).unwrap();
+            console.log("CalculatorForm: Submitting user data:", userData);
+            
+            const updateResult = await dispatch(updateUserInfo(userData)).unwrap();
+            console.log("CalculatorForm: Update successful:", updateResult);
+            
           } catch (error) {
-            console.error("Failed to update user info:", error);
+            console.error("CalculatorForm: Failed to update user info:", error);
           }
         }}
       >

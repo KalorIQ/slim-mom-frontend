@@ -4,7 +4,7 @@ import './Title.css';
 
 const Title = () => {
   const { t, i18n } = useTranslation();
-
+  
   return (
     <BlurText
       key={i18n.language}

@@ -21,11 +21,13 @@ const Summary = () => {
     const currentDate = useSelector(selectCurrentDate);
 
     const formatDate = (dateString) => {
-        const date = new Date(dateString);
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-        const year = date.getFullYear();
-        return `${month}/${day}/${year}`;
+        const [year, month, day] = dateString.split('-');
+        const date = new Date(year, month - 1, day);
+        
+        const formattedMonth = date.getMonth() + 1;
+        const formattedDay = date.getDate();
+        const formattedYear = date.getFullYear();
+        return `${formattedMonth}/${formattedDay}/${formattedYear}`;
     };
 
     const displayDate = currentDate ? formatDate(currentDate) : "";

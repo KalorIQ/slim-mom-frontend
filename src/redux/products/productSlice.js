@@ -12,8 +12,10 @@ import {
   getWeightHistory,
   getMacroBreakdown,
   getUserAchievements,
-  getDetailedWeeklyCalories,
-  getUserStatsFromBackend,
+  getUserStats,
+  getAllProducts,
+  calculateDailyCalorieNeeds,
+  getComprehensiveStats,
 } from "./productOperation.js";
 import { toast, Bounce } from "react-toastify";
 
@@ -47,9 +49,11 @@ const toastSettings = {
 const initialState = {
   diaryEntries: [],
   searchResults: [],
+  allProducts: [],
   currentDate: new Date().toISOString().split("T")[0],
   dailyCalories: 0,
   dailyCalorieNeeds: 0,
+  calculatedCalorieNeeds: null,
   dailyRate: 0,
   notAllowedFoods: [],
   weeklyCalories: [],
@@ -62,6 +66,7 @@ const initialState = {
     weightLoss: 0,
     averageDailyCalories: 1850,
   },
+  backendUserStats: null,
   activityStats: {
     totalDays: 0,
     consecutiveDays: 0,
@@ -298,43 +303,96 @@ const productSlice = createSlice({
         state.error = action.payload;
       })
 
-      // Get Detailed Weekly Calories Cases
-      .addCase(getDetailedWeeklyCalories.pending, (state) => {
+      // Get User Stats (Backend) Cases
+      .addCase(getUserStats.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getDetailedWeeklyCalories.fulfilled, (state, action) => {
+      .addCase(getUserStats.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (action.payload !== null) {
-          state.detailedWeeklyData = action.payload || [];
-        }
+        state.backendUserStats = action.payload?.data || null;
       })
-      .addCase(getDetailedWeeklyCalories.rejected, (state, action) => {
+      .addCase(getUserStats.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
       })
 
-      // Get User Stats From Backend Cases
-      .addCase(getUserStatsFromBackend.pending, (state) => {
+      // Get Comprehensive Stats Cases
+      .addCase(getComprehensiveStats.pending, (state) => {
         state.isLoading = true;
         state.error = null;
       })
-      .addCase(getUserStatsFromBackend.fulfilled, (state, action) => {
+      .addCase(getComprehensiveStats.fulfilled, (state, action) => {
         state.isLoading = false;
-        if (action.payload !== null) {
-          state.userStats = action.payload || {
-            streak: 0,
-            daysActive: 0,
-            totalEntries: 0,
-            bmi: 24.1,
-            weightLoss: 0,
-            averageDailyCalories: 1850,
-          };
+        if (action.payload?.data) {
+          // Update multiple state properties from comprehensive stats
+          const data = action.payload.data;
+          
+          if (data.overview) {
+            state.userStats = {
+              ...state.userStats,
+              daysActive: data.overview.activeDays || 0,
+              totalEntries: data.overview.totalEntries || 0,
+              currentStreak: data.overview.currentStreak || 0,
+            };
+          }
+          
+          if (data.nutrition) {
+            state.macroBreakdown = {
+              carbs: data.nutrition.averageMacros?.carbs || 0,
+              protein: data.nutrition.averageMacros?.protein || 0,
+              fat: data.nutrition.averageMacros?.fat || 0,
+              fiber: 0,
+            };
+          }
+          
+          if (data.health) {
+            state.userStats = {
+              ...state.userStats,
+              bmi: data.health.bmi || 24.1,
+              weightLoss: data.health.weightLoss || 0,
+            };
+          }
+          
+          if (data.trends) {
+            state.weeklyCalories = data.trends.weeklyTrends || [];
+          }
         }
       })
-      .addCase(getUserStatsFromBackend.rejected, (state, action) => {
+      .addCase(getComprehensiveStats.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
+      })
+
+      // Get All Products Cases
+      .addCase(getAllProducts.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(getAllProducts.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allProducts = action.payload?.data || [];
+      })
+      .addCase(getAllProducts.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to load all products", toastSettings.error);
+      })
+
+      // Calculate Daily Calorie Needs Cases
+      .addCase(calculateDailyCalorieNeeds.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(calculateDailyCalorieNeeds.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.calculatedCalorieNeeds = action.payload?.data || null;
+        toast.success("Daily calorie needs calculated successfully", toastSettings.success);
+      })
+      .addCase(calculateDailyCalorieNeeds.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+        toast.error("Failed to calculate daily calorie needs", toastSettings.error);
       });
   },
 });

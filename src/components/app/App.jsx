@@ -9,6 +9,7 @@ import "../../styles/theme.css";
 import "../../i18n/i18n.js";
 import "./App.css";
 import PageLoader from "../PageLoader/PageLoader.jsx";
+import { testBackendConnection, testAuthEndpoint } from "../../utils/testBackend.js";
 
 // Lazy loaded components
 const HomePage = React.lazy(() => import("../../pages/HomePage/HomePage.jsx"));
@@ -17,6 +18,7 @@ const RegisterPage = React.lazy(() => import("../../pages/RegisterPage/RegisterP
 const DiaryPage = React.lazy(() => import("../../pages/DiaryPage/DiaryPage.jsx"));
 const CalculatorPage = React.lazy(() => import("../../pages/CalculatorPage/CalculatorPage.jsx"));
 const ProfilePage = React.lazy(() => import("../../pages/ProfilePage/ProfilePage.jsx"));
+const TestPage = React.lazy(() => import("../../pages/TestPage.jsx"));
 const NotFoundPage = React.lazy(() => import("../../pages/NotFoundPage/NotFoundPage.jsx"));
 
 // Lazy loaded layout components
@@ -34,11 +36,19 @@ function App() {
   const location = useLocation();
   
   // Check if current route is 404
-  const isNotFoundPage = !['/', '/login', '/register', '/diary', '/calculator', '/profile'].includes(location.pathname);
+  const isNotFoundPage = !['/', '/login', '/register', '/diary', '/calculator', '/profile', '/test'].includes(location.pathname);
 
   // Restore auth state from localStorage on app initialization
   useEffect(() => {
     dispatch(restoreAuthState());
+    
+    // Test backend connectivity
+    console.log('🔍 Testing backend connectivity...');
+    testBackendConnection().then(isConnected => {
+      if (isConnected) {
+        testAuthEndpoint();
+      }
+    });
   }, [dispatch]);
 
   return (
@@ -91,6 +101,7 @@ function App() {
                     </PrivateRoute>
                   } 
                 />
+                <Route path="/test" element={<TestPage />} />
                 <Route path="*" element={<NotFoundPage />} />
               </Routes>
             </Suspense>
